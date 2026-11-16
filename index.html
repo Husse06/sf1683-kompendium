@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SF1683 del 2 – kompendium inför TEN2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/site.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/kapitel.js"></script>
+<script defer src="assets/site.js"></script>
+</head>
+<body data-rot="" data-sida="start">
+<main class="bred"><div class="inre">
+
+<div class="brodsmula">SF1683 Differentialekvationer och transformmetoder · del 2</div>
+<h1>Kompendium inför TEN2</h1>
+<p class="ingress">Laplacetransformen, inre produktrum och Fourierserier fram till Dirichlets sats, alltså föreläsning F1–F6. Varje kapitel har satserna med bokens numrering, en metod steg för steg, lösta tentauppgifter med dold lösning, vanliga fel och en lista med uppgifter att räkna.</p>
+<div class="meta">
+  <span class="chip het" id="nedrakning">Tenta fredag 8 januari 2027, 08–12</span>
+  <span class="chip gra">Examinator: Kirsti Biggs</span>
+  <span class="chip gra">Kursbok: Pinkus–Zafrany (PZ)</span>
+  <span class="chip gra">Täcker F1–F6</span>
+</div>
+
+<h2>Börja här</h2>
+<p>Tre uppgiftstyper har kommit på alla de åtta senaste tentorna. Kan du dem har du en stor del av det som F1–F6 kan ge:</p>
+<div class="kort-rutnat">
+  <a class="kort" href="kapitel/7-fourierserier.html">
+    <div class="knr">Del A · 4 p · 8 av 8</div>
+    <h3>Beräkna en Fourierserie</h3>
+    <p>…och förklara vad den konvergerar mot. Ofta som jämn/udda-utvidgning av en funktion på $[0,\pi]$.</p>
+  </a>
+  <a class="kort" href="kapitel/3-heaviside-dirac.html">
+    <div class="knr">Del A · 4 p · 8 av 8</div>
+    <h3>Lös en ekvation med Laplace</h3>
+    <p>Begynnelsevärdesproblem med Heaviside och Dirac (kapitel 3) eller en faltningsekvation (kapitel 4).</p>
+  </a>
+  <a class="kort" href="kapitel/8-dirichlets-sats.html">
+    <div class="knr">Del B · 4 p · 8 av 8</div>
+    <h3>Bevisa Dirichlets sats</h3>
+    <p>Uppgift 6: hela beviset, eller Bessels olikhet och Riemann–Lebesgues lemma.</p>
+  </a>
+</div>
+<p>Hela underlaget, med tabell över alla uppgiftstyper och en prognos, finns på sidan <a href="tentastatistik.html">Tentastatistik</a>. Det som måste sitta utantill finns i <a href="formelsamling.html">Formelsamlingen</a>.</p>
+
+<h2>Kapitel</h2>
+<p class="liten">”Tentavikt” kommer från tentastatistiken. Streckade kort är kapitel som skrivs när föreläsningsanteckningarna finns.</p>
+<div id="kapitelkort"></div>
+
+<h2>Så är varje kapitel upplagt</h2>
+<div class="tabellram"><table>
+  <tbody>
+    <tr><td><b>1. Definitioner och satser</b></td><td>Med samma beteckningar och numrering som Pinkus–Zafrany och föreläsningsanteckningarna (Sats 4.5, Prop. 2.7 …). Vid varje ruta står var det kommer ifrån, till exempel ”F2 s. 8”.</td></tr>
+    <tr><td><b>2. Varför fungerar det?</b></td><td>En kort förklaring av idén bakom metoden.</td></tr>
+    <tr><td><b>3. Metod steg för steg</b></td><td>Ett recept för standarduppgiften.</td></tr>
+    <tr><td><b>4. Lösta tentaexempel</b></td><td>En eller två uppgifter från gamla tentor, med datum och uppgiftsnummer. Lösningen är dold tills du klickar på <i>Visa lösning</i>. Försök själv först.</td></tr>
+    <tr><td><b>5. Vanliga fel</b></td><td>Det som brukar gå snett.</td></tr>
+    <tr><td><b>6. Rekommenderade tentauppgifter</b></td><td>Ordnade från lätt till svår. Bocka av dem du har gjort, det sparas i webbläsaren.</td></tr>
+    <tr><td><b>7. Videor</b></td><td>Från kursens videolista.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Om innehållet</h2>
+<div class="ruta obs">
+  <span class="etikett">Källor</span>
+  <p>Allt bygger på kursmaterialet: föreläsningsanteckningarna F1–F6, extramaterialet om PDE med Laplacetransformen, övningsanteckningarna (Övning 1, 2, 4), formelbladet och Laplacetabellen, dagboken och föreläsningsplanen, samt 17 gamla tentor med lösningsförslag och två övningstentor. Kursboken har jag inte haft tillgång till. Sats- och sidnummer i PZ är därför de som föreläsningsanteckningarna, dagboken och lösningsförslagen själva anger.</p>
+</div>
+<div class="ruta tillagg">
+  <span class="etikett">Så känner du igen tillägg</span>
+  <p>Det som inte står i kursmaterialet är markerat med en gul ruta som den här, med rubriken ”Tillägg”. Det gäller ett par kontrollknep och en kommentar om Dirichletkärnan. Avsnitten ”Varför fungerar det?”, ”Metod” och ”Vanliga fel” är skrivna för kompendiet, men bygger på föreläsningarna, övningarna och lösningsförslagen. Tentaklassificeringen och prognosen på statistiksidan är också mina egna.</p>
+</div>
+<div class="ruta metod">
+  <span class="etikett">Kontrollräkning</span>
+  <p>Varje löst exempel är räknat från början, kontrollerat med datoralgebra (insättning i ekvationen, begynnelsevärden, koefficienter) och jämfört med tentans lösningsförslag. Under varje lösning står en rad som börjar med <b>Kontroll</b>. På två ställen avviker övningsanteckningarna från det kontrollerade svaret (ett teckenfel i Övning 2 och ett tecken plus en tappad faktor i Övning 1). Det står utskrivet där det gäller, i kapitel 2 och 3.</p>
+</div>
+
+<h2>Läget i kursen</h2>
+<p>Hittills, F1–F6: hela Laplacetransformen (PZ 4.0–4.5), Laplacetransform för PDE, repetition av inre produktrum (PZ 1.1–1.4) och Fourierserier fram till Dirichlets sats (PZ 2.0–2.4). Kvar enligt föreläsningsplanen: resten av Fourierserierna (F7), partiella differentialekvationer med separation av variabler (F8–F10) och Fouriertransformen (F11–F13). De kapitlen har redan plats i menyn och fylls på efter hand.</p>
+
+<p class="sidfot">Skrivet för egna studier inför TEN2. Tentalydelserna är citerade från KTH:s gamla tentor i SF1683. Laplacetabellen är © B. E. Shapiro, integral-table.com (CC BY-NC-SA 3.0).</p>
+
+</div></main>
+<script>
+/* Dagar kvar till tentan (preliminärt datum enligt kursinformationen). */
+document.addEventListener("DOMContentLoaded", function () {
+  var tenta = new Date(2027, 0, 8, 8, 0, 0), nu = new Date();
+  var dagar = Math.ceil((tenta - nu) / 86400000);
+  var el = document.getElementById("nedrakning");
+  if (el && dagar > 0) el.textContent += " · " + dagar + " dagar kvar";
+});
+</script>
+</body>
+</html>

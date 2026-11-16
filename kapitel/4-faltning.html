@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>4. Faltning och integralekvationer – SF1683 del 2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/kapitel.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-rot="../" data-sida="kap4" data-toc>
+<main><div class="inre">
+
+<div class="brodsmula">Kapitel 4 · Laplacetransformen</div>
+<h1>Faltning och integralekvationer</h1>
+<p class="ingress">När den obekanta funktionen står inne i en integral $\int_0^t k(t-u)\,y(u)\dd u$ är integralen en faltning, och faltningssatsen gör den till en produkt. Typen har blivit vanligare: tre av de fem senaste tentorna.</p>
+<div class="meta">
+  <span class="chip gra">PZ 4.5</span>
+  <span class="chip gra">Föreläsning F3</span>
+  <span class="chip het">6 av 17 tentor, 3 av 8 sedan 2023</span>
+  <span class="chip">Beviset frågat 2026-04-10</span>
+</div>
+
+<h2 id="def"><span class="steg">1</span>Definitioner och satser</h2>
+
+<div class="ruta def">
+  <span class="etikett">Faltning <span class="kalla">PZ 4.5 · F3 s. 3 · formelblad (10)</span></span>
+  <p>Låt $f(t),g(t):[0,\infty)\to\C$, utvidgade med $f(t)=g(t)=0$ för $t\lt 0$. Deras <b>faltning</b> är
+  $$f*g(t):=\int_0^t f(x)\,g(t-x)\dd x.$$
+  Man kan lika gärna integrera från $0$ till $\infty$, eftersom $g(t-x)=0$ för $x\gt t$.</p>
+</div>
+<p>Faltningen fungerar som en produkt (dagboken, F3): den är kommutativ, $f*g=g*f$, associativ, $(f*g)*h=f*(g*h)$, och distributiv, $f*(g+h)=f*g+f*h$. Två formler att känna till: $\delta*f=f*\delta=f$ och $(f*g)'=f'*g=f*g'$ (se PZ problem 6 s. 180 för villkor).</p>
+
+<div class="ruta sats">
+  <span class="etikett">Sats 4.6 (faltningssatsen) <span class="kalla">PZ Thm 4.6 s. 163 · F3 s. 4 · formelblad (10)</span></span>
+  <p>$$\L[f*g(t)](s)=\L[f(t)](s)\cdot\L[g(t)](s)=F(s)\,G(s).$$</p>
+</div>
+<div class="bevis"><span class="etikett">Bevis</span> (F3 s. 4; frågat på tentan 2026-04-10, uppgift 5a). Enligt definitionen av Laplacetransformen, med faltningen skriven som en integral till $\infty$:
+$$\L[f*g(t)](s)=\int_0^\infty e^{-st}\left(\int_0^\infty f(x)\,g(t-x)\dd x\right)\dd t.$$
+Byt integrationsordning (Fubinis sats, PZ appendix B):
+$$=\int_0^\infty f(x)\left(\int_0^\infty e^{-st}g(t-x)\dd t\right)\dd x.$$
+Variabelbyte $u=t-x$, $\mathrm du=\mathrm dt$, i den inre integralen:
+$$=\int_0^\infty f(x)\left(\int_{-x}^\infty e^{-s(u+x)}g(u)\dd u\right)\dd x=\int_0^\infty f(x)\,e^{-sx}\left(\int_0^\infty e^{-su}g(u)\dd u\right)\dd x,$$
+där den undre gränsen kan sättas till $0$ eftersom $g(u)=0$ för $u\lt 0$. Den inre integralen är $G(s)$ och beror inte på $x$, så
+$$=G(s)\int_0^\infty f(x)\,e^{-sx}\dd x=F(s)\,G(s).\qquad\square$$</div>
+
+<div class="ruta sats">
+  <span class="etikett">Specialfall: integral av en funktion <span class="kalla">F3 s. 4</span></span>
+  <p>Med $g(t)=1$ för alla $t\ge 0$:
+  $$\L\!\left[\int_0^t f(x)\dd x\right](s)=\frac{\L[f(t)](s)}{s}=\frac{F(s)}{s}.$$</p>
+</div>
+
+<p><b>Föreläsningsexempel</b> (F3 s. 5): bestäm $\L\!\left[\int_0^tx\cos(t-x)\dd x\right](s)$. Integralen är $f*g(t)$ med $f(t)=t$ och $g(t)=\cos t$, så transformen är
+$$F(s)G(s)=\frac{1}{s^2}\cdot\frac{s}{s^2+1}=\frac{1}{s(s^2+1)}=\frac{s^2+1-s^2}{s(s^2+1)}=\frac1s-\frac{s}{s^2+1}=\L[1-\cos t](s).$$
+Därmed har vi också räknat ut själva integralen: $\int_0^tx\cos(t-x)\dd x=1-\cos t$.</p>
+
+<h3>Lösningen till ett begynnelsevärdesproblem som faltning</h3>
+<p>Diskussionen på PZ s. 166 (dagboken, F3): för problemet $ay''+by'+cy=h(t)$, $y(0)=y'(0)=0$ ger transformering $Y(s)=\frac{1}{as^2+bs+c}\,H(s)$. Om $f$ är funktionen med $F(s)=\frac{1}{as^2+bs+c}$ är alltså
+$$y(t)=\int_0^tf(t-x)\,h(x)\dd x=(h*f)(t).$$
+Tentan 2026-04-10, uppgift 5b, frågar efter $f$ (där kallad $g$) för $y''+py'+qy=f(t)$. Kvadratkomplettering ger $s^2+ps+q=\left(s+\frac p2\right)^2+\left(q-\frac{p^2}{4}\right)$, och med $a=-\frac p2$ blir det tre fall:</p>
+<div class="tabellram"><table>
+  <thead><tr><th>Fall</th><th>$\dfrac{1}{s^2+ps+q}$</th><th>$g(t)$</th><th>Formelblad</th></tr></thead>
+  <tbody>
+    <tr><td>$q-\frac{p^2}4=k^2\gt 0$</td><td>$\dfrac{1}{(s-a)^2+k^2}$</td><td>$\dfrac1k\,e^{at}\sin kt$</td><td>(22)</td></tr>
+    <tr><td>$q-\frac{p^2}4=0$</td><td>$\dfrac{1}{(s-a)^2}$</td><td>$t\,e^{at}$</td><td>(20)</td></tr>
+    <tr><td>$q-\frac{p^2}4=-k^2\lt 0$</td><td>$\dfrac{1}{(s-a)^2-k^2}$</td><td>$\dfrac1k\,e^{at}\sinh kt$</td><td>(24)</td></tr>
+  </tbody>
+</table></div>
+<p>Det är samma tre fall som i <a href="2-laplace-ode.html">kapitel 2</a>: komplexa rötter, dubbelrot, reella rötter.</p>
+
+<h2 id="varfor"><span class="steg">2</span>Varför fungerar det?</h2>
+<p>Laplacetransformen av en vanlig produkt $f(t)g(t)$ är <i>inte</i> produkten av transformerna. Faltningen är den operation i $t$-världen som svarar mot multiplikation i $s$-världen. Beviset visar varför: i dubbelintegralen delar exponenten upp sig, $e^{-st}=e^{-sx}\cdot e^{-s(t-x)}$, så att den ena faktorn följer med $f(x)$ och den andra med $g(t-x)$. Efter variabelbytet har integralen faktoriserats i två oberoende enkelintegraler.</p>
+<p>För ekvationslösning betyder det att en integral där den obekanta $y$ förekommer i formen $\int_0^tk(t-u)y(u)\dd u$ blir $K(s)Y(s)$, alltså $Y(s)$ gånger något känt. Ekvationen är sedan lika lätt att lösa ut som en vanlig ODE. Formeln $y=h*f$ ovan säger dessutom att lösningen i tidpunkten $t$ är en viktad summa av högerledets alla tidigare värden $h(x)$, $0\le x\le t$, med vikten $f(t-x)$.</p>
+
+<h2 id="metod"><span class="steg">3</span>Metod steg för steg</h2>
+<div class="ruta metod">
+  <span class="etikett">Standarduppgift: integral- eller integro-differentialekvation</span>
+  <ol class="steglista">
+    <li><b>Känn igen faltningen.</b> Leta efter $\int_0^t(\ldots)\dd u$ där integranden är en funktion av $t-u$ gånger en funktion av $u$. Skriv ut vilken funktion som är vilken: $\int_0^t(t-u)\,y(u)\dd u=(k*y)(t)$ med $k(t)=t$. Kärnan $k$ fås genom att byta $t-u$ mot $t$.</li>
+    <li><b>Specialfallet.</b> $\int_0^ty(\tau)\dd\tau=(1*y)(t)$ och transformeras till $\frac{Y(s)}{s}$.</li>
+    <li><b>Transformera hela ekvationen.</b> Faltningen blir $K(s)Y(s)$ (formelblad (10)). Derivator som vanligt med (8)/(9) och begynnelsevärden. Eventuella $\delta$ och $\U$ i högerledet enligt <a href="3-heaviside-dirac.html">kapitel 3</a>.</li>
+    <li><b>Lös ut $Y(s)$.</b> Multiplicera upp nämnarna från $K(s)$ så att du får polynom $\cdot\,Y(s)=\ldots$</li>
+    <li><b>Faktorisera och partialbråksuppdela.</b> Nämnaren får ofta grad 3 eller 4. Tentan brukar ge faktoriseringen som ledning.</li>
+    <li><b>Invertera</b> term för term. Faktorer $e^{-cs}$ ger förskjutning och $\U(t-c)$.</li>
+    <li><b>Kontrollera</b> begynnelsevärdena.</li>
+  </ol>
+</div>
+<p>Samma metod baklänges räknar ut en faltning: transformera, multiplicera, invertera (föreläsningsexemplet ovan). Det är oftast lättare än att integrera direkt.</p>
+
+<h2 id="exempel"><span class="steg">4</span>Lösta tentaexempel</h2>
+<p>Biggs räknade själv tentauppgiften 2024-04-02:2 på F3 (s. 6–7): $y''(t)=\int_0^t(t-x)y(x)\dd x$, $y(0)=0$, $y'(0)=4$ ger $Y(s)=\frac{4s^2}{s^4-1}$ och $y(t)=2\sin t-e^{-t}+e^{t}$. De två exemplen här är de senaste tentornas varianter av samma uppgift.</p>
+
+<article class="exempel">
+  <header>Tentamen 2026-01-09, uppgift 2 <span class="p">4 p · del I</span></header>
+  <div class="uppgift">
+    <p>Använd Laplacetransformen för att lösa initialvärdesproblemet
+    $$y''(t)-16\int_0^t(t-u)\,y(u)\dd u=\U(t-3),\qquad y(0)=y'(0)=0,$$
+    för $y(t)$, $t\ge 0$. Funktionen $\U(t)$ är $1$ om $t\ge 0$ och $0$ om $t\lt 0$.</p>
+    <p>Ledning: $s^4-16=(s^2+4)(s^2-4)=(s^2+4)(s+2)(s-2)$.</p>
+  </div>
+  <details class="tips"><summary>Visa ledtråd</summary><div class="inne">
+    <p>Integralen är $(k*y)(t)$ med $k(t)=t$, så den transformeras till $\frac{1}{s^2}Y(s)$.</p>
+  </div></details>
+  <details id="ex-260109-2"><summary>Visa lösning</summary><div class="inne">
+    <p><b>Steg 1.</b> Integralen är faltningen av $y$ med $k(t)=t$, så ekvationen är $y''-16\,(k*y)=\U(t-3)$.</p>
+    <p><b>Steg 3.</b> Låt $Y(s)=\L[y](s)$. Formelblad (9), (10), (11), (3) och begynnelsevärdena ger
+    $$s^2Y(s)-16\cdot\frac{1}{s^2}\cdot Y(s)=\frac{e^{-3s}}{s}.$$
+    <b>Steg 4.</b> Multiplicera med $s^2$:
+    $$(s^4-16)\,Y(s)=s\,e^{-3s}\quad\Longrightarrow\quad Y(s)=\frac{s}{s^4-16}\,e^{-3s}.$$
+    <b>Steg 5.</b> Ansätt, enligt ledningen,
+    $$\frac{s}{s^4-16}=\frac{As+B}{s^2+4}+\frac{C}{s+2}+\frac{D}{s-2},$$
+    alltså $s=(As+B)(s^2-4)+C(s-2)(s^2+4)+D(s+2)(s^2+4)$.</p>
+    <ul>
+      <li>$s=2$: $\ 2=D\cdot4\cdot8$, så $D=\frac1{16}$.</li>
+      <li>$s=-2$: $\ -2=C\cdot(-4)\cdot8$, så $C=\frac1{16}$.</li>
+      <li>$s=2i$: $\ 2i=(2Ai+B)(-8)$, så $B=0$ och $A=-\frac18$.</li>
+    </ul>
+    <p>$$Y(s)=\left(-\frac18\cdot\frac{s}{s^2+4}+\frac1{16}\cdot\frac{1}{s+2}+\frac1{16}\cdot\frac{1}{s-2}\right)e^{-3s}.$$
+    <b>Steg 6.</b> Utan faktorn $e^{-3s}$ är inversen (formelblad (14), (15))
+    $$g(t)=-\frac18\cos2t+\frac1{16}e^{-2t}+\frac1{16}e^{2t},$$
+    och $e^{-3s}$ ger förskjutningen $g(t-3)\,\U(t-3)$ (formelblad (4)).</p>
+    <div class="svar"><b>Svar</b>
+    $$y(t)=\left(-\frac18\cos2(t-3)+\frac1{16}e^{-2(t-3)}+\frac1{16}e^{2(t-3)}\right)\U(t-3).$$
+    Samma sak kortare: $y(t)=\frac18\big(\cosh2(t-3)-\cos2(t-3)\big)\,\U(t-3)$.</div>
+    <p class="koll"><b>Kontroll:</b> $g(0)=-\frac18+\frac18=0$ och $g'(0)=0-\frac18+\frac18=0$, så $y$ och $y'$ är kontinuerliga i $t=3$ och $y=0$ innan dess. Insättning av $g$ i $g''(t)-16\int_0^t(t-u)g(u)\dd u$ ger $1$ (datoralgebra). Stämmer med lösningsförslaget. Genväg till partialbråket: $\frac{s}{s^4-16}=\frac s8\left(\frac{1}{s^2-4}-\frac{1}{s^2+4}\right)$, som med formelblad (17) och (14) ger $\cosh$-formen direkt.</p>
+  </div></details>
+</article>
+
+<article class="exempel">
+  <header>Tentamen 2026-04-10, uppgift 2 <span class="p">4 p · del I</span></header>
+  <div class="uppgift">
+    <p>Använd Laplacetransformen för att bestämma den lösning $f(t)$, $t\ge 0$, till ekvationen
+    $$f'(t)-3\int_0^tf(y)\,e^{2(t-y)}\dd y=\delta(t-4)$$
+    som uppfyller $f(0)=1$.</p>
+  </div>
+  <details class="tips"><summary>Visa ledtråd</summary><div class="inne">
+    <p>Integralen är $f*k$ med $k(t)=e^{2t}$. Glöm inte termen $-f(0)$ från derivatan.</p>
+  </div></details>
+  <details id="ex-260410-2"><summary>Visa lösning</summary><div class="inne">
+    <p><b>Steg 1.</b> Integralen är faltningen av $f$ med $k(t)=e^{2t}$, vars transform är $\frac{1}{s-2}$.</p>
+    <p><b>Steg 3.</b> Låt $F(s)=\L[f](s)$. Formelblad (8), (10), (15), (6) ger
+    $$sF(s)-1-3F(s)\,\frac{1}{s-2}=e^{-4s}.$$
+    <b>Steg 4.</b> Multiplicera med $s-2$:
+    $$\big(s(s-2)-3\big)F(s)=(1+e^{-4s})(s-2)\quad\Longrightarrow\quad F(s)=(1+e^{-4s})\,\frac{s-2}{s^2-2s-3}=(1+e^{-4s})\,\frac{s-2}{(s+1)(s-3)}.$$
+    <b>Steg 5.</b> $\dfrac{s-2}{(s+1)(s-3)}=\dfrac{A}{s+1}+\dfrac{B}{s-3}$ ger $s-2=A(s-3)+B(s+1)$. Med $s=-1$: $-3=-4A$, så $A=\frac34$. Med $s=3$: $1=4B$, så $B=\frac14$.
+    $$F(s)=\frac{3/4}{s+1}+\frac{1/4}{s-3}+e^{-4s}\left(\frac{3/4}{s+1}+\frac{1/4}{s-3}\right).$$
+    <b>Steg 6.</b> Formelblad (15) och (4).</p>
+    <div class="svar"><b>Svar</b>
+    $$f(t)=\frac34e^{-t}+\frac14e^{3t}+\U(t-4)\left(\frac34e^{-(t-4)}+\frac14e^{3(t-4)}\right).$$</div>
+    <p class="koll"><b>Kontroll:</b> $f(0)=\frac34+\frac14=1$. För $t\lt 4$ uppfyller $h(t)=\frac34e^{-t}+\frac14e^{3t}$ ekvationen $h'-3\,(h*e^{2t})=0$ (datoralgebra). I $t=4$ hoppar $f$ med $h(0)=1$, vilket är vad en enhetsimpuls ger i en första ordningens ekvation. Stämmer med lösningsförslaget.</p>
+  </div></details>
+</article>
+
+<h2 id="fel"><span class="steg">5</span>Vanliga fel</h2>
+<div class="ruta fel">
+  <span class="etikett">Se upp med</span>
+  <ul>
+    <li><b>Fel kärna.</b> I $\int_0^tf(y)e^{2(t-y)}\dd y$ är kärnan $e^{2t}$, inte $e^{2(t-y)}$ eller $e^{-2t}$. Byt $t-y$ mot $t$. I $\int_0^xe^{-t+x}y(t)\dd t$ (2018-04-04) är kärnan $e^{x}$.</li>
+    <li><b>Att transformera integralen som en produkt av funktioner.</b> $\L\big[\int_0^t(t-u)y(u)\dd u\big]$ är $\frac{1}{s^2}Y(s)$. Det är inte $\L[t]\cdot\L[y]$ ”för att det står en produkt”, utan för att det är en faltning. En vanlig produkt $t\cdot y(t)$ ger $-Y'(s)$.</li>
+    <li><b>Att glömma specialfallet.</b> $\int_0^ty(\tau)\dd\tau$ har kärnan $1$ och ger $\frac{Y(s)}{s}$. Tentan 2022-04-20:4 ger till och med ledningen ”skriv tredje termen som en faltning av två funktioner”.</li>
+    <li><b>Algebrafel när nämnaren multipliceras upp.</b> Multiplicera <i>alla</i> termer, även högerledet och begynnelsevärdestermerna, med $s^2$ eller $(s-2)$. I exempel 2 blir högerledet $(1+e^{-4s})(s-2)$.</li>
+    <li><b>Att tappa begynnelsevärdet i $\L[f']$.</b> I exempel 2 ger $f(0)=1$ hela den första halvan av lösningen.</li>
+    <li><b>I beviset: glömma motivera gränserna.</b> Säg att $f$ och $g$ sätts till $0$ för negativa argument. Det är det som gör att $\int_0^t$ kan skrivas $\int_0^\infty$ och att $\int_{-x}^\infty$ blir $\int_0^\infty$. Nämn Fubini vid ordningsbytet.</li>
+    <li><b>Integrationsgränser $-\infty$ till $\infty$.</b> Det är Fouriertransformens faltning (senare i kursen). Med Laplace är det alltid $\int_0^t$.</li>
+  </ul>
+</div>
+
+<h2 id="rek"><span class="steg">6</span>Rekommenderade tentauppgifter</h2>
+<ul class="rek">
+  <li data-uppg="2018-04-04:2"><span class="niva latt">Lätt</span><span class="vad"><b>2018-04-04, uppgift 2.</b> $y(x)=2e^x+\int_0^xe^{x-t}y(t)\dd t$. Kort: en faltning, ingen derivata. Svar: $y=2e^{2x}$.</span></li>
+  <li data-uppg="2020-01-13:3"><span class="niva latt">Lätt</span><span class="vad"><b>2020-01-13, uppgift 3.</b> $f(t)+2\int_0^tf(\tau)\cos(2t-2\tau)\dd\tau=1$. Kvadratkomplettering i nämnaren.</span></li>
+  <li data-uppg="2024-04-02:2"><span class="niva medel">Medel</span><span class="vad"><b>2024-04-02, uppgift 2.</b> Föreläsningsexemplet (F3 s. 6–7). Gör den själv och jämför.</span></li>
+  <li data-uppg="2022-04-20:4"><span class="niva medel">Medel</span><span class="vad"><b>2022-04-20, uppgift 4.</b> $y'+6y+9\int_0^ty\dd\tau=\delta(t-2)$. Specialfallet $\frac{Y}{s}$ och en impuls.</span></li>
+  <li data-uppg="OT2:3"><span class="niva medel">Medel</span><span class="vad"><b>Övningstentamen 2, uppgift 3.</b> $\int_0^te^{-y}\cos y\,f(t-y)\dd y=t^2e^{-t}$. Ren faltningsekvation med s-translation. Facit: $f=2te^{-t}+\frac13t^3e^{-t}$.</span></li>
+  <li data-uppg="2026-01-09:2"><span class="niva medel">Medel</span><span class="vad"><b>2026-01-09, uppgift 2.</b> Löst ovan.</span></li>
+  <li data-uppg="2026-04-10:2"><span class="niva medel">Medel</span><span class="vad"><b>2026-04-10, uppgift 2.</b> Löst ovan.</span></li>
+  <li data-uppg="2026-04-10:5"><span class="niva svar">Svår</span><span class="vad"><b>2026-04-10, uppgift 5.</b> Bevisa faltningssatsen och skriv lösningen till $y''+py'+qy=f$ som faltning. Båda delarna står i avsnitt 1. Öva på att skriva beviset utan att titta.</span></li>
+  <li data-uppg="OT1:5b"><span class="niva svar">Svår</span><span class="vad"><b>Övningstentamen 1, uppgift 5.</b> Exponentiell typ bevaras. Använder $y=f*g$ och uppskattar faltningen med triangelolikheten.</span></li>
+</ul>
+<p class="liten">Ur föreläsningsplanen: PZ 4.5: 1, 2acf, 3a. På Övning 2 räknades PZ 4.5.2b och 4.5.2e samt faltningen $\sin t*e^{-t}=\frac12\left(\sin t+e^{-t}-\cos t\right)$.</p>
+
+<h2 id="videor"><span class="steg">7</span>Videor</h2>
+<ul class="videor">
+  <li><a href="https://www.youtube.com/playlist?list=PLHXZ9OQGMqxcJXnLr08cyNaup4RDsbAl1">Dr. Trefor Bazett – Laplace Transforms and Solving ODEs (spellista)</a><small>Har en video om faltning och faltningssatsen med räkneexempel.</small></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLEC88901EBADDD980">MIT 18.03 – Differential Equations, Arthur Mattuck (spellista)</a><small>Laplacedelen (föreläsning 19–24) innehåller en föreläsning om faltning.</small></li>
+</ul>
+<p class="liten">Dagboken hänvisar också till Wikipedias artikel <i>Convolution</i> för en bild av vad faltningen gör. I övningsmappen finns demot <code>convolution_demo.py</code>.</p>
+
+</div></main>
+</body>
+</html>

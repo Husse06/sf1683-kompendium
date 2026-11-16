@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>8. Dirichlets sats – SF1683 del 2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/kapitel.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-rot="../" data-sida="kap8" data-toc>
+<main><div class="inre">
+
+<div class="brodsmula">Kapitel 8 · Fourierserier</div>
+<h1>Dirichlets sats</h1>
+<p class="ingress">”Kursens viktigaste och längsta bevis” enligt F6. Uppgift 6 har på alla de åtta senaste tentorna frågat efter beviset av Dirichlets sats eller efter de två resultat det bygger på: Bessels olikhet och Riemann–Lebesgues lemma. Här står påståendena öppet och bevisen bakom ”Visa lösning”, så att du kan öva på att skriva dem själv.</p>
+<div class="meta">
+  <span class="chip gra">PZ 2.4 (och 1.5)</span>
+  <span class="chip gra">Föreläsning F6</span>
+  <span class="chip het">Uppgift 6: 8 av 8 sedan 2023</span>
+  <span class="chip het">Hela beviset: båda tentorna 2026</span>
+</div>
+
+<h2 id="def"><span class="steg">1</span>Definitioner och satser</h2>
+
+<div class="ruta def">
+  <span class="etikett">Rummet $E'$ <span class="kalla">PZ 2.4 · F6 s. 1</span></span>
+  <p>Låt $E$ vara vektorrummet av styckvis kontinuerliga funktioner $f:[-\pi,\pi]\to\C$. Låt $E'$ vara vektorrummet av funktioner $f$ som uppfyller:</p>
+  <ol>
+    <li>$f\in E$,</li>
+    <li>för alla $x\in[-\pi,\pi)$ existerar det ändliga gränsvärdet $\displaystyle\lim_{h\to0^+}\frac{f(x+h)-f(x+)}{h}$, där $f(x+)$ är högergränsvärdet av $f$ i $x$ (det finns eftersom $f\in E$),</li>
+    <li>för alla $x\in(-\pi,\pi]$ existerar det ändliga gränsvärdet $\displaystyle\lim_{h\to0^+}\frac{f(x-)-f(x-h)}{h}$.</li>
+  </ol>
+  <p>Villkor 2 och 3 säger att de ensidiga derivatorna finns.</p>
+</div>
+
+<div class="ruta sats">
+  <span class="etikett">Sats 2.6 (Dirichlets sats) <span class="kalla">PZ Thm 2.6 s. 47 · F6 s. 2</span></span>
+  <p>Låt $f\in E'$. För alla $x\in(-\pi,\pi)$ konvergerar Fourierserien av $f$ till värdet
+  $$\frac{f(x-)+f(x+)}{2}.$$
+  Vid ändpunkterna $x=\pm\pi$ konvergerar Fourierserien till
+  $$\frac{f(\pi-)+f((-\pi)+)}{2}.$$</p>
+  <p>Precis samma sak gäller om vi i stället tänker på $2\pi$-periodiska funktioner. Med delsummorna
+  $$S_m(x)=\frac{a_0}{2}+\sum_{n=1}^m\big(a_n\cos nx+b_n\sin nx\big)$$
+  är påståendet att $\displaystyle\lim_{m\to\infty}S_m(x)=\frac{f(x-)+f(x+)}{2}$.</p>
+</div>
+
+<h3>Byggstenarna</h3>
+<p>Beviset har fyra steg (F6 s. 2–3), och steg 3 kräver två resultat som är oberoende av resten men som du också ska kunna.</p>
+
+<div class="ruta sats">
+  <span class="etikett">Bessels olikhet <span class="kalla">PZ Prop. 2.10 / Thm 1.19 · F6 s. 3</span></span>
+  <p>Låt $f\in E$ med Fourierkoefficienter $a_n,b_n$. Då är
+  $$\frac{|a_0|^2}{2}+\sum_{n=1}^\infty\big(|a_n|^2+|b_n|^2\big)\le\norm f^2=\frac1\pi\int_{-\pi}^{\pi}|f(x)|^2\dd x.$$
+  Det är ett specialfall av: låt $u\in V$, ett inre produktrum med ortonormal mängd $\{e_1,e_2,\dots\}$. Då är
+  $$\sum_{n=1}^\infty|\ip u{e_n}|^2\le\norm u^2.$$
+  (Specialfall eftersom $a_n=\ip f{\cos nx}$, $b_n=\ip f{\sin nx}$ och $\frac{a_0}{\sqrt2}=\ip f{\frac{1}{\sqrt2}}$.)</p>
+</div>
+
+<div class="ruta sats">
+  <span class="etikett">Riemann–Lebesgues lemma <span class="kalla">PZ Prop. 2.11 · F6 s. 6</span></span>
+  <p>Låt $f\in E$ med Fourierkoefficienter $a_n,b_n$. Då är $\displaystyle\lim_{n\to\infty}a_n=\lim_{n\to\infty}b_n=0$, det vill säga
+  $$\lim_{n\to\infty}\int_{-\pi}^{\pi}f(x)\cos(nx)\dd x=0,\qquad\lim_{n\to\infty}\int_{-\pi}^{\pi}f(x)\sin(nx)\dd x=0.$$</p>
+</div>
+
+<div class="ruta def">
+  <span class="etikett">Dirichletkärnan <span class="kalla">F6 s. 7</span></span>
+  <p>$$D_m(t)=\frac12+\sum_{n=1}^m\cos(nt).$$</p>
+</div>
+
+<div class="ruta sats">
+  <span class="etikett">De fyra stegen</span>
+  <p><b>Steg 1, Proposition 2.7</b> <span class="kalla">F6 s. 7–8</span>. För $2\pi$-periodisk $f\in E$ är
+  $$S_m(x)=\frac1\pi\int_{-\pi}^{\pi}f(x+t)\,D_m(t)\dd t.$$</p>
+  <p><b>Steg 2, Proposition 2.8</b> <span class="kalla">F6 s. 8–9</span>. För $m\in\Z_+$ är
+  $$D_m(t)=\frac{\sin\big((m+\frac12)t\big)}{2\sin(\frac12t)}.$$
+  <b>Proposition 2.9</b> <span class="kalla">F6 s. 9</span>: $\displaystyle\int_0^\pi D_m(t)\dd t=\frac\pi2$.</p>
+  <p><b>Steg 3, Proposition 2.12</b> <span class="kalla">F6 s. 9–10</span>. Om $g$ är styckvis kontinuerlig på $[0,\pi]$ är
+  $$\lim_{m\to\infty}\int_0^\pi g(t)\sin\big((m+\tfrac12)t\big)\dd t=0.$$</p>
+  <p><b>Steg 4</b> <span class="kalla">”Proof of Thm 2.6”, PZ s. 51–52 · F6 s. 10–12</span>. Använd steg 3 på hjälpfunktionen
+  $$g(t)=\frac{f(x+t)-f(x+)}{2\sin(\frac12t)},\quad 0\lt t\le\pi,$$
+  och motsvarande med $f(x-)$ för $-\pi\le t\lt 0$.</p>
+</div>
+
+<h2 id="varfor"><span class="steg">2</span>Varför fungerar det?</h2>
+<p>Hela beviset på fyra rader:</p>
+<ol>
+  <li><b>Delsumman är ett viktat medelvärde av $f$ nära $x$.</b> När formlerna för $a_n,b_n$ sätts in i $S_m(x)$ och summan flyttas in under integralen blir vikten $D_m$. Kärnan har en hög topp i $t=0$ som blir smalare när $m$ växer (bilden i PZ), så $S_m(x)$ känner mest av $f$ nära $x$.</li>
+  <li><b>Vikten har en sluten formel</b> med $\sin((m+\frac12)t)$ i täljaren, och dess integral över $[0,\pi]$ är alltid $\frac\pi2$. Halva vikten ligger alltså till höger om $x$ och halva till vänster. Därför blir gränsvärdet ett medelvärde av $f(x+)$ och $f(x-)$.</li>
+  <li><b>Snabba svängningar tar ut sig.</b> Riemann–Lebesgue säger att integralen av en styckvis kontinuerlig funktion mot $\sin(nt)$ eller $\cos(nt)$ går mot noll. Det följer av Bessels olikhet: en konvergent series termer går mot noll.</li>
+  <li><b>Skillnaden $f(x+t)-f(x+)$ dividerad med $2\sin\frac t2$ är en snäll funktion</b>, precis för att den ensidiga derivatan finns. Därför går integralen av skillnaden mot kärnan mot noll, och kvar blir $f(x+)\cdot\frac1\pi\cdot\frac\pi2=\frac{f(x+)}{2}$.</li>
+</ol>
+<p>Det är här villkoret $f\in E'$ behövs. Utan ensidiga derivator vet vi inte att $g$ är begränsad nära $t=0$, där nämnaren $2\sin\frac t2$ går mot noll.</p>
+
+<h2 id="metod"><span class="steg">3</span>Metod steg för steg</h2>
+<div class="ruta metod">
+  <span class="etikett">Så skriver du beviset på tentan</span>
+  <ol class="steglista">
+    <li><b>Förutsättningar och påstående.</b> $f\in E'$: styckvis kontinuerlig på $[-\pi,\pi]$ med ensidiga derivator i varje punkt, utvidgad till en $2\pi$-periodisk funktion på $\R$. Påstående: $S_m(x)\to\frac12\big(f(x-)+f(x+)\big)$. Uppgiften säger uttryckligen ”var noggrann med att ange förutsättningar”.</li>
+    <li><b>$S_m$ som integral.</b> Sätt in $a_n,b_n$ med integrationsvariabel $s$, slå ihop till en integral, använd $\cos(ns)\cos(nx)+\sin(ns)\sin(nx)=\cos(n(s-x))$, byt variabel $t=s-x$, flytta intervallet med periodiciteten.</li>
+    <li><b>Formeln för $D_m$.</b> Multiplicera med $\sin\frac t2$, använd formelblad (15) på varje term, teleskopsumma.</li>
+    <li><b>$\int_0^\pi D_m=\frac\pi2$.</b> Integrera definitionen termvis.</li>
+    <li><b>Hjälpfunktionen $g$ är styckvis kontinuerlig på $[0,\pi]$.</b> På $(0,\pi]$ för att $f$ är det. I $t\to0^+$: skriv $g(t)=\frac{f(x+t)-f(x+)}{t}\cdot\frac{t}{2\sin\frac t2}$ och använd att ensidiga derivatan finns.</li>
+    <li><b>Riemann–Lebesgue</b> på $g(t)\sin((m+\frac12)t)$, efter uppdelning med additionsformeln. (Tentan 2026 tillåter att lemmat används utan bevis.)</li>
+    <li><b>Sätt ihop.</b> $\frac1\pi\int_0^\pi f(x+t)D_m(t)\dd t\to\frac{f(x+)}{2}$, samma till vänster, addera.</li>
+  </ol>
+</div>
+<div class="ruta metod">
+  <span class="etikett">Så använder du satsen (”förklara vad serien konvergerar mot”)</span>
+  <ol class="steglista">
+    <li>Konstatera att $f\in E'$: styckvis kontinuerlig och (styckvis) deriverbar.</li>
+    <li>I varje punkt där $f$ är kontinuerlig: serien konvergerar mot $f(x)$.</li>
+    <li>I varje hopp i det inre av intervallet: räkna ut $f(x-)$ och $f(x+)$ och ta medelvärdet.</li>
+    <li>I $x=\pm\pi$: medelvärdet av $f(\pi-)$ och $f((-\pi)+)$.</li>
+  </ol>
+  <p>Fullt genomförda exempel finns i <a href="7-fourierserier.html#exempel">kapitel 7</a>.</p>
+</div>
+
+<h2 id="exempel"><span class="steg">4</span>Lösta tentaexempel</h2>
+<p>Skriv först ner beviset på papper så långt du kommer. Öppna sedan lösningen och jämför steg för steg.</p>
+
+<article class="exempel">
+  <header>Tentamen 2025-04-25, uppgift 6 <span class="p">4 p · del II</span></header>
+  <div class="uppgift">
+    <p>Låt $a_n,b_n$ vara Fourierkoefficienterna för funktionen $f:[-\pi,\pi]\to\C$. Bessels olikhet säger att
+    $$\frac12|a_0|^2+\sum_{n=1}^\infty\big(|a_n|^2+|b_n|^2\big)\le\frac1\pi\int_{-\pi}^{\pi}|f(x)|^2\dd x.$$
+    Bevisa detta. Från Bessels olikhet följer Riemann–Lebesgues lemma. Bevisa även detta.</p>
+  </div>
+  <details class="tips"><summary>Visa ledtråd</summary><div class="inne">
+    <p>Tre steg: Pythagoras sats för ortogonala vektorer, att $u-u_k\perp u_k$ där $u_k$ är projektionen, och sedan $\norm{u_k}^2\le\norm u^2$.</p>
+  </div></details>
+  <details id="ex-250425-6"><summary>Visa lösning</summary><div class="inne">
+    <p><b>Uppställning.</b> Låt $f\in E$ (styckvis kontinuerlig) och använd inre produkten $\ip fg=\frac1\pi\int_{-\pi}^{\pi}f\bar g\dd x$. Funktionerna $\frac{1}{\sqrt2},\cos x,\sin x,\cos2x,\sin2x,\dots$ är en ortonormal mängd i $E$ (Sats 2.1). Kalla dem $e_1,e_2,\dots$ och skriv $u=f$. Då är $\ip u{e_n}$ talen $\frac{a_0}{\sqrt2},a_1,b_1,a_2,b_2,\dots$, så
+    $$\sum_n|\ip u{e_n}|^2=\frac{|a_0|^2}{2}+\sum_{n=1}^\infty\big(|a_n|^2+|b_n|^2\big)\quad\text{och}\quad\norm u^2=\frac1\pi\int_{-\pi}^{\pi}|f(x)|^2\dd x.$$
+    Det räcker alltså att visa $\sum_{n=1}^\infty|\ip u{e_n}|^2\le\norm u^2$ för en ortonormal mängd i ett inre produktrum.</p>
+
+    <p><b>1) Generaliserad Pythagoras sats.</b> Om $u\perp v$ gäller $\norm{u+v}^2=\norm u^2+\norm v^2$, eftersom
+    $$\norm{u+v}^2=\ip{u+v}{u+v}=\ip uu+\ip uv+\ip vu+\ip vv=\norm u^2+0+0+\norm v^2.$$</p>
+
+    <p><b>2) Projektionen.</b> Låt $u_k=\sum_{n=1}^k\ip u{e_n}e_n$. Då är $(u-u_k)\perp u_k$. För $e_j\in\{e_1,\dots,e_k\}$ är nämligen
+    $$\ip{u-u_k}{e_j}=\ip u{e_j}-\sum_{n=1}^k\ip u{e_n}\ip{e_n}{e_j}=\ip u{e_j}-\ip u{e_j}\ip{e_j}{e_j}=0,$$
+    eftersom $e_n\perp e_j$ för $n\ne j$ och $\ip{e_j}{e_j}=1$. Eftersom $u_k$ är en linjärkombination av $e_1,\dots,e_k$ är då även $(u-u_k)\perp u_k$.</p>
+
+    <p><b>3) Pythagoras på $u-u_k$ och $u_k$.</b>
+    $$\norm u^2=\norm{(u-u_k)+u_k}^2=\norm{u-u_k}^2+\norm{u_k}^2,\quad\text{så}\quad\norm{u_k}^2\le\norm u^2.$$
+    Men
+    $$\norm{u_k}^2=\Big\langle\sum_{n=1}^k\ip u{e_n}e_n,\ \sum_{n=1}^k\ip u{e_n}e_n\Big\rangle=\sum_{n=1}^k\ip u{e_n}\overline{\ip u{e_n}}\ip{e_n}{e_n}=\sum_{n=1}^k|\ip u{e_n}|^2,$$
+    där alla korstermer försvinner på grund av ortogonaliteten. Alltså
+    $$\sum_{n=1}^k|\ip u{e_n}|^2\le\norm u^2\quad\text{för alla } k.$$
+    När $k\to\infty$ är vänsterledet en monotont växande följd som alltid är $\le\norm u^2$, så den konvergerar och $\sum_{n=1}^\infty|\ip u{e_n}|^2\le\norm u^2$. Det är Bessels olikhet. $\square$</p>
+
+    <p><b>Riemann–Lebesgues lemma.</b> Enligt Bessels olikhet är serien $\frac{|a_0|^2}{2}+\sum_{n=1}^\infty\big(|a_n|^2+|b_n|^2\big)$ konvergent (den är uppåt begränsad av $\norm f^2\lt\infty$ och har icke-negativa termer). I en konvergent serie går termerna mot noll, så $|a_n|^2+|b_n|^2\to0$ då $n\to\infty$. Det kan bara hända om $a_n\to0$ och $b_n\to0$, det vill säga
+    $$\lim_{n\to\infty}\int_{-\pi}^{\pi}f(x)\cos(nx)\dd x=\lim_{n\to\infty}\int_{-\pi}^{\pi}f(x)\sin(nx)\dd x=0.\qquad\square$$</p>
+    <p class="koll"><b>Kontroll:</b> lösningsförslaget hänvisar bara till PZ Prop. 1.15, Prop. 1.18, Thm 1.19 och Thm 1.20. Beviset ovan är det från F6 s. 3–7. Tentorna 2023-04-12:6 och 2024-04-02:6 frågar samma sak i komplex form ($e^{inx}$, $c_n$, $\frac{1}{2\pi}$), och deras lösningsförslag har samma tre steg: $\ip{f-S_m}{S_m}=0$, sedan $\norm f^2=\norm{f-S_m}^2+\norm{S_m}^2$, sedan $\sum_{-m}^m|c_n|^2=\norm{S_m}^2\le\norm f^2$.</p>
+  </div></details>
+</article>
+
+<article class="exempel">
+  <header>Tentamen 2026-01-09, uppgift 6 (samma på 2026-04-10) <span class="p">4 p · del II</span></header>
+  <div class="uppgift">
+    <p>Dirichlets sats talar om hur delsummorna $S_m(x)=\frac{a_0}{2}+\sum_{n=1}^m[a_n\cos nx+b_n\sin nx]$ av Fourierserien till funktionen $f:[-\pi,\pi]\to\C$ konvergerar då $m\to\infty$. I beviset ingår följande steg:</p>
+    <ul>
+      <li>Skriv $S_m(x)$ som en integral som innehåller $f(x)$ och Dirichletkärnan $D_m(x)$.</li>
+      <li>Hitta en sluten formel för $D_m(x)$.</li>
+      <li>Visa att hjälpfunktionen $g(t)=\dfrac{f(x+t)-f(x+)}{2\sin\frac12t}$ för $0\lt t\le\pi$ (och $g(t)=\dfrac{f(x+t)-f(x-)}{2\sin\frac12t}$ för $-\pi\le t\lt0$) har lämpliga egenskaper.</li>
+      <li>Visa hur $S_m(x)$ konvergerar då $m\to\infty$.</li>
+    </ul>
+    <p>Fyll i detaljerna i detta bevis. Var noggrann med att ange förutsättningar för funktionen $f(x)$. Du får utan bevis använda Riemann–Lebesgues lemma som säger att för en styckvis kontinuerlig funktion gäller att dess Fourierkoefficienter $a_n,b_n\to0$ då $n\to\infty$.</p>
+  </div>
+  <details class="tips"><summary>Visa ledtråd</summary><div class="inne">
+    <p>Steg 1: $\cos(ns)\cos(nx)+\sin(ns)\sin(nx)=\cos(n(s-x))$ och variabelbytet $t=s-x$. Steg 2: multiplicera $D_m(t)$ med $\sin\frac t2$ och använd formelblad (15). Steg 3: $\frac{t}{2\sin(t/2)}\to1$.</p>
+  </div></details>
+  <details id="ex-260109-6"><summary>Visa lösning</summary><div class="inne">
+    <p><b>Förutsättningar.</b> $f$ är styckvis kontinuerlig på $[-\pi,\pi]$ och har ensidiga derivator i varje punkt, det vill säga gränsvärdena
+    $$\lim_{h\to0^+}\frac{f(x+h)-f(x+)}{h}\quad\text{och}\quad\lim_{h\to0^+}\frac{f(x-)-f(x-h)}{h}$$
+    existerar och är ändliga ($f\in E'$). Vi antar att $f$ är definierad på $\R$ och $2\pi$-periodisk.</p>
+    <p><b>Påstående.</b> $\displaystyle\lim_{m\to\infty}S_m(x)=\frac{f(x-)+f(x+)}{2}$ för varje $x$.</p>
+
+    <p><b>Steg 1: $S_m$ som integral.</b> Låt $D_m(t)=\frac12+\sum_{n=1}^m\cos(nt)$. Från definitionen av $a_n,b_n$ (med integrationsvariabel $s$):
+    $$\begin{aligned}S_m(x)&=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(s)\dd s+\sum_{n=1}^m\left(\Big(\frac1\pi\int_{-\pi}^{\pi}f(s)\cos(ns)\dd s\Big)\cos(nx)+\Big(\frac1\pi\int_{-\pi}^{\pi}f(s)\sin(ns)\dd s\Big)\sin(nx)\right)\\ &=\frac1\pi\int_{-\pi}^{\pi}f(s)\left(\frac12+\sum_{n=1}^m\big(\cos(ns)\cos(nx)+\sin(ns)\sin(nx)\big)\right)\dd s\\ &=\frac1\pi\int_{-\pi}^{\pi}f(s)\left(\frac12+\sum_{n=1}^m\cos(ns-nx)\right)\dd s\end{aligned}$$
+    enligt formelblad (11). Variabelbytet $t=s-x$ ger
+    $$S_m(x)=\frac1\pi\int_{-\pi-x}^{\pi-x}f(x+t)\left(\frac12+\sum_{n=1}^m\cos(nt)\right)\dd t.$$
+    Integranden är $2\pi$-periodisk i $t$, och för en $2\pi$-periodisk funktion $G$ gäller $\int_{-\pi+a}^{\pi+a}G(t)\dd t=\int_{-\pi}^{\pi}G(t)\dd t$ för alla $a\in\R$. Alltså
+    $$S_m(x)=\frac1\pi\int_{-\pi}^{\pi}f(x+t)\,D_m(t)\dd t.$$</p>
+
+    <p><b>Steg 2: sluten formel för $D_m$.</b> Formelblad (15), $\sin\alpha\cos\beta=\frac12\big(\sin(\alpha+\beta)+\sin(\alpha-\beta)\big)$, med $\alpha=\frac12t$, $\beta=kt$ ger
+    $$\sin(\tfrac12t)\cos(kt)=\tfrac12\Big(\sin\big((k+\tfrac12)t\big)-\sin\big((k-\tfrac12)t\big)\Big).$$
+    Därför är
+    $$\begin{aligned}\sin(\tfrac12t)\,D_m(t)&=\tfrac12\Big(\sin(\tfrac12t)+\big(\sin(\tfrac32t)-\sin(\tfrac12t)\big)+\big(\sin(\tfrac52t)-\sin(\tfrac32t)\big)+\dots\\ &\qquad\quad\dots+\big(\sin((m+\tfrac12)t)-\sin((m-\tfrac12)t)\big)\Big)\\ &=\tfrac12\sin\big((m+\tfrac12)t\big),\end{aligned}$$
+    en teleskopsumma. Alltså
+    $$D_m(t)=\frac{\sin\big((m+\frac12)t\big)}{2\sin(\frac12t)}.$$
+    Dessutom, direkt ur definitionen:
+    $$\int_0^\pi D_m(t)\dd t=\int_0^\pi\Big(\frac12+\cos t+\dots+\cos(mt)\Big)\dd t=\frac\pi2,\quad\text{eftersom}\ \int_0^\pi\cos(kt)\dd t=0\ \text{för}\ k\in\Z_+.$$</p>
+
+    <p><b>Steg 3: hjälpfunktionen.</b> Fixera $x$ och låt $g(t)=\dfrac{f(x+t)-f(x+)}{2\sin(\frac12t)}$ för $0\lt t\le\pi$.</p>
+    <p><i>$g$ är styckvis kontinuerlig på $[0,\pi]$.</i> På $(0,\pi]$ är $g$ styckvis kontinuerlig eftersom $f$ är det och $\sin(\frac12t)\ne0$ där. Nära $t=0$ blir nämnaren noll, så där måste vi vara försiktigare:
+    $$\lim_{t\to0^+}g(t)=\lim_{t\to0^+}\left(\frac{f(x+t)-f(x+)}{t}\right)\left(\frac{t}{2\sin(\frac12t)}\right).$$
+    Den första faktorn har ett ändligt gränsvärde eftersom $f\in E'$. Den andra går mot $1$, eftersom $\frac{t}{2\sin(t/2)}=\frac{s}{\sin s}$ med $s=\frac t2\to0^+$. Alltså finns $\lim_{t\to0^+}g(t)$ och $g$ är styckvis kontinuerlig på $[0,\pi]$.</p>
+    <p><i>Då gäller $\displaystyle\lim_{m\to\infty}\int_0^\pi g(t)\sin\big((m+\tfrac12)t\big)\dd t=0$.</i> Sätt
+    $$h_1(t)=\begin{cases}g(t)\cos(\frac12t),&0\le t\le\pi\\0,&-\pi\le t\lt0\end{cases}\qquad h_2(t)=\begin{cases}g(t)\sin(\frac12t),&0\le t\le\pi\\0,&-\pi\le t\lt0.\end{cases}$$
+    Båda är styckvis kontinuerliga på $[-\pi,\pi]$. Med $\sin((m+\frac12)t)=\cos(\frac12t)\sin(mt)+\sin(\frac12t)\cos(mt)$ (formelblad (10)) är
+    $$\int_0^\pi g(t)\sin\big((m+\tfrac12)t\big)\dd t=\int_{-\pi}^{\pi}h_1(t)\sin(mt)\dd t+\int_{-\pi}^{\pi}h_2(t)\cos(mt)\dd t\ \longrightarrow\ 0\quad(m\to\infty)$$
+    enligt Riemann–Lebesgues lemma: de två integralerna är $\pi$ gånger Fourierkoefficienterna $b_m$ för $h_1$ och $a_m$ för $h_2$.</p>
+
+    <p><b>Steg 4: kombinera.</b> Enligt steg 3 och formeln för $D_m$:
+    $$0=\lim_{m\to\infty}\int_0^\pi g(t)\sin\big((m+\tfrac12)t\big)\dd t=\lim_{m\to\infty}\Big(\underbrace{\int_0^\pi f(x+t)\,D_m(t)\dd t}_{I_1}-\underbrace{f(x+)\int_0^\pi D_m(t)\dd t}_{I_2}\Big).$$
+    Enligt steg 2 är $I_2=f(x+)\cdot\frac\pi2$ för alla $m$. Alltså
+    $$\lim_{m\to\infty}\frac1\pi\int_0^\pi f(x+t)\,D_m(t)\dd t=\frac{f(x+)}{2}.$$
+    På samma sätt, med $g(t)=\dfrac{f(x+t)-f(x-)}{2\sin(\frac12t)}$ för $-\pi\le t\lt0$ (styckvis kontinuerlig eftersom vänsterderivatan finns, och $\int_{-\pi}^0D_m(t)\dd t=\frac\pi2$ eftersom $D_m$ är jämn):
+    $$\lim_{m\to\infty}\frac1\pi\int_{-\pi}^0f(x+t)\,D_m(t)\dd t=\frac{f(x-)}{2}.$$
+    Från steg 1 blir
+    $$\lim_{m\to\infty}S_m(x)=\lim_{m\to\infty}\frac1\pi\int_{-\pi}^{\pi}f(x+t)\,D_m(t)\dd t=\frac{f(x-)+f(x+)}{2}.\qquad\square$$</p>
+    <p><b>Ändpunkterna.</b> Eftersom $f$ är utvidgad $2\pi$-periodiskt är $f(\pi+)=f((-\pi)+)$, så i $x=\pi$ ger formeln $\frac12\big(f(\pi-)+f((-\pi)+)\big)$, och samma i $x=-\pi$.</p>
+    <p class="koll"><b>Kontroll:</b> lösningsförslagen 2026-01-09 och 2026-04-10 säger bara ”Se Pinkus–Zafrany Thm 2.6 sid 47”. Beviset ovan följer F6 s. 7–12 steg för steg. Två detaljer har jag skrivit ut som i F6 bara antyds: att $\int_{-\pi}^0D_m=\frac\pi2$ (följer av att $D_m$ är en summa av cosinusfunktioner och därmed jämn) och raden om ändpunkterna.</p>
+  </div></details>
+</article>
+
+<h2 id="fel"><span class="steg">5</span>Vanliga fel</h2>
+<div class="ruta fel">
+  <span class="etikett">Se upp med</span>
+  <ul>
+    <li><b>Att glömma förutsättningarna.</b> Satsen gäller för $f\in E'$. Bara ”styckvis kontinuerlig” räcker inte: de ensidiga derivatorna behövs i steg 3. Uppgiften delar ut poäng för detta.</li>
+    <li><b>Att påstå att serien konvergerar mot $f(x)$.</b> Den konvergerar mot $\frac12(f(x-)+f(x+))$, som bara är $f(x)$ där $f$ är kontinuerlig.</li>
+    <li><b>Samma bokstav för två saker.</b> I steg 1 måste integrationsvariabeln heta något annat än $x$ (F6 använder $s$).</li>
+    <li><b>Att hoppa över periodiciteten.</b> Efter variabelbytet är gränserna $-\pi-x$ och $\pi-x$. Att de får bytas mot $-\pi$ och $\pi$ kräver att integranden är $2\pi$-periodisk, och det ska sägas.</li>
+    <li><b>Att glömma $t=0$ i steg 3.</b> Hela poängen med hjälpfunktionen är att visa att den har ett gränsvärde när nämnaren går mot noll. Skriv ut faktoriseringen med $\frac{t}{2\sin(t/2)}$.</li>
+    <li><b>Att använda Riemann–Lebesgue direkt på $\sin((m+\frac12)t)$.</b> Lemmat handlar om $\sin(mt)$ och $\cos(mt)$ på $[-\pi,\pi]$. Därav additionsformeln och funktionerna $h_1,h_2$ som är noll på $[-\pi,0)$.</li>
+    <li><b>Fel konstant i Bessel.</b> I reell form: $\frac{|a_0|^2}{2}$, med inre produkten $\frac1\pi\int$. I komplex form: $\sum|c_n|^2\le\frac{1}{2\pi}\int|f|^2$. Blanda inte.</li>
+    <li><b>Att tro att Bessel är en likhet.</b> Olikheten räcker för Riemann–Lebesgue. (Att det faktiskt är likhet, Parsevals formel, kommer senare i kursen.)</li>
+    <li><b>”Termerna går mot noll, alltså konvergerar serien.”</b> Det är åt fel håll. Här används att en <i>konvergent</i> serie har termer som går mot noll.</li>
+  </ul>
+</div>
+<div class="ruta tillagg">
+  <span class="etikett">Tillägg – står inte i föreläsningsanteckningarna</span>
+  <p>Formeln $D_m(t)=\frac{\sin((m+\frac12)t)}{2\sin(\frac12t)}$ har nämnaren noll för $t=0$ (och $t=2\pi k$). Där gäller definitionen direkt: $D_m(0)=\frac12+m$. Det påverkar inte integralerna i beviset, men det är bra att kunna svara på om någon frågar.</p>
+</div>
+
+<h2 id="rek"><span class="steg">6</span>Rekommenderade tentauppgifter</h2>
+<ul class="rek">
+  <li data-uppg="2018-01-08:3a"><span class="niva latt">Lätt</span><span class="vad"><b>2018-01-08, uppgift 3a.</b> Använd satsen: ange sinusseriens värde i $x=1$, $2$ och $\pi$ och formulera satsen. Ingen koefficient behöver räknas.</span></li>
+  <li data-uppg="2023-01-13:6"><span class="niva medel">Medel</span><span class="vad"><b>2023-01-13, uppgift 6.</b> Formulera Riemann–Lebesgues lemma och bevisa steg 1 ($S_m$ som integral).</span></li>
+  <li data-uppg="2023-04-12:6"><span class="niva medel">Medel</span><span class="vad"><b>2023-04-12, uppgift 6</b> (samma på 2024-04-02). ON-systemet $e^{inx}$, Pythagoras, Bessel och Riemann–Lebesgue i komplex form. Fullständigt lösningsförslag finns.</span></li>
+  <li data-uppg="2025-04-25:6"><span class="niva medel">Medel</span><span class="vad"><b>2025-04-25, uppgift 6.</b> Löst ovan. Bessel och Riemann–Lebesgue i reell form.</span></li>
+  <li data-uppg="OT1:4"><span class="niva medel">Medel</span><span class="vad"><b>Övningstentamen 1, uppgift 4.</b> Fourierserien för $x^2$, och sedan Dirichlets sats i $x=\pi$ och $x=0$ för att få $\sum\frac{1}{n^2}=\frac{\pi^2}{6}$ och $\sum\frac{(-1)^{n+1}}{n^2}=\frac{\pi^2}{12}$. Dagboken nämner PZ Exempel 2.7–2.8 (s. 53–54) som klassiska exempel av det här slaget.</span></li>
+  <li data-uppg="2024-01-12:6"><span class="niva svar">Svår</span><span class="vad"><b>2024-01-12, uppgift 6</b> (samma på 2025-01-10). Bevisa steg 1 och skissera resten med förutsättningar och slutsatser.</span></li>
+  <li data-uppg="2026-01-09:6"><span class="niva svar">Svår</span><span class="vad"><b>2026-01-09, uppgift 6</b> (samma på 2026-04-10). Löst ovan. Hela beviset. Skriv det från början till slut utan stöd minst två gånger före tentan.</span></li>
+</ul>
+<p class="liten">Ur föreläsningsplanen: PZ 1.5: 1, 2 · PZ 2.4: 1, 2, 3, 6, 7. Dagboken hänvisar också till Mattias Dahls anteckningar <i>Konvergens av Fourierserier</i> (finns i mappen med kursinfo) och till Simmons kapitel 6, appendix A, för en sammanfattning av beviset.</p>
+
+<h2 id="videor"><span class="steg">7</span>Videor</h2>
+<p>Videolistan i kursmaterialet har ingen video som går igenom just det här beviset. De här ger bakgrunden:</p>
+<ul class="videor">
+  <li><a href="https://www.youtube.com/playlist?list=PLMrJAkhIeNNT_Xh3Oy0Y4LTj0Oxo8GqsC">Steve Brunton – Fourier Analysis (spellista)</a><small>Inre produkt, projektion och hur delsummorna närmar sig funktionen, bland annat vid hopp.</small></li>
+  <li><a href="https://www.youtube.com/watch?v=r6sGWTCMz2k">3Blue1Brown – But what is a Fourier series?</a><small>Visar delsummor som konvergerar mot en stegfunktion och hamnar mitt i hoppet.</small></li>
+</ul>
+
+</div></main>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>2. ODE med konstanta koefficienter – SF1683 del 2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/kapitel.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-rot="../" data-sida="kap2" data-toc>
+<main><div class="inre">
+
+<div class="brodsmula">Kapitel 2 · Laplacetransformen</div>
+<h1>ODE med konstanta koefficienter</h1>
+<p class="ingress">Grundtekniken: transformera ekvationen, lös ut $Y(s)$, skriv om $Y(s)$ till termer som finns i tabellen, invertera. Varje Laplace-uppgift i kapitel 3–5 är den här metoden plus en extra ingrediens.</p>
+<div class="meta">
+  <span class="chip gra">PZ 4.3</span>
+  <span class="chip gra">Föreläsning F2</span>
+  <span class="chip het">Lösa ekvation med Laplace: 15 av 17 tentor</span>
+  <span class="chip">Ren ODE utan Heaviside/Dirac: 2 av 17</span>
+</div>
+
+<h2 id="def"><span class="steg">1</span>Definitioner och satser</h2>
+
+<div class="ruta sats">
+  <span class="etikett">Verktygen <span class="kalla">F1 s. 7 · F2 s. 2–3</span></span>
+  <p>Om $\L[y(t)](s)=Y(s)$ så är
+  $$\L[y'(t)](s)=sY(s)-y(0),\qquad\L[y''(t)](s)=s^2Y(s)-sy(0)-y'(0)$$
+  (formelblad (8) och (9)). Både $\L$ och inversen $\Li$ är linjära:
+  $$\Li[aF(s)+bG(s)]=a\,\Li[F(s)]+b\,\Li[G(s)].$$</p>
+</div>
+
+<h3>Klassexemplet: homogen ekvation</h3>
+<p>F2 s. 3–6 löser begynnelsevärdesproblemet
+$$y''(t)+by'(t)+cy(t)=0,\qquad y(0)=y_0,\quad y'(0)=y_1.$$
+Transformering och linjäritet ger $(s^2Y(s)-sy_0-y_1)+b(sY(s)-y_0)+cY(s)=0$, alltså
+$$Y(s)=\frac{sy_0+y_1+by_0}{s^2+bs+c}.$$
+Nämnaren är det <b>karakteristiska polynomet</b>. Hur $Y(s)$ ska skrivas om beror på dess rötter:</p>
+<div class="tabellram"><table>
+  <thead><tr><th>Fall</th><th>Skriv om nämnaren</th><th>Ansats för $Y(s)$</th><th>$y(t)$</th></tr></thead>
+  <tbody>
+    <tr><td><b>1.</b> Reella rötter $m_1\ne m_2$</td><td>Faktorisera: $(s-m_1)(s-m_2)$</td><td>$\dfrac{A}{s-m_1}+\dfrac{B}{s-m_2}$</td><td>$Ae^{m_1t}+Be^{m_2t}$</td></tr>
+    <tr><td><b>2.</b> Dubbelrot $m$</td><td>Faktorisera: $(s-m)^2$</td><td>$\dfrac{A}{s-m}+\dfrac{B}{(s-m)^2}$</td><td>$Ae^{mt}+Bte^{mt}$</td></tr>
+    <tr><td><b>3.</b> Komplexa rötter $\alpha\pm\beta i$</td><td>Kvadratkomplettera: $(s-\alpha)^2+\beta^2$</td><td>$\dfrac{A(s-\alpha)}{(s-\alpha)^2+\beta^2}+\dfrac{B}{(s-\alpha)^2+\beta^2}$</td><td>$Ae^{\alpha t}\cos\beta t+\dfrac B\beta e^{\alpha t}\sin\beta t$</td></tr>
+  </tbody>
+</table></div>
+<p>I fall 3 måste täljaren skrivas som $A(s-\alpha)+B$ för att s-translationen (4.4) ska gå att använda: $\L[e^{\alpha t}\sin\beta t](s)=\frac{\beta}{(s-\alpha)^2+\beta^2}$ och $\L[e^{\alpha t}\cos\beta t](s)=\frac{s-\alpha}{(s-\alpha)^2+\beta^2}$ (formelblad (22), (23)). Sammanfattningen i F2: <i>faktorisera eller kvadratkomplettera</i>. I fall 1 och 2 kan formelblad (18)–(20) användas i stället för partialbråk.</p>
+
+<div class="ruta def">
+  <span class="etikett">Partialbråksuppdelning (PBU) <span class="kalla">kursens blad ”Partialbråksuppdelning”</span></span>
+  <p>Nämnaren ska vara faktoriserad och täljaren ha lägre grad än nämnaren. Ansätt då</p>
+  <ul>
+    <li>för varje faktor $(s-a)^n$: $\ \dfrac{A_1}{s-a}+\dfrac{A_2}{(s-a)^2}+\dots+\dfrac{A_n}{(s-a)^n}$,</li>
+    <li>för varje faktor $[(s+b)^2+c^2]^m$: $\ \dfrac{B_1s+C_1}{(s+b)^2+c^2}+\dots+\dfrac{B_ms+C_m}{[(s+b)^2+c^2]^m}$.</li>
+  </ul>
+  <p>Sätt på gemensam nämnare och bestäm konstanterna, antingen genom att jämföra koefficienter eller med genvägen att sätta in smarta värden på $s$: nollställena, även komplexa som $s=i$ (”ja, tillåtet!”, F3 s. 7), och till exempel $s=0$ för det som återstår.</p>
+</div>
+
+<h2 id="varfor"><span class="steg">2</span>Varför fungerar det?</h2>
+<p>Derivataregeln gör om varje $y^{(k)}$ till $s^kY(s)$ minus begynnelsevärden. En linjär ekvation med konstanta koefficienter blir därför en förstagradsekvation i den obekanta $Y(s)$, och begynnelsevärdena är redan insatta. Man får alltså konstanterna $A$ och $B$ direkt och behöver inte bestämma dem i efterhand (F2 s. 4).</p>
+<p>Schemat från F1 s. 7 och Övning 2:</p>
+<div class="ruta obs">
+  <p style="text-align:center;margin:0">DE i $y(t)$ $\ \xrightarrow{\ \L\ }\ $ algebraisk ekvation i $Y(s)$ $\ \xrightarrow{\ \text{lös ut}\ }\ $ $Y(s)$ $\ \xrightarrow{\ \Li\ }\ $ $y(t)$</p>
+</div>
+<p>Det enda svåra steget är det sista. Det finns ingen formel för inversen i kursen, så arbetet består i att skriva om $Y(s)$ till en summa av uttryck som står i tabellen. Därav partialbråk och kvadratkomplettering. Nämnaren i $Y(s)$ är det karakteristiska polynomet, och dess rötter avgör vilka funktioner lösningen består av, precis som i del 1 av kursen.</p>
+
+<h2 id="metod"><span class="steg">3</span>Metod steg för steg</h2>
+<div class="ruta metod">
+  <span class="etikett">Standarduppgift: lös begynnelsevärdesproblemet med Laplacetransformen</span>
+  <ol class="steglista">
+    <li><b>Transformera båda led.</b> Inför $Y(s)=\L[y(t)](s)$. Använd formelblad (8)/(9) på derivatorna och tabellen på högerledet. Skriv vilka formler du använder.</li>
+    <li><b>Sätt in begynnelsevärdena</b> direkt.</li>
+    <li><b>Lös ut $Y(s)$.</b> Samla alla $Y$-termer till vänster: (karakteristiskt polynom)$\,\cdot Y(s)=\ldots$ och dividera.</li>
+    <li><b>Skriv om $Y(s)$.</b> Faktorisera nämnaren och partialbråksuppdela, eller kvadratkomplettera om rötterna är komplexa. Titta först om uttrycket redan står i tabellen ((18)–(29)).</li>
+    <li><b>Invertera term för term</b> med tabellen. Ange formelnumren.</li>
+    <li><b>Kontrollera.</b> Sätt in $t=0$ i $y$ och $y'$ och jämför med begynnelsevärdena. Det tar tio sekunder och fångar de flesta PBU-fel.</li>
+  </ol>
+</div>
+<p>På tentan står det ”lösningen ska vara väl presenterad och lätt att följa”. Dahls lösningsförslag skriver genomgående ”enligt Laplaceformel (9), (4), (15) …”. Gör likadant.</p>
+
+<h2 id="exempel"><span class="steg">4</span>Lösta tentaexempel</h2>
+
+<article class="exempel">
+  <header>Tentamen 2021-01-13, fråga 1 <span class="p">1 + 3 p · del 1</span></header>
+  <div class="uppgift">
+    <p>(a) Beräkna Laplacetransformen av $f(t)=3t^2$ direkt från Laplacetransformens definition.</p>
+    <p>(b) Använd Laplacetransformen för att lösa
+    $$y''(t)+4y(t)=3t^2\ \text{ för } t\gt 0,\qquad y(0)=y'(0)=0.$$
+    Du får använda $\L(\sin(at))(s)=\frac{a}{s^2+a^2}$ och $\L(\cos(at))(s)=\frac{s}{s^2+a^2}$ utan motivering.</p>
+  </div>
+  <details class="tips"><summary>Visa ledtråd</summary><div class="inne">
+    <p>(b) Nämnaren blir $s^3(s^2+4)$. Ansätt $\frac{As+B}{s^2+4}+\frac{C}{s^3}+\frac{D}{s^2}+\frac{E}{s}$, eller använd att $\frac{1}{s^2(s^2+4)}=\frac14\left(\frac1{s^2}-\frac1{s^2+4}\right)$.</p>
+  </div></details>
+  <details id="ex-210113-1"><summary>Visa lösning</summary><div class="inne">
+    <p><b>(a)</b> Enligt definitionen, med partialintegration två gånger och $s\gt 0$:
+    $$\L[3t^2](s)=\int_0^\infty3t^2e^{-st}\dd t=\left[-\frac{3t^2e^{-st}}{s}\right]_0^\infty+\frac6s\int_0^\infty te^{-st}\dd t=0+\frac6s\left(\left[-\frac{te^{-st}}{s}\right]_0^\infty+\frac1s\int_0^\infty e^{-st}\dd t\right)=\frac6s\cdot\frac1{s^2}=\frac{6}{s^3}.$$
+    Randtermerna försvinner eftersom $t^2e^{-st}\to 0$ och $te^{-st}\to 0$ då $t\to\infty$ när $s\gt 0$. För $s\le 0$ konvergerar integralerna inte.</p>
+    <p><b>(b)</b> Låt $Y(s)=\L[y](s)$. Med $y(0)=y'(0)=0$ ger formelblad (9) att $\L[y''](s)=s^2Y(s)$. Transformering av ekvationen ger
+    $$(s^2+4)Y(s)=\frac{6}{s^3}\quad\Longrightarrow\quad Y(s)=\frac{6}{s^3(s^2+4)}.$$
+    <i>Partialbråk.</i> Eftersom $\dfrac{1}{s^2(s^2+4)}=\dfrac14\left(\dfrac{1}{s^2}-\dfrac{1}{s^2+4}\right)$ är
+    $$Y(s)=\frac6s\cdot\frac14\left(\frac1{s^2}-\frac1{s^2+4}\right)=\frac{3}{2s^3}-\frac32\cdot\frac{1}{s(s^2+4)},$$
+    och på samma sätt $\dfrac{1}{s(s^2+4)}=\dfrac14\left(\dfrac1s-\dfrac{s}{s^2+4}\right)$. Alltså
+    $$Y(s)=\frac{3}{2}\cdot\frac{1}{s^3}-\frac38\cdot\frac1s+\frac38\cdot\frac{s}{s^2+4}.$$
+    <i>Invertera.</i> $\Li\!\left[\frac{1}{s^3}\right]=\frac{t^2}{2}$ (formelblad (11)), $\Li\!\left[\frac1s\right]=1$ och $\Li\!\left[\frac{s}{s^2+4}\right]=\cos 2t$ (formelblad (14)).</p>
+    <div class="svar"><b>Svar</b> (a) $\L[3t^2](s)=\dfrac{6}{s^3}$, $s\gt 0$. (b) $y(t)=\dfrac34t^2-\dfrac38+\dfrac38\cos(2t)$.</div>
+    <p class="koll"><b>Kontroll:</b> $y(0)=-\frac38+\frac38=0$, $y'(t)=\frac32t-\frac34\sin 2t$ så $y'(0)=0$, och $y''+4y=\frac32-\frac32\cos2t+3t^2-\frac32+\frac32\cos2t=3t^2$. Stämmer med lösningsförslaget, som får samma konstanter med ansatsen $\frac{As+B}{s^2+4}+\frac C{s^3}+\frac D{s^2}+\frac Es$ ($A=\frac38$, $B=0$, $C=\frac32$, $D=0$, $E=-\frac38$).</p>
+  </div></details>
+</article>
+
+<article class="exempel">
+  <header>Tentamen 2019-01-11, uppgift 4b <span class="p">3 p · del 1</span></header>
+  <div class="uppgift">
+    <p>Använd Laplacetransformen för att lösa begynnelsevärdesproblemet
+    $$y''(x)+4y(x)=1\ \text{ för } x\gt 0,\qquad y(0)=0,\quad y'(0)=1.$$</p>
+  </div>
+  <details id="ex-190111-4"><summary>Visa lösning</summary><div class="inne">
+    <p>Låt $Y(s)=\L[y](s)$. Formelblad (9) med $y(0)=0$, $y'(0)=1$ ger $\L[y''](s)=s^2Y(s)-1$, och $\L[1](s)=\frac1s$. Ekvationen blir
+    $$(s^2+4)Y(s)=\frac1s+1\quad\Longrightarrow\quad Y(s)=\frac{1}{s^2+4}+\frac{1}{s(s^2+4)}.$$
+    Den andra termen partialbråksuppdelas: $\dfrac{1}{s(s^2+4)}=\dfrac{A}{s}+\dfrac{Bs+C}{s^2+4}$ ger $1=A(s^2+4)+(Bs+C)s$. Med $s=0$: $A=\frac14$. Koefficienten för $s^2$: $A+B=0$, så $B=-\frac14$. Koefficienten för $s$: $C=0$. Alltså
+    $$Y(s)=\frac12\cdot\frac{2}{s^2+4}+\frac14\cdot\frac1s-\frac14\cdot\frac{s}{s^2+4}.$$
+    Formelblad (13), (1), (14) ger inversen.</p>
+    <div class="svar"><b>Svar</b> $\ y(x)=\dfrac12\sin(2x)-\dfrac14\cos(2x)+\dfrac14$.</div>
+    <p class="koll"><b>Kontroll:</b> $y(0)=-\frac14+\frac14=0$, $y'(0)=\cos 0=1$, och $y''+4y=(-2\sin2x+\cos2x)+(2\sin2x-\cos2x+1)=1$. Stämmer med lösningsförslaget.</p>
+  </div></details>
+</article>
+
+<h2 id="fel"><span class="steg">5</span>Vanliga fel</h2>
+<div class="ruta fel">
+  <span class="etikett">Se upp med</span>
+  <ul>
+    <li><b>Begynnelsevärdena hamnar fel.</b> $\L[y'']=s^2Y-s\,y(0)-y'(0)$. Det är $y(0)$ som multipliceras med $s$. Glöm inte heller att $b\,\L[y']=b\,(sY-y(0))$ också ger en term med $y(0)$.</li>
+    <li><b>Fel ansats i PBU.</b> En irreducibel andragradsfaktor ska ha täljaren $Bs+C$, inte bara $B$. En upprepad faktor $(s-a)^n$ ska ha alla potenser $1,\dots,n$. (I Övning 1 står ansatsen $\frac{As+B}{s^2}$ för faktorn $s^2$. Det ger samma sak som $\frac As+\frac B{s^2}$, men håll dig till standardformen.)</li>
+    <li><b>Faktorn framför sinus.</b> $\Li\!\left[\frac{1}{s^2+k^2}\right]=\frac1k\sin kt$. Täljaren måste vara $k$ för att det ska bli $\sin kt$. Samma sak i fall 3: $\frac{B}{(s-\alpha)^2+\beta^2}$ ger $\frac B\beta e^{\alpha t}\sin\beta t$.</li>
+    <li><b>Kvadratkomplettering utan att fixa täljaren.</b> $\frac{s}{(s+1)^2+3}$ är inte $e^{-t}\cos\sqrt3t$. Skriv $s=(s+1)-1$ först.</li>
+    <li><b>Fel tecken i exponenten.</b> $\frac{1}{(s+1)^2+3}$ betyder $a=-1$ i tabellen, alltså $e^{-t}$. (I Övning 1, PZ 4.4.2b, står $e^{t}$ i en mellanrad och faktorn $\frac{1}{\sqrt3}$ framför sinustermen saknas i slutraden. Rätt invers till $\frac{1}{s(s^2+2s+4)}$ är $\frac14-\frac14e^{-t}\cos\sqrt3t-\frac{1}{4\sqrt3}e^{-t}\sin\sqrt3t$.)</li>
+    <li><b>Att partialbråksuppdela i onödan.</b> $\frac{1}{(s-a)(s-b)}$, $\frac{s}{(s-a)(s-b)}$, $\frac{1}{(s-a)^2}$ står redan i tabellen som (18)–(20).</li>
+    <li><b>Ingen kontroll.</b> Sätt in $t=0$. Stämmer inte $y(0)$ och $y'(0)$ är något fel i PBU eller i inverteringen.</li>
+  </ul>
+</div>
+
+<h2 id="rek"><span class="steg">6</span>Rekommenderade tentauppgifter</h2>
+<ul class="rek">
+  <li data-uppg="2020-04-15:3"><span class="niva latt">Lätt</span><span class="vad"><b>2020-04-15, uppgift 3.</b> Invertera $\frac{5s+16}{s^2+6s+8}$. Ren PBU, fall 1.</span></li>
+  <li data-uppg="2019-01-11:4b"><span class="niva latt">Lätt</span><span class="vad"><b>2019-01-11, uppgift 4b.</b> Löst ovan. $y''+4y=1$.</span></li>
+  <li data-uppg="2021-01-13:1b"><span class="niva medel">Medel</span><span class="vad"><b>2021-01-13, fråga 1b.</b> Löst ovan. Längre PBU med $s^3$ i nämnaren.</span></li>
+  <li data-uppg="OT1:1"><span class="niva medel">Medel</span><span class="vad"><b>Övningstentamen 1, uppgift 1.</b> $y''+2y'+y=\delta(t-1)$, $y(0)=1$. Dubbelrot (fall 2) plus en impuls. Bra brygga till kapitel 3.</span></li>
+  <li data-uppg="2019-04-16:2"><span class="niva medel">Medel</span><span class="vad"><b>2019-04-16, uppgift 2.</b> $u''+2u'+2u=H(x-\pi)$. Komplexa rötter (fall 3) och kvadratkomplettering, med ett steg i högerledet.</span></li>
+  <li data-uppg="2026-04-10:5b"><span class="niva svar">Svår</span><span class="vad"><b>2026-04-10, uppgift 5b.</b> Skriv lösningen till $y''+py'+qy=f$ som en faltning. De tre fallen ovan i allmän form. Se <a href="4-faltning.html">kapitel 4</a>.</span></li>
+</ul>
+<p class="liten">Ur föreläsningsplanen: PZ 4.3: 1ace, 2adf. I övningarna räknades PZ 4.3.1b (Övning 1) och PZ 4.3.2c (Övning 2).</p>
+
+<h2 id="videor"><span class="steg">7</span>Videor</h2>
+<ul class="videor">
+  <li><a href="https://www.youtube.com/watch?v=FE-hM1kRK4Y">3Blue1Brown – Why Laplace transforms are so useful</a><small>Länkad från kursens dagbok (F2). Hur en ODE blir algebra.</small></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLHXZ9OQGMqxcJXnLr08cyNaup4RDsbAl1">Dr. Trefor Bazett – Laplace Transforms and Solving ODEs (spellista)</a><small>Bäst för räkneteknik: lösa begynnelsevärdesproblem och invertera med partialbråk.</small></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLEC88901EBADDD980">MIT 18.03 – Differential Equations, Arthur Mattuck (spellista)</a><small>Föreläsning 19–24 är Laplacedelen, bland annat lösning av begynnelsevärdesproblem.</small></li>
+</ul>
+
+</div></main>
+</body>
+</html>

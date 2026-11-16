@@ -1,0 +1,277 @@
+/* SF1683 del 2 – kompendium. Gemensam stil för alla sidor. */
+:root {
+  --bg: #fbfaf7;
+  --panel: #ffffff;
+  --ink: #1d2330;
+  --ink-2: #4a5263;
+  --ink-3: #7a8294;
+  --line: #e3e0d8;
+  --accent: #1f5fa8;
+  --accent-soft: #e8f0fa;
+  --def: #1f5fa8;
+  --def-bg: #eef4fb;
+  --sats: #6a3fa0;
+  --sats-bg: #f4eefb;
+  --metod: #1c7a5a;
+  --metod-bg: #ebf7f1;
+  --fel: #b3402e;
+  --fel-bg: #fcefec;
+  --tillagg: #9a6a00;
+  --tillagg-bg: #fff6dc;
+  --ex: #33415c;
+  --ex-bg: #f3f4f7;
+  --code-bg: #f1efe9;
+  --sidebar-w: 280px;
+  --radius: 10px;
+}
+:root[data-tema="mork"] {
+  --bg: #14171d;
+  --panel: #1b1f27;
+  --ink: #e6e8ee;
+  --ink-2: #b4b9c6;
+  --ink-3: #8a90a0;
+  --line: #2c323d;
+  --accent: #7fb2f0;
+  --accent-soft: #1f2a3a;
+  --def: #7fb2f0;
+  --def-bg: #1a2433;
+  --sats: #bfa0ea;
+  --sats-bg: #231d30;
+  --metod: #6fd1aa;
+  --metod-bg: #172a23;
+  --fel: #f09482;
+  --fel-bg: #301c19;
+  --tillagg: #e9c261;
+  --tillagg-bg: #2e2714;
+  --ex: #c3cbe0;
+  --ex-bg: #1f232c;
+  --code-bg: #232833;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="ljus"]) {
+    --bg: #14171d;
+    --panel: #1b1f27;
+    --ink: #e6e8ee;
+    --ink-2: #b4b9c6;
+    --ink-3: #8a90a0;
+    --line: #2c323d;
+    --accent: #7fb2f0;
+    --accent-soft: #1f2a3a;
+    --def: #7fb2f0;
+    --def-bg: #1a2433;
+    --sats: #bfa0ea;
+    --sats-bg: #231d30;
+    --metod: #6fd1aa;
+    --metod-bg: #172a23;
+    --fel: #f09482;
+    --fel-bg: #301c19;
+    --tillagg: #e9c261;
+    --tillagg-bg: #2e2714;
+    --ex: #c3cbe0;
+    --ex-bg: #1f232c;
+    --code-bg: #232833;
+  }
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.65 Charter, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  -webkit-text-size-adjust: 100%;
+}
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+
+/* ---------- Ram: topprad + sidomeny ---------- */
+.topp {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; gap: 12px;
+  height: 56px; padding: 0 16px;
+  background: var(--panel); border-bottom: 1px solid var(--line);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.topp .logga { font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: .01em; white-space: nowrap; }
+.topp .logga span { color: var(--ink-3); font-weight: 500; }
+.topp .fyll { flex: 1; }
+.topp a.snabb { font-size: 14px; color: var(--ink-2); text-decoration: none; padding: 6px 8px; border-radius: 6px; white-space: nowrap; }
+.topp a.snabb:hover, .topp a.snabb.aktiv { background: var(--accent-soft); color: var(--accent); }
+.knapp {
+  font: inherit; font-size: 14px; cursor: pointer;
+  background: transparent; color: var(--ink-2);
+  border: 1px solid var(--line); border-radius: 6px; padding: 5px 9px;
+}
+.knapp:hover { color: var(--accent); border-color: var(--accent); }
+#menyknapp { display: none; }
+
+.sidomeny {
+  position: fixed; top: 56px; bottom: 0; left: 0; width: var(--sidebar-w);
+  overflow-y: auto; padding: 18px 14px 40px;
+  background: var(--panel); border-right: 1px solid var(--line);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14.5px; line-height: 1.35;
+}
+.sidomeny h4 { margin: 18px 8px 6px; font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); }
+.sidomeny h4:first-child { margin-top: 0; }
+.sidomeny a, .sidomeny .kommande {
+  display: flex; gap: 8px; align-items: baseline;
+  padding: 7px 8px; border-radius: 6px; text-decoration: none; color: var(--ink-2);
+}
+.sidomeny a:hover { background: var(--accent-soft); color: var(--accent); }
+.sidomeny a.aktiv { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.sidomeny .nr { flex: 0 0 1.5em; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.sidomeny .kommande { color: var(--ink-3); cursor: default; }
+.sidomeny .kommande small { display: block; font-size: 12px; }
+.sidomeny .vikt { margin-left: auto; font-size: 11px; color: var(--ink-3); white-space: nowrap; }
+
+main {
+  margin-left: var(--sidebar-w);
+  padding: 34px 28px 80px;
+}
+main > .inre { max-width: 800px; margin: 0 auto; }
+main.bred > .inre { max-width: 1100px; }
+
+@media (max-width: 900px) {
+  #menyknapp { display: inline-block; }
+  .topp a.snabb { display: none; }
+  .sidomeny { transform: translateX(-100%); transition: transform .18s ease; width: min(86vw, 320px); box-shadow: 0 0 0 100vmax rgba(0,0,0,0); }
+  body.meny-oppen .sidomeny { transform: none; box-shadow: 0 0 0 100vmax rgba(0,0,0,.35); z-index: 25; }
+  main { margin-left: 0; padding: 22px 16px 70px; }
+  body { font-size: 16px; }
+}
+
+/* ---------- Typografi ---------- */
+h1, h2, h3, h4 { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.25; }
+h1 { font-size: 1.95em; margin: 0 0 .3em; letter-spacing: -.01em; }
+h2 { font-size: 1.35em; margin: 2.2em 0 .6em; padding-top: .5em; border-top: 1px solid var(--line); }
+h2 .steg { display: inline-block; min-width: 1.7em; height: 1.7em; line-height: 1.7em; text-align: center; margin-right: .45em; border-radius: 50%; background: var(--accent); color: var(--panel); font-size: .72em; vertical-align: .12em; }
+h3 { font-size: 1.1em; margin: 1.7em 0 .4em; }
+p { margin: .7em 0; }
+.ingress { font-size: 1.08em; color: var(--ink-2); margin-bottom: 1.2em; }
+.brodsmula { font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--ink-3); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 6px; }
+code, kbd { background: var(--code-bg); border-radius: 4px; padding: .08em .35em; font-size: .88em; }
+hr { border: 0; border-top: 1px solid var(--line); margin: 2em 0; }
+ul, ol { padding-left: 1.4em; }
+li { margin: .3em 0; }
+.katex { font-size: 1.04em; }
+.katex-display { margin: .9em 0; overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+
+/* Meta-rad under rubriken */
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 20px; font: 13.5px/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+.chip { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+.chip.gra { background: var(--code-bg); color: var(--ink-2); }
+.chip.het { background: var(--fel-bg); color: var(--fel); }
+.chip.gron { background: var(--metod-bg); color: var(--metod); }
+
+/* Innehållsförteckning på sidan */
+.toc { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 18px; margin: 18px 0 8px; font: 14.5px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+.toc strong { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); margin-bottom: 4px; }
+.toc ol { margin: 0; padding-left: 1.3em; columns: 2; column-gap: 28px; }
+.toc a { text-decoration: none; }
+@media (max-width: 600px) { .toc ol { columns: 1; } }
+
+/* ---------- Rutor ---------- */
+.ruta { border-left: 4px solid var(--c, var(--accent)); background: var(--cbg, var(--accent-soft)); border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 18px 12px 16px; margin: 1.1em 0; }
+.ruta > .etikett { display: block; font: 700 12.5px/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-transform: uppercase; letter-spacing: .07em; color: var(--c, var(--accent)); margin-bottom: 4px; }
+.ruta > .etikett .kalla { text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--ink-3); margin-left: 6px; }
+.ruta > :last-child { margin-bottom: 0; }
+.ruta p:first-of-type { margin-top: 0; }
+.def { --c: var(--def); --cbg: var(--def-bg); }
+.sats { --c: var(--sats); --cbg: var(--sats-bg); }
+.metod { --c: var(--metod); --cbg: var(--metod-bg); }
+.fel { --c: var(--fel); --cbg: var(--fel-bg); }
+.tillagg { --c: var(--tillagg); --cbg: var(--tillagg-bg); }
+.obs { --c: var(--ink-3); --cbg: var(--code-bg); }
+.bevis { border-left: 2px solid var(--line); padding-left: 16px; margin: .8em 0 1.2em; color: var(--ink-2); }
+.bevis > .etikett { font-style: italic; color: var(--ink); }
+.kalla { font: 12.5px/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--ink-3); white-space: nowrap; }
+span.egen { display: inline-block; font: 600 11px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-transform: uppercase; letter-spacing: .06em; padding: 3px 6px; border-radius: 4px; background: var(--tillagg-bg); color: var(--tillagg); border: 1px solid var(--tillagg); vertical-align: .1em; }
+
+ol.steglista { counter-reset: s; list-style: none; padding-left: 0; }
+ol.steglista > li { counter-increment: s; position: relative; padding-left: 2.6em; margin: .7em 0; }
+ol.steglista > li::before { content: counter(s); position: absolute; left: 0; top: .1em; width: 1.8em; height: 1.8em; line-height: 1.8em; text-align: center; border-radius: 50%; background: var(--metod); color: var(--panel); font: 700 .8em/1.8em -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+/* ---------- Lösta exempel ---------- */
+.exempel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); margin: 1.3em 0; overflow: hidden; }
+.exempel > header { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 16px; background: var(--ex-bg); border-bottom: 1px solid var(--line); font: 600 14px/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--ex); }
+.exempel > header .p { margin-left: auto; font-weight: 500; color: var(--ink-3); }
+.exempel > .uppgift { padding: 12px 16px 4px; }
+.exempel details { border-top: 1px dashed var(--line); }
+.exempel details > summary { cursor: pointer; padding: 11px 16px; font: 600 14.5px/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--accent); list-style: none; user-select: none; }
+.exempel details > summary::-webkit-details-marker { display: none; }
+.exempel details > summary::before { content: "▸ "; }
+.exempel details[open] > summary::before { content: "▾ "; }
+.exempel details > summary:hover { background: var(--accent-soft); }
+.exempel details > .inne { padding: 2px 16px 14px; }
+.exempel details.tips > summary { color: var(--metod); }
+.svar { border: 1.5px solid var(--metod); border-radius: 8px; padding: 8px 14px; margin: 1em 0 .4em; background: var(--metod-bg); }
+.svar > b:first-child { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: .85em; text-transform: uppercase; letter-spacing: .06em; color: var(--metod); }
+.koll { font-size: .93em; color: var(--ink-2); border-top: 1px dotted var(--line); margin-top: 1em; padding-top: .6em; }
+.koll b { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: .88em; }
+
+/* ---------- Tabeller ---------- */
+.tabellram { overflow-x: auto; margin: 1em 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font: 14.5px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+th, td { text-align: left; vertical-align: top; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+tr:last-child > td { border-bottom: 0; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); background: var(--ex-bg); position: sticky; top: 0; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.grupp > td { background: var(--ex-bg); font-weight: 700; color: var(--ex); font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; }
+td .katex { font-size: 1em; }
+table.formler td:first-child { width: 3.2em; color: var(--ink-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.formler td { font-family: inherit; padding: 9px 12px; }
+.stapel { display: inline-block; height: 9px; border-radius: 5px; background: var(--accent); vertical-align: middle; margin-right: 8px; min-width: 2px; }
+.stapel.sen { background: var(--metod); }
+.typ { display: inline-block; font: 600 11.5px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 4px 7px; border-radius: 5px; margin: 1px 3px 1px 0; white-space: nowrap; background: var(--code-bg); color: var(--ink-2); }
+.typ.L { background: var(--def-bg); color: var(--def); }
+.typ.F { background: var(--sats-bg); color: var(--sats); }
+.typ.I { background: var(--metod-bg); color: var(--metod); }
+.typ.P, .typ.T { background: var(--tillagg-bg); color: var(--tillagg); }
+.typ.X { background: transparent; color: var(--ink-3); border: 1px dashed var(--line); font-weight: 500; }
+.tref { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.liten { font-size: .9em; color: var(--ink-2); }
+
+/* ---------- Rekommenderade uppgifter ---------- */
+ul.rek { list-style: none; padding: 0; margin: .6em 0; }
+ul.rek > li { display: flex; gap: 10px; align-items: flex-start; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; margin: 6px 0; background: var(--panel); }
+ul.rek > li.klar { opacity: .6; }
+ul.rek input[type=checkbox] { margin-top: .35em; width: 17px; height: 17px; accent-color: var(--metod); flex: 0 0 auto; }
+ul.rek .niva { flex: 0 0 auto; font: 700 11px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-transform: uppercase; letter-spacing: .05em; padding: 5px 7px; border-radius: 5px; margin-top: .2em; min-width: 5.2em; text-align: center; }
+.niva.latt { background: var(--metod-bg); color: var(--metod); }
+.niva.medel { background: var(--tillagg-bg); color: var(--tillagg); }
+.niva.svar { background: var(--fel-bg); color: var(--fel); }
+ul.rek .vad b { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: .92em; }
+
+/* ---------- Videor ---------- */
+ul.videor { list-style: none; padding: 0; }
+ul.videor > li { padding: 9px 0; border-bottom: 1px solid var(--line); }
+ul.videor > li:last-child { border-bottom: 0; }
+ul.videor a { font-weight: 600; }
+ul.videor small { display: block; color: var(--ink-2); font-size: .9em; }
+
+/* ---------- Startsidan ---------- */
+.kort-rutnat { display: grid; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr)); gap: 14px; margin: 1em 0; }
+.kort { display: block; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; text-decoration: none; color: var(--ink); transition: border-color .12s, transform .12s; }
+a.kort:hover { border-color: var(--accent); transform: translateY(-1px); }
+.kort .knr { font: 700 12px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--ink-3); text-transform: uppercase; letter-spacing: .07em; }
+.kort h3 { margin: 6px 0 4px; font-size: 1.02em; color: var(--accent); }
+.kort p { margin: 0; font-size: .9em; color: var(--ink-2); line-height: 1.45; }
+.kort .fot { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; font: 12px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+.kort.kommande { border-style: dashed; background: transparent; }
+.kort.kommande h3 { color: var(--ink-2); }
+
+/* ---------- Föregående / nästa ---------- */
+.bladdra { display: flex; justify-content: space-between; gap: 12px; margin-top: 3em; padding-top: 1.2em; border-top: 1px solid var(--line); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14.5px; }
+.bladdra a { text-decoration: none; padding: 9px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); max-width: 48%; }
+.bladdra a:hover { border-color: var(--accent); }
+.bladdra small { display: block; color: var(--ink-3); font-size: 11.5px; text-transform: uppercase; letter-spacing: .07em; }
+.sidfot { margin-top: 2.4em; font: 12.5px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--ink-3); }
+
+@media print {
+  .topp, .sidomeny, .bladdra, .toc { display: none !important; }
+  main { margin: 0; padding: 0; }
+  .exempel details > .inne { display: block; }
+  body { background: #fff; font-size: 11.5pt; }
+}

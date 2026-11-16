@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>5. Laplacetransform för PDE – SF1683 del 2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/kapitel.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-rot="../" data-sida="kap5" data-toc>
+<main><div class="inre">
+
+<div class="brodsmula">Kapitel 5 · Laplacetransformen</div>
+<h1>Laplacetransform för PDE</h1>
+<p class="ingress">Första ordningens partiella differentialekvationer i $x$ och $t$ på kvartsplanet $x,t\gt 0$. Transformera bort $t$, lös en vanlig differentialekvation i $x$, och transformera tillbaka.</p>
+<div class="meta">
+  <span class="chip gra">Extramaterial av Kirsti Biggs (ej i PZ)</span>
+  <span class="chip gra">Föreläsning F4, första delen</span>
+  <span class="chip">2 av 17 tentor (2021, 2025)</span>
+  <span class="chip het">Eget material från examinatorn</span>
+</div>
+
+<div class="ruta obs">
+  <span class="etikett">Om vikten</span>
+  <p>På de gamla tentorna är typen ovanlig. Men det här är det enda momentet där din examinator har skrivit både eget extramaterial och ett eget uppgiftsblad, och hon påminde om uppgifterna igen på F5. Räkna de fyra uppgifterna på bladet. Se <a href="../tentastatistik.html#prognos">prognosen</a>.</p>
+</div>
+
+<h2 id="def"><span class="steg">1</span>Definitioner och satser</h2>
+<p>Låt $y(x,t)$ vara en funktion av två variabler med partiella derivator $y_x=\frac{\partial}{\partial x}y$ och $y_t=\frac{\partial}{\partial t}y$. En första ordningens PDE är en ekvation $f(y_x,y_t,y,x,t)=0$ med tillhörande område (till exempel $0\lt x\lt\infty$, $0\lt t\lt\infty$) och oftast randvillkor för $y(x,0)$ och $y(0,t)$. Med Laplacetransformen håller vi oss till första ordningen.</p>
+
+<div class="ruta def">
+  <span class="etikett">Transform i variabeln $t$ <span class="kalla">extramaterialet s. 1</span></span>
+  <p>$$Y(x,s):=\L[y(x,t)](x,s)=\int_0^\infty e^{-st}\,y(x,t)\dd t.$$
+  Variabeln $x$ behandlas som en konstant (parameter).</p>
+</div>
+
+<div class="ruta sats">
+  <span class="etikett">Transform av de partiella derivatorna <span class="kalla">extramaterialet s. 1–2</span></span>
+  <p>$$\L[y_t(x,t)](x,s)=s\,Y(x,s)-y(x,0),\qquad\L[y_x(x,t)](x,s)=\frac{\partial}{\partial x}Y(x,s).$$</p>
+</div>
+<div class="bevis"><span class="etikett">Bevis.</span> Den första är Sats 4.2 med $x$ som parameter:
+$$\int_0^\infty e^{-st}y_t(x,t)\dd t=\left[e^{-st}y(x,t)\right]_0^\infty+s\int_0^\infty e^{-st}y(x,t)\dd t=s\,\L[y(x,t)](x,s)-y(x,0),$$
+giltig för samma $s$ som $\L[y(x,t)]$ är definierad för. Här används redan det ena randvillkoret, det som gäller $y(x,0)$. Den andra följer av Leibniz regel:
+$$\int_0^\infty e^{-st}y_x(x,t)\dd t=\frac{\partial}{\partial x}\int_0^\infty e^{-st}y(x,t)\dd t.\qquad\square$$</div>
+
+<p>Efter transformeringen finns bara derivator med avseende på $x$ kvar. Vi kan därför behandla $s$ som en parameter i en <b>ODE i funktionen $Y(x)=Y(x,s)$</b>. Lösningen innehåller en ”integrationskonstant” $c(s)$, som bestäms av det andra randvillkoret, omvandlat till
+$$Y(0,s)=\L[y(0,t)](s).$$
+Sist inverteras transformen: $y(x,t)=\Li[Y(x,s)](x,t)$.</p>
+
+<div class="ruta def">
+  <span class="etikett">Repetition från del 1: integrerande faktor</span>
+  <p>En linjär första ordningens ekvation $Y'(x)+p(x)\,Y(x)=q(x)$ löses genom att multiplicera med $\mu(x)=e^{\int p(x)\dd x}$. Då är vänsterledet $(\mu Y)'$, så $\mu(x)Y(x)=\int\mu(x)q(x)\dd x+c$.</p>
+</div>
+
+<h3>Exemplet i extramaterialet</h3>
+<p>Lös $y_x+y_t=x$ för $0\lt x,t\lt\infty$ med $y(x,0)=1$ och $y(0,t)=-\frac{t^2}{2}$.</p>
+<p>Transformering i $t$ ger $Y'(x)+sY(x)-1=\frac xs$. Integrerande faktor $\mu(x)=e^{sx}$ ger $(e^{sx}Y)'=\left(1+\frac xs\right)e^{sx}$, och integration i $x$ (formelblad (38), (39)) ger
+$$Y(x,s)=\frac1s+\frac{x}{s^2}-\frac{1}{s^3}+c(s)\,e^{-xs}.$$
+Randvillkoret: $Y(0,s)=-\frac12\L[t^2](s)=-\frac{1}{s^3}$, så $c(s)=-\frac1s$. Invertering (från $s$ till $t$, $x$ konstant):
+$$y(x,t)=1+xt-\frac12t^2-\U(t-x)=\begin{cases}1+xt-\frac12t^2,&0\lt t\lt x\\[2pt] xt-\frac12t^2,&0\lt x\le t.\end{cases}$$
+Här ”krockade” villkoren i $(0,0)$, så svaret blev diskontinuerligt längs linjen $t=x$. Med randvillkoret $y(0,t)=1+t-\frac{t^2}{2}$ i stället blir $c(s)=\frac{1}{s^2}$ och svaret $1+xt-\frac12t^2+(t-x)\,\U(t-x)$, som är kontinuerligt.</p>
+
+<h2 id="varfor"><span class="steg">2</span>Varför fungerar det?</h2>
+<p>Det är samma idé som för ODE, en variabel i taget. Transformen i $t$ gör om $\partial_t$ till multiplikation med $s$ och släpper igenom $\partial_x$ orörd. En ekvation med två sorters derivator blir en ekvation med en sort, alltså en vanlig differentialekvation i $x$ där $s$ bara följer med som en bokstav.</p>
+<p>De två randvillkoren har olika roller. Villkoret vid $t=0$ förbrukas i transformen av $y_t$, precis som ett begynnelsevärde. Villkoret vid $x=0$ blir begynnelsevärde för ODE:n i $x$ och bestämmer $c(s)$.</p>
+<p>Att svaren innehåller $\U(t-x)$ eller $\U(t-x^2)$ har en förklaring: homogena lösningen till ODE:n i $x$ är $c(s)e^{-(\ldots)s}$, och en faktor $e^{-as}$ betyder förskjutning med $a$ i tiden (Sats 4.5). Det som sätts in på randen $x=0$ når punkten $x$ först efter en fördröjning. Före det märks bara villkoret vid $t=0$.</p>
+
+<h2 id="metod"><span class="steg">3</span>Metod steg för steg</h2>
+<div class="ruta metod">
+  <span class="etikett">Standarduppgift: första ordningens PDE på $x,t\gt 0$ med två randvillkor</span>
+  <ol class="steglista">
+    <li><b>Inför $Y(x,s)=\L[y(x,t)](x,s)$</b> och säg att du transformerar i $t$.</li>
+    <li><b>Transformera ekvationen.</b> $y_t\to sY-y(x,0)$, $y_x\to Y'$ (derivata i $x$). Faktorer som bara beror på $x$ är konstanter och följer med. Högerledet transformeras i $t$: till exempel $\L[x]=\frac xs$, $\L[2xt]=\frac{2x}{s^2}$. Sätt in $y(x,0)$.</li>
+    <li><b>Skriv ODE:n på formen $Y'+p(x)Y=q(x)$</b> och lös den med integrerande faktor $\mu=e^{\int p\dd x}$. Integrera i $x$. Glöm inte ”konstanten” $c(s)$.</li>
+    <li><b>Lös ut $Y(x,s)$</b> genom att dividera med $\mu$.</li>
+    <li><b>Transformera det andra randvillkoret:</b> $Y(0,s)=\L[y(0,t)](s)$. Sätt $x=0$ i lösningen och bestäm $c(s)$.</li>
+    <li><b>Invertera i $s$</b> med $x$ som konstant. En term $e^{-a(x)s}G(s)$ ger $g(t-a(x))\,\U(t-a(x))$.</li>
+    <li><b>Skriv svaret i styckvis form</b> (uppgiftsbladet ber uttryckligen om det) och kontrollera: sätt in i PDE:n på varje område, och kontrollera båda randvillkoren.</li>
+  </ol>
+</div>
+
+<h2 id="exempel"><span class="steg">4</span>Lösta exempel</h2>
+
+<article class="exempel">
+  <header>Tentamen 2025-04-25, uppgift 3 <span class="p">4 p · del I</span></header>
+  <div class="uppgift">
+    <p>Använd Laplacetransformen för att bestämma en lösning $u(x,t)$ till den partiella differentialekvationen
+    $$\frac{\partial u}{\partial x}+2x\frac{\partial u}{\partial t}=2xt,\qquad 0\lt x\lt\infty,\ 0\lt t\lt\infty,$$
+    som uppfyller randvillkoren $u(x,0)=1$, $0\lt x\lt\infty$, och $u(0,t)=1$, $0\lt t\lt\infty$.</p>
+  </div>
+  <details class="tips"><summary>Visa ledtråd</summary><div class="inne">
+    <p>Integrerande faktor blir $e^{x^2s}$. Observera att $2x\,e^{x^2s}\cdot s$ är derivatan av $e^{x^2s}$ med avseende på $x$.</p>
+  </div></details>
+  <details id="ex-250425-3"><summary>Visa lösning</summary><div class="inne">
+    <p><b>Steg 1–2.</b> Låt $U(x,s)$ vara Laplacetransformen av $u(x,t)$ i variabeln $t$. Formelblad (8), (11) ger
+    $$\frac{\partial}{\partial x}U(x,s)+2x\big(sU(x,s)-u(x,0)\big)=2x\cdot\frac{1}{s^2},$$
+    och med $u(x,0)=1$:
+    $$\frac{\partial}{\partial x}U(x,s)+2xs\,U(x,s)=2x\left(\frac{1}{s^2}+1\right).$$
+    <b>Steg 3.</b> Linjär första ordningens ekvation i $x$ med $p(x)=2xs$. Integrerande faktor: $e^{\int2xs\dd x}=e^{x^2s}$.
+    $$\frac{\partial}{\partial x}\left(e^{x^2s}U(x,s)\right)=2x\,e^{x^2s}\left(\frac{1}{s^2}+1\right)=2xs\,e^{x^2s}\left(\frac{1}{s^3}+\frac1s\right).$$
+    Eftersom $\frac{\partial}{\partial x}e^{x^2s}=2xs\,e^{x^2s}$ ger integration i $x$
+    $$e^{x^2s}U(x,s)=e^{x^2s}\left(\frac{1}{s^3}+\frac1s\right)+C(s).$$
+    <b>Steg 4.</b>
+    $$U(x,s)=\frac{1}{s^3}+\frac1s+C(s)\,e^{-x^2s}.$$
+    <b>Steg 5.</b> Randvillkoret $u(0,t)=1$ ger $U(0,s)=\L[1](s)=\frac1s$. Med $x=0$: $\frac1s=\frac{1}{s^3}+\frac1s+C(s)$, så $C(s)=-\frac{1}{s^3}$ och
+    $$U(x,s)=\frac{1}{s^3}+\frac1s-\frac{1}{s^3}\,e^{-x^2s}.$$
+    <b>Steg 6.</b> $\Li\!\left[\frac{1}{s^3}\right]=\frac{t^2}{2}$ (formelblad (11)). Sista termen är en förskjutning med $x^2$ (formelblad (4)).</p>
+    <div class="svar"><b>Svar</b>
+    $$u(x,t)=\frac12t^2+1-\frac12(t-x^2)^2\,\U(t-x^2)=\begin{cases}\frac12t^2+1,&0\lt t\lt x^2\\[2pt] 1+x^2t-\frac12x^4,&t\ge x^2.\end{cases}$$</div>
+    <p class="koll"><b>Kontroll:</b> För $t\lt x^2$: $u_x=0$, $u_t=t$, så $u_x+2xu_t=2xt$, och $u(x,0)=1$. För $t\gt x^2$: $u_x=2xt-2x^3$, $u_t=x^2$, så $u_x+2xu_t=2xt$, och $u(0,t)=1$. De två uttrycken är lika på kurvan $t=x^2$. Stämmer med lösningsförslaget.</p>
+  </div></details>
+</article>
+
+<article class="exempel">
+  <header>Biggs uppgiftsblad ”PDE med LT”, uppgift 1 <span class="p">ej tentauppgift</span></header>
+  <div class="uppgift">
+    <p class="liten">Det finns bara två tentauppgifter av den här typen, och den andra (2021) är av andra ordningen. Därför är exempel nummer två hämtat från examinatorns eget uppgiftsblad.</p>
+    <p>Låt $f(t):[0,\infty)\to\R$ vara en funktion vars Laplacetransform $F(s)=\L[f(t)](s)$ är definierad för tillräckligt stora $s$, och låt $y_0=f(0)$. Använd Laplacetransformen för att lösa
+    $$y_x(x,t)+y_t(x,t)=0,\quad 0\lt x,t\lt\infty,\qquad y(x,0)=y_0,\qquad y(0,t)=f(t).$$
+    Skriv ditt svar i styckvis form.</p>
+  </div>
+  <details id="ex-blad-1"><summary>Visa lösning</summary><div class="inne">
+    <p><b>Transformera i $t$.</b> Med $Y(x,s)=\L[y(x,t)](x,s)$ och $y(x,0)=y_0$:
+    $$Y'(x)+sY(x)-y_0=0\quad\Longleftrightarrow\quad Y'(x)+sY(x)=y_0.$$
+    <b>Lös ODE:n.</b> Integrerande faktor $e^{sx}$: $(e^{sx}Y)'=y_0e^{sx}$, så $e^{sx}Y=\frac{y_0}{s}e^{sx}+c(s)$ och
+    $$Y(x,s)=\frac{y_0}{s}+c(s)\,e^{-sx}.$$
+    <b>Randvillkoret.</b> $Y(0,s)=\L[f(t)](s)=F(s)$ ger $c(s)=F(s)-\frac{y_0}{s}$. Alltså
+    $$Y(x,s)=\frac{y_0}{s}-\frac{y_0}{s}e^{-sx}+F(s)\,e^{-sx}.$$
+    <b>Invertera.</b> Formelblad (1), (3), (4):
+    $$y(x,t)=y_0-y_0\,\U(t-x)+f(t-x)\,\U(t-x).$$</p>
+    <div class="svar"><b>Svar</b>
+    $$y(x,t)=\begin{cases}y_0,&0\le t\lt x\\ f(t-x),&x\le t\lt\infty.\end{cases}$$</div>
+    <p class="koll"><b>Kontroll:</b> stämmer med bladets facit. För $t\gt x$ är $y_x=-f'(t-x)$ och $y_t=f'(t-x)$, så $y_x+y_t=0$. Villkoret $y_0=f(0)$ gör att lösningen är kontinuerlig över linjen $t=x$. Tolkning: randvärdet $f$ flyttas oförändrat in i området och når punkten $x$ vid tiden $t=x$.</p>
+  </div></details>
+</article>
+
+<h2 id="fel"><span class="steg">5</span>Vanliga fel</h2>
+<div class="ruta fel">
+  <span class="etikett">Se upp med</span>
+  <ul>
+    <li><b>”Konstanten” är en funktion av $s$.</b> När du integrerar i $x$ ska det stå $c(s)$, inte $c$. Den bestäms först i steg 5.</li>
+    <li><b>Att glömma transformera randvillkoret.</b> Det är $Y(0,s)=\L[y(0,t)](s)$ som sätts in, inte $y(0,t)$ själv. $u(0,t)=1$ ger $U(0,s)=\frac1s$.</li>
+    <li><b>Att tappa $y(x,0)$</b> i $\L[y_t]=sY-y(x,0)$. Om $y_t$ har en koefficient, som $2x\,y_t$, multipliceras hela parentesen: $2x(sY-1)$.</li>
+    <li><b>Att transformera högerledet fel.</b> Vi transformerar i $t$. Ett högerled $x$ blir $\frac xs$, och $2xt$ blir $\frac{2x}{s^2}$. $x$ är en konstant.</li>
+    <li><b>Fel integrerande faktor.</b> Integrera koefficienten framför $Y$ med avseende på $x$: $\int2xs\dd x=x^2s$, inte $2xs\cdot x$.</li>
+    <li><b>Förskjutningen vid inverteringen.</b> $e^{-x^2s}G(s)$ är en förskjutning med $c=x^2$ och ger $g(t-x^2)\,\U(t-x^2)$. Hela $t$ byts mot $t-x^2$.</li>
+    <li><b>Att inte ge svaret styckvis</b> eller inte kontrollera det. Kontrollen är snabb här: derivera och sätt in.</li>
+  </ul>
+</div>
+
+<h2 id="rek"><span class="steg">6</span>Rekommenderade uppgifter</h2>
+<p>Här finns för få tentauppgifter, så listan börjar med examinatorns egna.</p>
+<ul class="rek">
+  <li data-uppg="blad:ex"><span class="niva latt">Lätt</span><span class="vad"><b>Extramaterialet, exemplet.</b> $y_x+y_t=x$ med de två varianterna av randvillkor. Räkna utan att titta.</span></li>
+  <li data-uppg="blad:1"><span class="niva latt">Lätt</span><span class="vad"><b>Uppgiftsbladet, uppgift 1.</b> Löst ovan.</span></li>
+  <li data-uppg="blad:2"><span class="niva medel">Medel</span><span class="vad"><b>Uppgiftsbladet, uppgift 2.</b> $y_x+y_t+y=0$, $y(x,0)=1$, $y(0,t)=\delta(t)$. Facit: $y=e^{-t}\big(1-\U(t-x)\big)+e^{-x}\delta(t-x)$.</span></li>
+  <li data-uppg="blad:3"><span class="niva medel">Medel</span><span class="vad"><b>Uppgiftsbladet, uppgift 3.</b> $y_x+2y_t=\delta(t-x)$. Räknades på Övning 4. Två olika förskjutningar, $x$ och $2x$.</span></li>
+  <li data-uppg="2025-04-25:3"><span class="niva medel">Medel</span><span class="vad"><b>2025-04-25, uppgift 3.</b> Löst ovan.</span></li>
+  <li data-uppg="blad:4"><span class="niva medel">Medel</span><span class="vad"><b>Uppgiftsbladet, uppgift 4.</b> $y_x+2xy_t=x\sin t$, $y(x,0)=1$, $y(0,t)=\cos t$. Samma struktur som tentauppgiften, med trigonometriskt högerled.</span></li>
+  <li data-uppg="2021-01-13:5"><span class="niva svar">Svår</span><span class="vad"><b>2021-01-13, fråga 5.</b> Telegrafekvationen, andra ordningen i både $x$ och $t$, begränsad lösning. Går utanför ”första ordningen”, men metoden är densamma: ODE:n i $x$ blir av andra ordningen och begränsningskravet väljer lösning.</span></li>
+</ul>
+
+<h2 id="videor"><span class="steg">7</span>Videor</h2>
+<p>Videolistan i kursmaterialet har ingen video om just PDE med Laplacetransformen, och jag har inte lagt till någon egen länk som jag inte kunnat kontrollera. Det som ligger närmast:</p>
+<ul class="videor">
+  <li><a href="https://www.youtube.com/watch?v=ly4S0oi3Yz8">3Blue1Brown – But what is a partial differential equation?</a><small>Bakgrund om vad en PDE och ett randvillkor är. Använder värmeledningsekvationen, som kommer i F8.</small></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLHXZ9OQGMqxcJXnLr08cyNaup4RDsbAl1">Dr. Trefor Bazett – Laplace Transforms and Solving ODEs (spellista)</a><small>För t-translation och Heaviside, som är det som avgör inverteringssteget här.</small></li>
+</ul>
+
+</div></main>
+</body>
+</html>

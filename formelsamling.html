@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Formelsamling – SF1683 del 2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/site.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/kapitel.js"></script>
+<script defer src="assets/site.js"></script>
+</head>
+<body data-rot="" data-sida="formler" data-toc>
+<main class="bred"><div class="inre">
+
+<div class="brodsmula">Formelsamling</div>
+<h1>Formelsamling</h1>
+<p class="ingress">Två delar. Först det du <b>måste kunna utantill</b>, eftersom det inte står på formelbladet. Sedan <b>det du får på tentan</b>: kursens formelblad och Laplacetabell, med samma numrering som lösningsförslagen hänvisar till.</p>
+<div class="meta">
+  <span class="chip gra">Formelblad HT26: (1)–(51)</span>
+  <span class="chip gra">Laplacetabell: (1)–(33)</span>
+  <span class="chip het">Fourierkoefficienterna står inte på bladet</span>
+</div>
+
+<div class="ruta obs">
+  <span class="etikett">Så fungerar hjälpmedlen</span>
+  <p>På tentan står ”Tillåtna hjälpmedel: inga”, men formelbladet (trigonometriska formler och integraler) och Laplacetabellen ligger bifogade efter uppgifterna. Du får dem, men ska inte ta med egna. Formler för Fouriertransformen har hittills stått i själva uppgiftstexten.</p>
+  <p>Det finns två numreringar som båda börjar på (1): formelbladets och Laplacetabellens. Lösningsförslagen skriver ”formelblad (15)” eller ”integralformel (39)” för den första och ”Laplaceformel (9)” för den andra. Gör likadant.</p>
+</div>
+
+<h2 id="utantill" data-kort="Kunna utantill">Del A. Det här måste du kunna utantill</h2>
+
+<h3>Laplacetransformen</h3>
+<div class="tabellram"><table class="formler">
+  <thead><tr><th>Var</th><th>Vad</th><th>Formel</th></tr></thead>
+  <tbody>
+    <tr><td><a href="kapitel/1-laplace-definition.html">Kap 1</a></td><td>Definition</td><td>$\L[f](s)=\displaystyle\int_0^\infty e^{-st}f(t)\dd t$</td></tr>
+    <tr><td>Kap 1</td><td>Existens (Prop. 4.1)</td><td>$|f(t)|\le Ke^{at}$ för $t\ge0$ $\ \Rightarrow\ $ $\L[f](s)$ finns för $s\gt a$</td></tr>
+    <tr><td>Kap 1</td><td>Skalning (4.5)</td><td>$\L[f(at)](s)=\dfrac1a\L[f]\!\left(\dfrac sa\right)$, $a\gt0$ <span class="liten">(står inte i tabellen)</span></td></tr>
+    <tr><td>Kap 1</td><td>Nödvändigt villkor (Sats 4.4)</td><td>$\displaystyle\lim_{s\to\infty}\L[f](s)=0$</td></tr>
+    <tr><td>Kap 1</td><td>Förutsättningar för derivataregeln (Sats 4.2)</td><td>$f$ kontinuerlig, $f'$ styckvis kontinuerlig, $|f(t)|\le Ke^{at}$. Gäller för $s\gt a$.</td></tr>
+    <tr><td><a href="kapitel/2-laplace-ode.html">Kap 2</a></td><td>Partialbråksansats</td><td>$(s-a)^n$: $\ \dfrac{A_1}{s-a}+\dots+\dfrac{A_n}{(s-a)^n}$. $\quad(s+b)^2+c^2$: $\ \dfrac{Bs+C}{(s+b)^2+c^2}$</td></tr>
+    <tr><td><a href="kapitel/3-heaviside-dirac.html">Kap 3</a></td><td>Styckvis funktion med $\U$</td><td>$g(t)$ för $t\lt c$, $h(t)$ för $t\ge c$: $\quad g(t)+\big(h(t)-g(t)\big)\U(t-c)$</td></tr>
+    <tr><td>Kap 3</td><td>Deltafunktionen</td><td>$\displaystyle\int_If(t)\delta(t-a)\dd t=f(a)$ om $a\in I$, annars $0$. $\quad\dfrac{\mathrm d}{\mathrm dt}\U(t-a)=\delta(t-a)$</td></tr>
+    <tr><td><a href="kapitel/4-faltning.html">Kap 4</a></td><td>Integral av funktion</td><td>$\L\!\left[\displaystyle\int_0^tf(x)\dd x\right](s)=\dfrac{F(s)}{s}$</td></tr>
+    <tr><td><a href="kapitel/5-laplace-pde.html">Kap 5</a></td><td>Partiella derivator</td><td>$\L[y_t](x,s)=sY(x,s)-y(x,0)$, $\quad\L[y_x](x,s)=\dfrac{\partial}{\partial x}Y(x,s)$</td></tr>
+    <tr><td>Kap 5</td><td>Integrerande faktor (del 1)</td><td>$Y'+p(x)Y=q(x)$: $\ \mu=e^{\int p\dd x}$, $\ (\mu Y)'=\mu q$</td></tr>
+  </tbody>
+</table></div>
+
+<h3>Inre produktrum</h3>
+<div class="tabellram"><table class="formler">
+  <thead><tr><th>Var</th><th>Vad</th><th>Formel</th></tr></thead>
+  <tbody>
+    <tr><td><a href="kapitel/6-inre-produktrum.html">Kap 6</a></td><td>Inre produkt på $E$ (reell serie)</td><td>$\ip fg=\dfrac1\pi\displaystyle\int_{-\pi}^{\pi}f(x)\overline{g(x)}\dd x$, $\quad\norm f=\sqrt{\ip ff}$</td></tr>
+    <tr><td>Kap 6</td><td>Inre produkt (komplex serie)</td><td>$\ip fg=\dfrac{1}{2\pi}\displaystyle\int_{-\pi}^{\pi}f(x)\overline{g(x)}\dd x$</td></tr>
+    <tr><td>Kap 6</td><td>Cauchy–Schwarz</td><td>$|\ip uv|\le\norm u\cdot\norm v$</td></tr>
+    <tr><td>Kap 6</td><td>Projektion på ON-mängd</td><td>$\tilde u=\displaystyle\sum_{k=1}^n\ip u{e_k}e_k$</td></tr>
+    <tr><td><a href="kapitel/8-dirichlets-sats.html">Kap 8</a></td><td>Pythagoras</td><td>$u\perp v\ \Rightarrow\ \norm{u+v}^2=\norm u^2+\norm v^2$</td></tr>
+  </tbody>
+</table></div>
+
+<h3>Fourierserier</h3>
+<div class="tabellram"><table class="formler">
+  <thead><tr><th>Var</th><th>Vad</th><th>Formel</th></tr></thead>
+  <tbody>
+    <tr><td><a href="kapitel/7-fourierserier.html">Kap 7</a></td><td>ON-mängd (Sats 2.1)</td><td>$\left\{\tfrac{1}{\sqrt2},\cos x,\sin x,\cos2x,\sin2x,\dots\right\}$</td></tr>
+    <tr><td>Kap 7</td><td>Fourierserie</td><td>$f(x)\sim\dfrac{a_0}{2}+\displaystyle\sum_{n=1}^\infty\big(a_n\cos nx+b_n\sin nx\big)$</td></tr>
+    <tr><td>Kap 7</td><td>Koefficienter</td><td>$a_n=\dfrac1\pi\displaystyle\int_{-\pi}^{\pi}f(x)\cos nx\dd x$ $(n\ge0)$, $\quad b_n=\dfrac1\pi\displaystyle\int_{-\pi}^{\pi}f(x)\sin nx\dd x$ $(n\ge1)$</td></tr>
+    <tr><td>Kap 7</td><td>Jämn funktion (Sats 2.4)</td><td>$b_n=0$, $\quad a_n=\dfrac2\pi\displaystyle\int_0^\pi f(x)\cos nx\dd x$</td></tr>
+    <tr><td>Kap 7</td><td>Udda funktion (Sats 2.4)</td><td>$a_n=0$, $\quad b_n=\dfrac2\pi\displaystyle\int_0^\pi f(x)\sin nx\dd x$</td></tr>
+    <tr><td>Kap 7</td><td>Komplex form</td><td>$f(x)\sim\displaystyle\sum_{n=-\infty}^{\infty}c_ne^{inx}$, $\quad c_n=\dfrac{1}{2\pi}\displaystyle\int_{-\pi}^{\pi}f(x)e^{-inx}\dd x$</td></tr>
+    <tr><td>Kap 7</td><td>Samband</td><td>$c_n=\dfrac{a_n-ib_n}{2}$, $\ c_{-n}=\dfrac{a_n+ib_n}{2}$ $(n\ge1)$, $\ c_0=\dfrac{a_0}{2}$</td></tr>
+    <tr><td><a href="kapitel/8-dirichlets-sats.html">Kap 8</a></td><td>Dirichlets sats (Sats 2.6)</td><td>$f\in E'$: serien konvergerar mot $\dfrac{f(x-)+f(x+)}{2}$; i $x=\pm\pi$ mot $\dfrac{f(\pi-)+f((-\pi)+)}{2}$</td></tr>
+    <tr><td>Kap 8</td><td>Dirichletkärnan</td><td>$D_m(t)=\dfrac12+\displaystyle\sum_{n=1}^m\cos(nt)=\dfrac{\sin\big((m+\frac12)t\big)}{2\sin(\frac12t)}$, $\quad\displaystyle\int_0^\pi D_m(t)\dd t=\dfrac\pi2$</td></tr>
+    <tr><td>Kap 8</td><td>Delsumman (Prop. 2.7)</td><td>$S_m(x)=\dfrac1\pi\displaystyle\int_{-\pi}^{\pi}f(x+t)D_m(t)\dd t$</td></tr>
+    <tr><td>Kap 8</td><td>Bessels olikhet</td><td>$\dfrac{|a_0|^2}{2}+\displaystyle\sum_{n=1}^\infty\big(|a_n|^2+|b_n|^2\big)\le\norm f^2=\dfrac1\pi\displaystyle\int_{-\pi}^{\pi}|f(x)|^2\dd x$</td></tr>
+    <tr><td>Kap 8</td><td>Riemann–Lebesgue</td><td>$f\in E\ \Rightarrow\ a_n\to0$ och $b_n\to0$ då $n\to\infty$</td></tr>
+    <tr><td>Kap 8</td><td>Hjälpfunktionen</td><td>$g(t)=\dfrac{f(x+t)-f(x+)}{2\sin(\frac12t)}$, $\ 0\lt t\le\pi$</td></tr>
+  </tbody>
+</table></div>
+
+<div class="ruta metod">
+  <span class="etikett">Bevis du ska kunna skriva utan stöd</span>
+  <ul>
+    <li>Proposition 4.1 och Sats 4.2 (derivataregeln), samt formeln för $\L[f'']$. <a href="kapitel/1-laplace-definition.html">Kap 1</a></li>
+    <li>t-translation, Sats 4.5. <a href="kapitel/3-heaviside-dirac.html">Kap 3</a></li>
+    <li>Faltningssatsen, Sats 4.6. <a href="kapitel/4-faltning.html">Kap 4</a></li>
+    <li>Bessels olikhet och Riemann–Lebesgues lemma. <a href="kapitel/8-dirichlets-sats.html">Kap 8</a></li>
+    <li>Dirichlets sats, alla fyra stegen. <a href="kapitel/8-dirichlets-sats.html">Kap 8</a></li>
+  </ul>
+</div>
+
+<h2 id="laplacetabell" data-kort="Laplacetabellen">Del B. Laplacetabellen (bifogas på tentan)</h2>
+<p class="liten">Numreringen är tabellens egen. De fetmarkerade raderna är de som lösningsförslagen 2022–2026 använder mest.</p>
+<div class="tabellram"><table class="formler">
+  <thead><tr><th>Nr</th><th>$f(t)$</th><th>$\L[f(t)]=F(s)$</th><th>Används till</th></tr></thead>
+  <tbody>
+    <tr><td><b>(1)</b></td><td>$1$</td><td>$\dfrac1s$</td><td></td></tr>
+    <tr><td><b>(2)</b></td><td>$e^{at}f(t)$</td><td>$F(s-a)$</td><td>s-translation, PZ (4.4)</td></tr>
+    <tr><td><b>(3)</b></td><td>$\U(t-a)$</td><td>$\dfrac{e^{-as}}{s}$</td><td>stegfunktion</td></tr>
+    <tr><td><b>(4)</b></td><td>$f(t-a)\,\U(t-a)$</td><td>$e^{-as}F(s)$</td><td>t-translation, Sats 4.5</td></tr>
+    <tr><td>(5)</td><td>$\delta(t)$</td><td>$1$</td><td></td></tr>
+    <tr><td><b>(6)</b></td><td>$\delta(t-t_0)$</td><td>$e^{-st_0}$</td><td>impuls</td></tr>
+    <tr><td>(7)</td><td>$t^nf(t)$</td><td>$(-1)^n\dfrac{\mathrm d^nF(s)}{\mathrm ds^n}$</td><td>PZ (4.3)</td></tr>
+    <tr><td><b>(8)</b></td><td>$f'(t)$</td><td>$sF(s)-f(0)$</td><td>Sats 4.2</td></tr>
+    <tr><td><b>(9)</b></td><td>$f^{(n)}(t)$</td><td>$s^nF(s)-s^{n-1}f(0)-\dots-f^{(n-1)}(0)$</td><td>$n=2$: $s^2F-sf(0)-f'(0)$</td></tr>
+    <tr><td><b>(10)</b></td><td>$\displaystyle\int_0^tf(x)g(t-x)\dd x$</td><td>$F(s)G(s)$</td><td>faltning, Sats 4.6</td></tr>
+    <tr><td><b>(11)</b></td><td>$t^n$ $(n=0,1,2,\dots)$</td><td>$\dfrac{n!}{s^{n+1}}$</td><td></td></tr>
+    <tr><td>(12)</td><td>$t^x$ $(x\ge-1\in\R)$</td><td>$\dfrac{\Gamma(x+1)}{s^{x+1}}$</td><td></td></tr>
+    <tr><td><b>(13)</b></td><td>$\sin kt$</td><td>$\dfrac{k}{s^2+k^2}$</td><td></td></tr>
+    <tr><td><b>(14)</b></td><td>$\cos kt$</td><td>$\dfrac{s}{s^2+k^2}$</td><td></td></tr>
+    <tr><td><b>(15)</b></td><td>$e^{at}$</td><td>$\dfrac{1}{s-a}$</td><td></td></tr>
+    <tr><td>(16)</td><td>$\sinh kt$</td><td>$\dfrac{k}{s^2-k^2}$</td><td></td></tr>
+    <tr><td>(17)</td><td>$\cosh kt$</td><td>$\dfrac{s}{s^2-k^2}$</td><td></td></tr>
+    <tr><td>(18)</td><td>$\dfrac{e^{at}-e^{bt}}{a-b}$</td><td>$\dfrac{1}{(s-a)(s-b)}$</td><td>två reella rötter utan PBU</td></tr>
+    <tr><td>(19)</td><td>$\dfrac{ae^{at}-be^{bt}}{a-b}$</td><td>$\dfrac{s}{(s-a)(s-b)}$</td><td></td></tr>
+    <tr><td><b>(20)</b></td><td>$te^{at}$</td><td>$\dfrac{1}{(s-a)^2}$</td><td>dubbelrot</td></tr>
+    <tr><td>(21)</td><td>$t^ne^{at}$</td><td>$\dfrac{n!}{(s-a)^{n+1}}$</td><td></td></tr>
+    <tr><td><b>(22)</b></td><td>$e^{at}\sin kt$</td><td>$\dfrac{k}{(s-a)^2+k^2}$</td><td>komplexa rötter</td></tr>
+    <tr><td><b>(23)</b></td><td>$e^{at}\cos kt$</td><td>$\dfrac{s-a}{(s-a)^2+k^2}$</td><td>komplexa rötter</td></tr>
+    <tr><td>(24)</td><td>$e^{at}\sinh kt$</td><td>$\dfrac{k}{(s-a)^2-k^2}$</td><td></td></tr>
+    <tr><td>(25)</td><td>$e^{at}\cosh kt$</td><td>$\dfrac{s-a}{(s-a)^2-k^2}$</td><td></td></tr>
+    <tr><td><b>(26)</b></td><td>$t\sin kt$</td><td>$\dfrac{2ks}{(s^2+k^2)^2}$</td><td>resonans</td></tr>
+    <tr><td><b>(27)</b></td><td>$t\cos kt$</td><td>$\dfrac{s^2-k^2}{(s^2+k^2)^2}$</td><td>resonans</td></tr>
+    <tr><td>(28)</td><td>$t\sinh kt$</td><td>$\dfrac{2ks}{(s^2-k^2)^2}$</td><td></td></tr>
+    <tr><td>(29)</td><td>$t\cosh kt$</td><td>$\dfrac{s^2+k^2}{(s^2-k^2)^2}$</td><td></td></tr>
+    <tr><td>(30)</td><td>$\dfrac{\sin at}{t}$</td><td>$\arctan\dfrac as$</td><td></td></tr>
+    <tr><td>(31)</td><td>$\dfrac{1}{\sqrt{\pi t}}e^{-a^2/4t}$</td><td>$\dfrac{e^{-a\sqrt s}}{\sqrt s}$</td><td></td></tr>
+    <tr><td>(32)</td><td>$\dfrac{a}{2\sqrt{\pi t^3}}e^{-a^2/4t}$</td><td>$e^{-a\sqrt s}$</td><td></td></tr>
+    <tr><td>(33)</td><td>$\operatorname{erfc}\!\left(\dfrac{a}{2\sqrt t}\right)$</td><td>$\dfrac{e^{-a\sqrt s}}{s}$</td><td></td></tr>
+  </tbody>
+</table></div>
+<p class="liten">Källa: <i>Table of Laplace Transforms</i>, © 2011 B. E. Shapiro, integral-table.com, licens CC BY-NC-SA 3.0. Återgiven här i samma ordning som på kursens blad.</p>
+
+<h2 id="trig" data-kort="Trigonometriska formler">Del C. Formelbladet: trigonometriska formler</h2>
+<div class="tabellram"><table class="formler">
+  <tbody>
+    <tr><td>(1)</td><td>$\sin(\pi-\alpha)=\sin\alpha$</td><td>(14)</td><td>$\sin\alpha\sin\beta=\frac12[\cos(\alpha-\beta)-\cos(\alpha+\beta)]$</td></tr>
+    <tr><td>(2)</td><td>$\cos(\pi-\alpha)=-\cos\alpha$</td><td>(15)</td><td>$\sin\alpha\cos\beta=\frac12[\sin(\alpha+\beta)+\sin(\alpha-\beta)]$</td></tr>
+    <tr><td>(3)</td><td>$\sin n\pi=0,\ n\in\Z$</td><td>(16)</td><td>$\cos\alpha\cos\beta=\frac12[\cos(\alpha+\beta)+\cos(\alpha-\beta)]$</td></tr>
+    <tr><td>(4)</td><td>$\cos n\pi=(-1)^n,\ n\in\Z$</td><td>(17)</td><td>$\sin^2\alpha=\frac12-\frac12\cos2\alpha$</td></tr>
+    <tr><td>(5)</td><td>$\sin\alpha=\cos\left(\frac\pi2-\alpha\right)$</td><td>(18)</td><td>$\cos^2\alpha=\frac12+\frac12\cos2\alpha$</td></tr>
+    <tr><td>(6)</td><td>$\tan\alpha=\cot\left(\frac\pi2-\alpha\right)$</td><td>(19)</td><td>$\sin^3\alpha=\frac14(3\sin\alpha-\sin3\alpha)$</td></tr>
+    <tr><td>(7)</td><td>$\tan\alpha=\dfrac{\sin\alpha}{\cos\alpha}$</td><td>(20)</td><td>$\cos^3\alpha=\frac14(3\cos\alpha+\cos3\alpha)$</td></tr>
+    <tr><td>(8)</td><td>$\cot\alpha=\dfrac{\cos\alpha}{\sin\alpha}$</td><td>(21)</td><td>$e^{i\alpha}=\cos\alpha+i\sin\alpha$</td></tr>
+    <tr><td>(9)</td><td>$\cos^2\alpha+\sin^2\alpha=1$</td><td>(22)</td><td>$\cos\alpha=\frac12\left(e^{i\alpha}+e^{-i\alpha}\right)$</td></tr>
+    <tr><td>(10)</td><td>$\sin(\alpha\pm\beta)=\sin\alpha\cos\beta\pm\cos\alpha\sin\beta$</td><td>(23)</td><td>$\sin\alpha=\frac{1}{2i}\left(e^{i\alpha}-e^{-i\alpha}\right)$</td></tr>
+    <tr><td>(11)</td><td>$\cos(\alpha\pm\beta)=\cos\alpha\cos\beta\mp\sin\alpha\sin\beta$</td><td>(24)</td><td>$\cosh\alpha=\frac12\left(e^{\alpha}+e^{-\alpha}\right)$</td></tr>
+    <tr><td>(12)</td><td>$\sin2\alpha=2\sin\alpha\cos\alpha$</td><td>(25)</td><td>$\sinh\alpha=\frac12\left(e^{\alpha}-e^{-\alpha}\right)$</td></tr>
+    <tr><td>(13)</td><td>$\cos2\alpha=\cos^2\alpha-\sin^2\alpha$</td><td>(26)</td><td>$\cosh^2\alpha-\sinh^2\alpha=1$</td></tr>
+  </tbody>
+</table></div>
+<p class="liten">Mest använda i kursen: (3)–(4) när gränser sätts in i Fourierkoefficienter, (10)–(11) för att skriva om $\cos t$ till $\cos(t-\pi)$ före en t-translation, (14)–(16) för integraler som $\int\cos2x\sin nx\dd x$ och i Dirichletbeviset, (17)–(18) för $\sin^2$ och $\cos^2$, (21)–(23) för komplexa Fourierserier.</p>
+
+<h2 id="integraler" data-kort="Integraler">Del D. Formelbladet: integraler</h2>
+<div class="tabellram"><table class="formler">
+  <tbody>
+    <tr><td>(27)</td><td>$\displaystyle\int x^p\dd x=\frac{1}{p+1}x^{p+1},\ p\ne-1$</td></tr>
+    <tr><td>(28)</td><td>$\displaystyle\int\frac{1}{ax+b}\dd x=\frac1a\ln|ax+b|$</td></tr>
+    <tr><td>(29)</td><td>$\displaystyle\int\frac{1}{a^2+x^2}\dd x=\frac1a\tan^{-1}\frac xa$</td></tr>
+    <tr><td>(30)</td><td>$\displaystyle\int\frac{1}{ax^2+bx+c}\dd x=\frac{2}{\sqrt{4ac-b^2}}\tan^{-1}\frac{2ax+b}{\sqrt{4ac-b^2}}$</td></tr>
+    <tr><td>(31)</td><td>$\displaystyle\int\frac{1}{(x+a)(x+b)}\dd x=\frac{1}{b-a}\ln\frac{a+x}{b+x},\ a\ne b$</td></tr>
+    <tr><td>(32)</td><td>$\displaystyle\int\sqrt{x^2\pm a^2}\dd x=\frac12x\sqrt{x^2\pm a^2}\pm\frac12a^2\ln\left|x+\sqrt{x^2\pm a^2}\right|$</td></tr>
+    <tr><td>(33)</td><td>$\displaystyle\int\sqrt{a^2-x^2}\dd x=\frac12x\sqrt{a^2-x^2}+\frac12a^2\tan^{-1}\frac{x}{\sqrt{a^2-x^2}}$</td></tr>
+    <tr><td>(34)</td><td>$\displaystyle\int\frac{1}{\sqrt{x^2\pm a^2}}\dd x=\ln\left|x+\sqrt{x^2\pm a^2}\right|$</td></tr>
+    <tr><td>(35)</td><td>$\displaystyle\int\frac{1}{\sqrt{a^2-x^2}}\dd x=\sin^{-1}\frac xa$</td></tr>
+    <tr><td>(36)</td><td>$\displaystyle\int x^p\ln ax\dd x=x^{p+1}\left(\frac{\ln ax}{p+1}-\frac{1}{(p+1)^2}\right),\ p\ne-1$</td></tr>
+    <tr><td>(37)</td><td>$\displaystyle\int\frac{\ln ax}{x}\dd x=\frac12(\ln ax)^2$</td></tr>
+    <tr><td>(38)</td><td>$\displaystyle\int e^{ax}\dd x=\frac1ae^{ax}$</td></tr>
+    <tr><td><b>(39)</b></td><td>$\displaystyle\int xe^{ax}\dd x=\left(\frac xa-\frac{1}{a^2}\right)e^{ax}$</td></tr>
+    <tr><td><b>(40)</b></td><td>$\displaystyle\int x^2e^{ax}\dd x=\left(\frac{x^2}{a}-\frac{2x}{a^2}+\frac{2}{a^3}\right)e^{ax}$</td></tr>
+    <tr><td>(41)</td><td>$\displaystyle\int\cos ax\dd x=\frac1a\sin ax$</td></tr>
+    <tr><td>(42)</td><td>$\displaystyle\int\sin ax\dd x=-\frac1a\cos ax$</td></tr>
+    <tr><td>(43)</td><td>$\displaystyle\int\tan ax\dd x=-\frac1a\ln\cos ax$</td></tr>
+    <tr><td>(44)</td><td>$\displaystyle\int\frac{1}{\cos x}\dd x=\ln\left|\frac{1}{\cos x}+\tan x\right|=2\tanh^{-1}\left(\tan\frac x2\right)$</td></tr>
+    <tr><td>(45)</td><td>$\displaystyle\int\frac{1}{\sin x}\dd x=\ln\left|\tan\frac x2\right|$</td></tr>
+    <tr><td><b>(46)</b></td><td>$\displaystyle\int x\cos ax\dd x=\frac{1}{a^2}\cos ax+\frac xa\sin ax$</td></tr>
+    <tr><td><b>(47)</b></td><td>$\displaystyle\int x^2\cos ax\dd x=\frac{2x\cos ax}{a^2}+\frac{a^2x^2-2}{a^3}\sin ax$</td></tr>
+    <tr><td><b>(48)</b></td><td>$\displaystyle\int x\sin ax\dd x=-\frac{x\cos ax}{a}+\frac{\sin ax}{a^2}$</td></tr>
+    <tr><td><b>(49)</b></td><td>$\displaystyle\int x^2\sin ax\dd x=\frac{2-a^2x^2}{a^3}\cos ax+\frac{2x\sin ax}{a^2}$</td></tr>
+    <tr><td><b>(50)</b></td><td>$\displaystyle\int e^{bx}\cos ax\dd x=\frac{1}{a^2+b^2}e^{bx}(a\sin ax+b\cos ax)$</td></tr>
+    <tr><td><b>(51)</b></td><td>$\displaystyle\int e^{bx}\sin ax\dd x=\frac{1}{a^2+b^2}e^{bx}(b\sin ax-a\cos ax)$</td></tr>
+  </tbody>
+</table></div>
+<p class="liten">Fetmarkerade: de som behövs för Fourierkoefficienter ((46)–(51) med $a=n$) och för Laplacetransformer från definitionen eller komplexa Fourierkoefficienter ((39)–(40) med $a=-s$ respektive $a=-in$).</p>
+
+<h2 id="kommande" data-kort="Kommande">Kommer senare</h2>
+<p>Formler för resten av Fourierserierna (F7), separation av variabler (F8–F10) och Fouriertransformen (F11–F13) läggs till här när de kapitlen skrivs. På de gamla tentorna har Fouriertransformens räkneregler stått i uppgiftstexten, med definitionen $\F[f](\omega)=\frac{1}{2\pi}\int_{-\infty}^{\infty}f(x)e^{-i\omega x}\dd x$ från och med 2023.</p>
+
+</div></main>
+</body>
+</html>

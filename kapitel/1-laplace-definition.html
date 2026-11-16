@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>1. Laplacetransformen: definition och räkneregler – SF1683 del 2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/kapitel.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-rot="../" data-sida="kap1" data-toc>
+<main><div class="inre">
+
+<div class="brodsmula">Kapitel 1 · Laplacetransformen</div>
+<h1>Definition och räkneregler</h1>
+<p class="ingress">Vad Laplacetransformen är, när den finns, och de räkneregler som resten av Laplacekapitlen bygger på. På tentan frågas det här på två sätt: räkna ut en transform direkt från definitionen, eller bevisa en räkneregel.</p>
+<div class="meta">
+  <span class="chip gra">PZ 4.0–4.2</span>
+  <span class="chip gra">Föreläsning F1</span>
+  <span class="chip">Från definitionen: 4 av 17 tentor</span>
+  <span class="chip">Bevis/teori: 4 av 17</span>
+</div>
+
+<h2 id="def"><span class="steg">1</span>Definitioner och satser</h2>
+
+<div class="ruta def">
+  <span class="etikett">Definition <span class="kalla">PZ 4.1 · F1 s. 1</span></span>
+  <p>Låt $f:[0,\infty)\to\C$ vara en styckvis kontinuerlig funktion. För $s\in\R$ låt
+  $$\L[f](s) := \int_0^\infty e^{-st}f(t)\dd t$$
+  om integralen konvergerar. Det kallas <b>Laplacetransformen</b> av $f$.</p>
+  <p>Transformen är en funktion av $s$, inte av $t$, och brukar finnas bara för vissa $s$. Man kan låta $s\in\C$, men det behövs sällan i kursen. Vi skriver också $F(s)=\L[f](s)$.</p>
+</div>
+
+<p><b>Grundexemplet</b> (F1 s. 2). För $f(t)=1$ är
+$$\L[1](s)=\int_0^\infty e^{-st}\dd t=\lim_{T\to\infty}\left[\frac{e^{-st}}{-s}\right]_0^T=\lim_{T\to\infty}\left(-\frac{e^{-sT}}{s}+\frac1s\right)=\frac1s\quad\text{för } s\gt 0.$$
+Om $s\le 0$ konvergerar inte integralen.</p>
+
+<div class="ruta sats">
+  <span class="etikett">Proposition 4.1 (existens) <span class="kalla">F1 s. 2–3</span></span>
+  <p>Låt $f:[0,\infty)\to\C$ vara styckvis kontinuerlig. Om det finns $a,K\in\R$ sådana att
+  $$|f(t)|\le Ke^{at},\quad t\ge 0,$$
+  då existerar $\L[f](s)$ för alla $s\gt a$. (Villkoret kallas exponentiell ökning, eller att $f$ är av exponentiell ordning.)</p>
+</div>
+<div class="bevis"><span class="etikett">Bevis.</span>
+$$\int_0^\infty\left|e^{-st}f(t)\right|\dd t=\int_0^\infty e^{-st}|f(t)|\dd t\le\int_0^\infty e^{-st}Ke^{at}\dd t=K\int_0^\infty e^{-(s-a)t}\dd t=\frac{K}{s-a}\quad\text{för } s\gt a,$$
+enligt grundexemplet. Alltså är $\int_0^\infty e^{-st}f(t)\dd t$ absolutkonvergent och därför konvergent för $s\gt a$. $\square$</div>
+
+<div class="ruta sats">
+  <span class="etikett">Linjäritet <span class="kalla">F1 s. 3</span></span>
+  <p>$\L[af+bg](s)=a\,\L[f](s)+b\,\L[g](s)$ för funktioner $f,g$ och konstanter $a,b$, när båda sidorna existerar.</p>
+</div>
+
+<h3>Viktiga exempel</h3>
+<p>De här ska du både känna igen och kunna räkna fram från definitionen (F1 s. 4). Numren till höger är formelbladets Laplacetabell.</p>
+<div class="tabellram"><table class="formler">
+  <thead><tr><th>Nr</th><th>$f(t)$</th><th>$\L[f](s)$</th><th>Giltig för</th></tr></thead>
+  <tbody>
+    <tr><td>(11)</td><td>$t^n$, $n\ge 0$ heltal</td><td>$\dfrac{n!}{s^{n+1}}$</td><td>$s\gt 0$</td></tr>
+    <tr><td>(15)</td><td>$e^{at}$</td><td>$\dfrac{1}{s-a}$</td><td>$s\gt a$</td></tr>
+    <tr><td>(13)</td><td>$\sin(at)$</td><td>$\dfrac{a}{s^2+a^2}$</td><td>$s\gt 0$</td></tr>
+    <tr><td>(14)</td><td>$\cos(at)$</td><td>$\dfrac{s}{s^2+a^2}$</td><td>$s\gt 0$</td></tr>
+  </tbody>
+</table></div>
+
+<h3>Räkneregler</h3>
+<div class="ruta sats">
+  <span class="etikett">Allmänna regler <span class="kalla">PZ (4.3)–(4.5) · F1 s. 5</span></span>
+  <ul>
+    <li><b>s-translation (förskjutning), (4.4):</b> $\ \L[e^{at}f(t)](s)=\L[f](s-a)$ <span class="kalla">formelblad (2)</span></li>
+    <li><b>Skalning, (4.5):</b> $\ \L[f(at)](s)=\dfrac1a\,\L[f]\!\left(\dfrac sa\right)$, $a\gt 0$</li>
+    <li><b>Multiplikation med $t$, ($*$):</b> $\ \L[tf(t)](s)=-\dfrac{\mathrm d}{\mathrm ds}\L[f](s)$</li>
+    <li><b>Multiplikation med $t^n$, (4.3):</b> $\ \L[t^nf(t)](s)=(-1)^n\dfrac{\mathrm d^n}{\mathrm ds^n}\L[f](s)$ <span class="kalla">formelblad (7)</span></li>
+  </ul>
+</div>
+<div class="bevis"><span class="etikett">Bevis av ($*$)</span> (F1 s. 5). Anta att $|f(t)|\le Ke^{at}$ så att $\L[f]$ finns. Då är
+$$-\frac{\mathrm d}{\mathrm ds}\L[f](s)=-\frac{\mathrm d}{\mathrm ds}\int_0^\infty e^{-st}f(t)\dd t=-\int_0^\infty\frac{\partial}{\partial s}\left(e^{-st}f(t)\right)\dd t=\int_0^\infty tf(t)e^{-st}\dd t=\L[tf(t)](s),$$
+där derivatan flyttas in under integralen med Leibniz regel. $\square$</div>
+
+<p><b>Exempel</b> (F1 s. 6): bestäm $\L[te^t](s)$. Metod 1: ($*$) med $f(t)=e^t$ ger $-\frac{\mathrm d}{\mathrm ds}\frac{1}{s-1}=\frac{1}{(s-1)^2}$ för $s\gt 1$. Metod 2: (4.4) med $a=1$ och $f(t)=t$ ger $\L[t](s-1)=\frac{1}{(s-1)^2}$ för $s-1\gt 0$.</p>
+
+<div class="ruta sats">
+  <span class="etikett">Sats 4.2 (transform av derivata) <span class="kalla">PZ Thm 4.2, formel (4.1) · F1 s. 6–8 · formelblad (8)</span></span>
+  <p>Låt $f:[0,\infty)\to\C$ vara kontinuerlig med styckvis kontinuerlig derivata $f'$. Anta att det finns $a,K\in\R$ sådana att $|f(t)|\le Ke^{at}$, $t\ge 0$. Då gäller
+  $$\L[f'](s)=s\,\L[f](s)-f(0)\quad\text{för alla } s\gt a.$$</p>
+</div>
+<div class="bevis"><span class="etikett">Bevis</span> i fallet där $f'$ är kontinuerlig (F1 s. 7–8). Partialintegrera från $0$ till $L$ och ta gränsen sedan:
+$$\int_0^L e^{-st}f'(t)\dd t=\left[e^{-st}f(t)\right]_0^L+s\int_0^L e^{-st}f(t)\dd t=e^{-sL}f(L)-f(0)+s\int_0^L e^{-st}f(t)\dd t.$$
+För $s\gt a$ är $\lim_{L\to\infty}\int_0^Le^{-st}f(t)\dd t=\L[f](s)$, och
+$$\lim_{L\to\infty}\left|e^{-sL}f(L)\right|\le\lim_{L\to\infty}e^{-sL}Ke^{aL}=K\lim_{L\to\infty}e^{-(s-a)L}=0.$$
+Alltså är $\L[f'](s)=0-f(0)+s\,\L[f](s)$ för $s\gt a$. När $f'$ bara är styckvis kontinuerlig delas $[0,L]$ upp i delintervall där $f'$ är kontinuerlig, och samma räkning fungerar på varje del. $\square$</div>
+
+<div class="ruta sats">
+  <span class="etikett">Högre derivator <span class="kalla">PZ Thm 4.3, formel (4.2) · F1 s. 7 · formelblad (9)</span></span>
+  <p>$$\L[f^{(n)}](s)=s^n\L[f](s)-s^{n-1}f(0)-\dots-f^{(n-1)}(0),$$
+  till exempel $\ \L[f''](s)=s^2\L[f](s)-sf(0)-f'(0)$.</p>
+</div>
+
+<div class="ruta sats">
+  <span class="etikett">Sats 4.4 (nödvändigt villkor) <span class="kalla">F1 s. 8 · F2 s. 1</span></span>
+  <p>Låt $f:[0,\infty)\to\C$ vara styckvis kontinuerlig med $|f(t)|\le Ke^{at}$. Då gäller $\displaystyle\lim_{s\to\infty}\L[f](s)=0$.</p>
+  <p><b>Följdsats.</b> Om $\lim_{s\to\infty}F(s)\ne 0$ kan det inte finnas en sådan funktion $f$ med $F(s)=\L[f](s)$. Exempel (F2 s. 1): $F(s)=s$ har ingen Laplaceinvers.</p>
+</div>
+<div class="bevis"><span class="etikett">Bevis.</span> Samma uppskattning som i Proposition 4.1: $|\L[f](s)|\le\int_0^\infty e^{-st}|f(t)|\dd t\le\frac{K}{s-a}\to 0$ då $s\to\infty$. $\square$</div>
+
+<p>Den inversa transformen skrivs $\Li[F(s)]$ och är också linjär (F2 s. 2). Den kan definieras med en komplex integral (PZ 4.7), men det ingår inte i kursen. Vi inverterar genom att känna igen uttryck i tabellen.</p>
+
+<h2 id="varfor"><span class="steg">2</span>Varför fungerar det?</h2>
+<p>Idén med en transform är att titta på samma sak från ett annat håll (F1 s. 1). Laplacetransformen väger ihop hela funktionen $f(t)$ mot dämpningen $e^{-st}$. Två saker gör den användbar:</p>
+<ul>
+  <li><b>Faktorn $e^{-st}$ tvingar integralen att konvergera.</b> Så länge $f$ inte växer snabbare än någon exponentialfunktion $Ke^{at}$ vinner dämpningen när $s\gt a$. Det är hela innehållet i Proposition 4.1, och förklarar varför varje transform kommer med ett villkor på $s$.</li>
+  <li><b>Derivata blir multiplikation med $s$.</b> Partialintegration flyttar derivatan från $f$ till $e^{-st}$, och derivatan av $e^{-st}$ är bara $-s$ gånger sig själv. Det som blir över är randtermen $-f(0)$. Därför förvandlas en differentialekvation i $y(t)$ till en algebraisk ekvation i $Y(s)$, med begynnelsevärdena inbakade (F1 s. 7).</li>
+</ul>
+<p>Dagboken pekar på en symmetri som är bra att ha i huvudet: derivata på ena sidan svarar mot multiplikation med variabeln på den andra ((4.1)–(4.2) mot (4.3)), och förskjutning på ena sidan svarar mot multiplikation med en exponentialfunktion på den andra ((4.4) mot Sats 4.5 i <a href="3-heaviside-dirac.html">kapitel 3</a>).</p>
+
+<h2 id="metod"><span class="steg">3</span>Metod steg för steg</h2>
+<div class="ruta metod">
+  <span class="etikett">Standarduppgift A: beräkna $\L[f]$ utgående från definitionen</span>
+  <ol class="steglista">
+    <li>Skriv upp definitionen med ändlig övre gräns: $\L[f](s)=\lim_{L\to\infty}\int_0^Le^{-st}f(t)\dd t$.</li>
+    <li>Räkna ut integralen. Polynom gånger $e^{-st}$: partialintegrera (eller formelblad (39)–(40) med $a=-s$). Sinus och cosinus: partialintegrera två gånger och lös ut integralen, eller skriv $e^{iat}=\cos at+i\sin at$ och integrera en exponentialfunktion.</li>
+    <li>Sätt in gränserna. Skriv ut termen som innehåller $L$ för sig.</li>
+    <li>Ange för vilka $s$ den termen går mot noll, och motivera det (till exempel $|e^{(ia-s)L}|=e^{-sL}\to 0$ om $s\gt 0$). Säg också vad som händer annars: integralen divergerar.</li>
+    <li>Skriv svaret tillsammans med villkoret på $s$. Uppgiften frågar nästan alltid ”ange för vilka $s$ beräkningen är giltig”.</li>
+  </ol>
+</div>
+<div class="ruta metod">
+  <span class="etikett">Standarduppgift B: bevisa en räkneregel</span>
+  <ol class="steglista">
+    <li>Skriv upp förutsättningarna först: vad $f$ ska uppfylla (kontinuerlig, styckvis kontinuerlig derivata, $|f(t)|\le Ke^{at}$) och för vilka $s$ formeln gäller.</li>
+    <li>Utgå från definitionen av vänsterledet.</li>
+    <li>Gör det enda steg som behövs: partialintegration (derivataregler), variabelbyte (skalning, translation), derivering under integraltecknet (multiplikation med $t$) eller byte av integrationsordning (faltning, <a href="4-faltning.html">kapitel 4</a>).</li>
+    <li>Visa att randtermen i oändligheten försvinner med hjälp av $|f(t)|\le Ke^{at}$ och $s\gt a$.</li>
+  </ol>
+</div>
+
+<h2 id="exempel"><span class="steg">4</span>Lösta tentaexempel</h2>
+<p>Försök själv innan du öppnar lösningen.</p>
+
+<article class="exempel">
+  <header>Tentamen 2022-01-14, uppgift 1 <span class="p">4 p · del I</span></header>
+  <div class="uppgift">
+    <p>Beräkna Laplacetransformerna $f_1(s)=\L(F_1(t))(s)$ och $f_2(s)=\L(F_2(t))(s)$ av funktionerna $F_1(t)=\cos(at)$, $F_2(t)=\sin(at)$, $t\ge 0$, där $a\gt 0$, utgående från definitionen av Laplacetransformen. Ange för vilka $s$ som beräkningen är giltig.</p>
+  </div>
+  <details class="tips"><summary>Visa ledtråd</summary><div class="inne">
+    <p>Räkna båda på en gång: $f_1(s)+if_2(s)$ är transformen av $e^{iat}$.</p>
+  </div></details>
+  <details id="ex-220114-1"><summary>Visa lösning</summary><div class="inne">
+    <p>Enligt definitionen är
+    $$f_1(s)=\int_0^\infty\cos(at)e^{-st}\dd t,\qquad f_2(s)=\int_0^\infty\sin(at)e^{-st}\dd t.$$
+    Eftersom $e^{iat}=\cos(at)+i\sin(at)$ (formelblad (21)) är
+    $$f_1(s)+if_2(s)=\int_0^\infty e^{iat}e^{-st}\dd t=\int_0^\infty e^{(ia-s)t}\dd t=\lim_{L\to\infty}\left[\frac{e^{(ia-s)t}}{ia-s}\right]_0^L=\frac{1}{ia-s}\left(\lim_{L\to\infty}e^{(ia-s)L}-1\right).$$
+    <b>Villkor på $s$.</b> Vi har $|e^{(ia-s)L}|=|e^{iaL}|\,e^{-sL}=e^{-sL}$, som går mot $0$ då $L\to\infty$ precis när $s\gt 0$. För $s\le 0$ har uttrycket inget gränsvärde och integralen konvergerar inte. Under villkoret $s\gt 0$ får vi
+    $$f_1(s)+if_2(s)=\frac{-1}{ia-s}=\frac{1}{s-ia}=\frac{s+ia}{(s-ia)(s+ia)}=\frac{s}{s^2+a^2}+i\,\frac{a}{s^2+a^2}.$$
+    Real- och imaginärdelen ger svaret.</p>
+    <div class="svar"><b>Svar</b> $\ f_1(s)=\dfrac{s}{s^2+a^2}$ och $f_2(s)=\dfrac{a}{s^2+a^2}$, giltigt för $s\gt 0$ (för komplexa $s$: realdel större än $0$).</div>
+    <p><b>Alternativ med partialintegration</b> (verktyget F1 trycker på). Med $I=f_1(s)$, $J=f_2(s)$ och $s\gt 0$:
+    $$I=\left[-\frac{\cos(at)e^{-st}}{s}\right]_0^\infty-\frac as\int_0^\infty\sin(at)e^{-st}\dd t=\frac1s-\frac asJ,\qquad J=\left[-\frac{\sin(at)e^{-st}}{s}\right]_0^\infty+\frac asI=\frac asI.$$
+    Insättning ger $I=\frac1s-\frac{a^2}{s^2}I$, alltså $I=\frac{s}{s^2+a^2}$ och $J=\frac{a}{s^2+a^2}$.</p>
+    <p class="koll"><b>Kontroll:</b> räknat på båda sätten och med datoralgebra. Stämmer med lösningsförslaget och med formelblad (13)–(14).</p>
+  </div></details>
+</article>
+
+<article class="exempel">
+  <header>Tentamen 2024-04-02, uppgift 4 <span class="p">4 p · del II</span></header>
+  <div class="uppgift">
+    <p>(a) Bevisa formeln för Laplacetransformen $\L[f''](s)$ av andraderivatan av en funktion $f(t)$, $t\ge 0$. Ange förutsättningar för att formeln ska gälla.</p>
+    <p>(b) Ange en kontinuerlig funktion $f(t)$, $t\ge 0$, som inte har en Laplacetransform. Motivera noga varför dess Laplacetransform inte existerar.</p>
+  </div>
+  <details class="tips"><summary>Visa ledtråd</summary><div class="inne">
+    <p>(a) Bevisa Sats 4.2 för en allmän funktion och använd den två gånger. (b) Välj något som växer snabbare än varje $Ke^{at}$.</p>
+  </div></details>
+  <details id="ex-240402-4"><summary>Visa lösning</summary><div class="inne">
+    <p><b>(a)</b> Formeln är $\L[f''](s)=s^2\L[f](s)-sf(0)-f'(0)$.</p>
+    <p><i>Förutsättningar.</i> $f$ och $f'$ är kontinuerliga på $[0,\infty)$, $f''$ är styckvis kontinuerlig, och det finns $a,K\in\R$ med $|f(t)|\le Ke^{at}$ och $|f'(t)|\le Ke^{at}$ för $t\ge 0$. Formeln gäller då för $s\gt a$.</p>
+    <p><i>Steg 1: derivataregeln för en funktion $g$.</i> Låt $g$ vara kontinuerlig med styckvis kontinuerlig derivata och $|g(t)|\le Ke^{at}$. Partialintegration ger
+    $$\int_0^Le^{-st}g'(t)\dd t=\left[e^{-st}g(t)\right]_0^L+s\int_0^Le^{-st}g(t)\dd t=e^{-sL}g(L)-g(0)+s\int_0^Le^{-st}g(t)\dd t.$$
+    För $s\gt a$ är $|e^{-sL}g(L)|\le Ke^{-(s-a)L}\to 0$ då $L\to\infty$, och den sista integralen går mot $\L[g](s)$, som finns enligt Proposition 4.1. Alltså
+    $$\L[g'](s)=s\,\L[g](s)-g(0),\quad s\gt a.$$
+    (Om $g'$ bara är styckvis kontinuerlig delas $[0,L]$ upp i delintervall där $g'$ är kontinuerlig. Randtermerna i de inre delningspunkterna tar ut varandra eftersom $g$ är kontinuerlig.)</p>
+    <p><i>Steg 2: använd regeln två gånger.</i> Först med $g=f'$, sedan med $g=f$:
+    $$\L[f''](s)=s\,\L[f'](s)-f'(0)=s\big(s\,\L[f](s)-f(0)\big)-f'(0)=s^2\L[f](s)-sf(0)-f'(0).\qquad\square$$</p>
+    <p><b>(b)</b> Låt $f(t)=e^{t^2}$. Den är kontinuerlig. Dess Laplacetransform skulle vara
+    $$\lim_{L\to\infty}\int_0^Le^{-st}e^{t^2}\dd t=\lim_{L\to\infty}\int_0^Le^{t(t-s)}\dd t.$$
+    För varje fixt $s$ gäller $t(t-s)\to\infty$ då $t\to\infty$, så integranden går mot oändligheten. Då går även $\int_0^Le^{t(t-s)}\dd t\to\infty$ när $L\to\infty$. Integralen konvergerar alltså inte för något $s$, och $f$ saknar Laplacetransform.</p>
+    <div class="svar"><b>Svar</b> (a) $\L[f''](s)=s^2\L[f](s)-sf(0)-f'(0)$ för $s\gt a$ under förutsättningarna ovan. (b) Till exempel $f(t)=e^{t^2}$.</div>
+    <p class="koll"><b>Kontroll:</b> lösningsförslaget hänvisar för (a) till PZ s. 143–145. Beviset ovan är det från F1 s. 7–8, använt två gånger. Att $f'$ också måste vara av exponentiell ordning följer av att Sats 4.2 används på $g=f'$. (b) stämmer med lösningsförslaget, och samma funktion räknas i Övning 1 (PZ 4.1.1) med kommentaren att det inte finns några $K,a$ med $e^{t^2}\lt Ke^{at}$.</p>
+  </div></details>
+</article>
+
+<h2 id="fel"><span class="steg">5</span>Vanliga fel</h2>
+<div class="ruta fel">
+  <span class="etikett">Se upp med</span>
+  <ul>
+    <li><b>Att glömma villkoret på $s$.</b> ”$\L[e^{at}]=\frac1{s-a}$” utan ”$s\gt a$” ger avdrag när uppgiften ber om giltighetsområdet. Gränsvärdet i oändligheten måste motiveras, inte bara strykas.</li>
+    <li><b>Att skriva $\left[\ldots\right]_0^\infty$ och sätta in $\infty$ som ett tal.</b> Skriv gränsvärdet $L\to\infty$ och visa varför termen försvinner.</li>
+    <li><b>Teckenfel i randtermen.</b> $\left[e^{-st}f(t)\right]_0^L$ ger $-f(0)$, inte $+f(0)$. I formeln för $f''$ är det $-sf(0)-f'(0)$: lägre derivata får högre potens av $s$.</li>
+    <li><b>Fel riktning på s-translationen.</b> $e^{at}f(t)$ ger $F(s-a)$. Alltså ger $e^{-3t}f(t)$ transformen $F(s+3)$.</li>
+    <li><b>Att tro att Sats 4.4 är ett tillräckligt villkor.</b> $F(s)\to 0$ är nödvändigt, men bevisar inte att en invers finns (F2 s. 2: ”Ja, men inte p.g.a. satsen!”).</li>
+    <li><b>$\L[fg]\ne\L[f]\cdot\L[g]$.</b> Produkten av transformer hör ihop med faltning, se <a href="4-faltning.html">kapitel 4</a>.</li>
+    <li><b>Ofullständiga förutsättningar i bevis.</b> När uppgiften säger ”ange förutsättningar” ska både regulariteten (kontinuitet) och tillväxtvillkoret $|f(t)|\le Ke^{at}$ stå med.</li>
+  </ul>
+</div>
+
+<h2 id="rek"><span class="steg">6</span>Rekommenderade tentauppgifter</h2>
+<p>Ordnade från lätt till svår. Bocka av dem du har gjort (sparas i webbläsaren).</p>
+<ul class="rek">
+  <li data-uppg="2022-04-20:1"><span class="niva latt">Lätt</span><span class="vad"><b>2022-04-20, uppgift 1.</b> $\L[t+1]$ och $\L[e^{at}]$ från definitionen. En partialintegration.</span></li>
+  <li data-uppg="2021-01-13:1a"><span class="niva latt">Lätt</span><span class="vad"><b>2021-01-13, uppgift 1a.</b> $\L[3t^2]$ från definitionen. Två partialintegrationer.</span></li>
+  <li data-uppg="2020-04-15:5"><span class="niva latt">Lätt</span><span class="vad"><b>2020-04-15, uppgift 5.</b> Vilka räkneregler stämmer? Bra snabbtest av reglerna i avsnitt 1.</span></li>
+  <li data-uppg="2019-01-11:4a"><span class="niva medel">Medel</span><span class="vad"><b>2019-01-11, uppgift 4a.</b> $\L[\cos(ax)]$ från definitionen (1 p).</span></li>
+  <li data-uppg="2022-01-14:1"><span class="niva medel">Medel</span><span class="vad"><b>2022-01-14, uppgift 1.</b> Löst ovan. Gör den en gång med Euler och en gång med partialintegration.</span></li>
+  <li data-uppg="OT2:4"><span class="niva medel">Medel</span><span class="vad"><b>Övningstentamen 2, uppgift 4.</b> Visa att transformen är definierad för $\operatorname{Re}s\gt A$ och bevisa formeln för $\L[f']$. Det är Proposition 4.1 och Sats 4.2.</span></li>
+  <li data-uppg="2024-04-02:4"><span class="niva medel">Medel</span><span class="vad"><b>2024-04-02, uppgift 4.</b> Löst ovan. Bevis av formeln för $\L[f'']$ och en funktion utan transform.</span></li>
+  <li data-uppg="OT1:5"><span class="niva svar">Svår</span><span class="vad"><b>Övningstentamen 1, uppgift 5.</b> Visa att lösningen till $y''+ay'+by=f$ är av exponentiell typ om $f$ är det. Kräver faltning (kapitel 4). Lösningsskiss finns i övningsmaterialet.</span></li>
+</ul>
+<p class="liten">Ur föreläsningsplanen: PZ 4.1: 1, 2, 3, 4 och PZ 4.2: 1ace, 2, 3, 4a. I Övning 1 räknades PZ 4.1.1, 4.2.1b och 4.2.1c.</p>
+
+<h2 id="videor"><span class="steg">7</span>Videor</h2>
+<ul class="videor">
+  <li><a href="https://www.youtube.com/watch?v=-j8PzkZ70Lg">3Blue1Brown – The Physics of Euler's Formula (Laplace Transform Prelude)</a><small>Länkad från kursens dagbok (F1). Bygger intuition för $e^{st}$. Se den före resten.</small></li>
+  <li><a href="https://www.youtube.com/watch?v=j0wJBEZdwLs">3Blue1Brown – But what is a Laplace Transform?</a><small>Länkad från kursens dagbok (F1). Vad transformen ”ser” hos en funktion.</small></li>
+  <li><a href="https://www.youtube.com/watch?v=n2y7n6jw5d0">Zach Star – What does the Laplace Transform really tell us?</a><small>Visuell förklaring av poler och s-planet.</small></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLHXZ9OQGMqxcJXnLr08cyNaup4RDsbAl1">Dr. Trefor Bazett – Laplace Transforms and Solving ODEs (spellista)</a><small>De första videorna räknar transformer från definitionen. Korta och räknetekniska.</small></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLEC88901EBADDD980">MIT 18.03 – Differential Equations, Arthur Mattuck (spellista)</a><small>Klassiska föreläsningar. Laplacedelen är föreläsning 19–24.</small></li>
+</ul>
+
+</div></main>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>6. Inre produktrum – SF1683 del 2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/kapitel.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-rot="../" data-sida="kap6" data-toc>
+<main><div class="inre">
+
+<div class="brodsmula">Kapitel 6 · Fourierserier</div>
+<h1>Inre produktrum</h1>
+<p class="ingress">Repetition från linjär algebra, med funktioner i stället för vektorer. Kapitlet är kort eftersom det sällan ger egna tentauppgifter numera, men allt i kapitel 7 och 8 vilar på det: en Fourierserie är en projektion på en ortonormal mängd.</p>
+<div class="meta">
+  <span class="chip gra">PZ 1.1–1.4</span>
+  <span class="chip gra">Föreläsning F4, andra delen</span>
+  <span class="chip gra">Egen räkneuppgift: 3 av 17 tentor, ingen sedan 2020</span>
+</div>
+
+<h2 id="def"><span class="steg">1</span>Definitioner och satser</h2>
+
+<div class="ruta def">
+  <span class="etikett">Inre produktrum <span class="kalla">PZ 1.1–1.2 · F4 s. 1</span></span>
+  <p>Ett vektorrum $V$ är ett <b>inre produktrum</b> om det finns en inre produkt $\langle\,,\rangle:V\times V\to\C$ som uppfyller:</p>
+  <ol>
+    <li>$\ip{v}{v}\ge 0$ för alla $v\in V$ (speciellt är $\ip vv$ reellt),</li>
+    <li>$\ip{v}{v}=0$ om och endast om $v=\vec 0$,</li>
+    <li>för $u,v,w\in V$ och skalärer $a,b$ är $\ip{au+bv}{w}=a\ip uw+b\ip vw$,</li>
+    <li>$\ip uv=\overline{\ip vu}$ för alla $u,v\in V$.</li>
+  </ol>
+  <p>Av 3 och 4 följer att skalärer i andra argumentet kommer ut konjugerade: $\ip{au}{bv}=a\bar b\ip uv$ (används i F6 s. 6).</p>
+</div>
+
+<div class="ruta def">
+  <span class="etikett">Det viktiga exemplet <span class="kalla">F4 s. 1–2 · F5 s. 1</span></span>
+  <p>Låt $E=E[-\pi,\pi]$ vara vektorrummet av styckvis kontinuerliga funktioner $f:[-\pi,\pi]\to\C$. Då är
+  $$\ip fg:=\frac1\pi\int_{-\pi}^{\pi}f(x)\,\overline{g(x)}\dd x$$
+  en inre produkt på $E$.</p>
+</div>
+
+<div class="ruta def">
+  <span class="etikett">Norm <span class="kalla">PZ 1.2 · F4 s. 2</span></span>
+  <p>En <b>norm</b> i ett vektorrum $V$ är en funktion $\norm{\cdot}:V\to\R_+$ som uppfyller: (1) $\norm v\ge 0$, (2) $\norm v=0$ omm $v=\vec 0$, (3) $\norm{av}=|a|\cdot\norm v$ för $a\in\C$, (4) $\norm{u+v}\le\norm u+\norm v$ (triangelolikheten).</p>
+  <p>Om $V$ är ett inre produktrum är $\norm v=\sqrt{\ip vv}$ en norm i $V$.</p>
+</div>
+
+<div class="ruta sats">
+  <span class="etikett">Cauchy–Schwarz olikhet <span class="kalla">F4 s. 2</span></span>
+  <p>$$|\ip uv|\le\norm u\cdot\norm v=\sqrt{\ip uu}\cdot\sqrt{\ip vv}\quad\text{för alla } u,v\in V.$$
+  Att $\sqrt{\ip vv}$ uppfyller triangelolikheten följer av den.</p>
+</div>
+
+<div class="ruta def">
+  <span class="etikett">Ortogonalitet <span class="kalla">PZ 1.3 · F4 s. 3</span></span>
+  <p>$u,v\in V$ är <b>ortogonala</b> om $\ip uv=0$. Skrivs $u\perp v$.</p>
+  <p>En ändlig eller oändlig sekvens $\{u_k\}$ av vektorer i $V$ kallas en <b>ortogonal mängd</b> om $u_k\ne\vec0$ för alla $k$ och $u_k\perp u_j$ för alla $k\ne j$. Om dessutom $\norm{u_k}=1$ för alla $k$ kallas den en <b>ortonormal mängd</b> (ON-mängd).</p>
+</div>
+
+<div class="ruta def">
+  <span class="etikett">Projektion <span class="kalla">PZ 1.4 · F4 s. 3</span></span>
+  <p>Om $\{e_1,\dots,e_n\}$ är en ortonormal mängd i $V$ och $W=\operatorname{span}\{e_1,\dots,e_n\}$ kan vi projicera en vektor $u\in V$ på $W$:
+  $$\tilde u=\sum_{k=1}^n\ip u{e_k}e_k=\operatorname{proj}_Wu.$$</p>
+  <ul>
+    <li>Om $u\in W$ är $\tilde u=u$.</li>
+    <li>$\tilde u$ är den vektor i $W$ som är ”närmast” $u$ med avseende på normen $\norm v=\sqrt{\ip vv}$.</li>
+  </ul>
+</div>
+<p>Två resultat till som hör hit bevisas i <a href="8-dirichlets-sats.html">kapitel 8</a>, där de används: den generaliserade Pythagoras sats ($u\perp v\Rightarrow\norm{u+v}^2=\norm u^2+\norm v^2$) och att $u-\tilde u\perp\tilde u$.</p>
+
+<div class="ruta obs">
+  <span class="etikett">Gram–Schmidt <span class="kalla">linjär algebra · används i lösningsförslaget 2018-04-04</span></span>
+  <p>Föreläsningen förutsätter att ON-mängden är given. För att göra en ON-bas av två linjärt oberoende vektorer $u_1,u_2$: sätt $w_1=u_1/\norm{u_1}$, dra bort projektionen, $w_2'=u_2-\ip{u_2}{w_1}w_1$, och normera, $w_2=w_2'/\norm{w_2'}$.</p>
+</div>
+
+<h2 id="varfor"><span class="steg">2</span>Varför fungerar det?</h2>
+<p>I $\R^3$ hittar man koordinaterna för en vektor i en ON-bas genom att ta skalärprodukten med varje basvektor. Inget ekvationssystem behöver lösas, eftersom basvektorerna inte ”läcker” in i varandra. Definitionerna ovan är precis det som krävs för att samma sak ska fungera när vektorerna är funktioner och skalärprodukten är en integral.</p>
+<p>F4 s. 3 säger varför vi bryr oss: vi kan bygga upp övriga vektorer från en sådan mängd, och i synnerhet vill vi skriva funktioner som summor av sinus- och cosinusfunktioner. Fourierkoefficienterna $a_n=\ip{f}{\cos nx}$ och $b_n=\ip{f}{\sin nx}$ i nästa kapitel är koordinater, och delsumman av Fourierserien är projektionen av $f$ på de första basfunktionerna, alltså den bästa approximationen av $f$ med de funktionerna.</p>
+
+<h2 id="metod"><span class="steg">3</span>Metod steg för steg</h2>
+<div class="ruta metod">
+  <span class="etikett">Standarduppgift: bestäm den funktion i $W=\operatorname{span}\{u_1,u_2\}$ som minimerar $\norm{f-u}$</span>
+  <ol class="steglista">
+    <li><b>Skriv upp den inre produkten</b> som uppgiften ger (intervall, eventuell konstant framför).</li>
+    <li><b>Gör en ON-bas för $W$</b> med Gram–Schmidt: normera $u_1$, dra bort projektionen från $u_2$, normera resten.</li>
+    <li><b>Projicera:</b> $u=\operatorname{proj}_Wf=\ip f{w_1}w_1+\ip f{w_2}w_2$. Varje koefficient är en integral.</li>
+    <li><b>Förenkla</b> och svara med en funktion. Motivera med att projektionen är den närmaste vektorn i $W$.</li>
+    <li><b>Kontrollera</b> att felet är ortogonalt mot $W$: $\ip{f-u}{u_1}=0$ och $\ip{f-u}{u_2}=0$.</li>
+  </ol>
+</div>
+
+<h2 id="exempel"><span class="steg">4</span>Löst tentaexempel</h2>
+
+<article class="exempel">
+  <header>Tentamen 2018-04-04, uppgift 1 <span class="p">4 p</span></header>
+  <div class="uppgift">
+    <p>Betrakta rummet $C([0,1])$ av alla kontinuerliga, komplexvärda funktioner definierade på intervallet $[0,1]$ med den inre produkten
+    $$\ip fg=\int_0^1f(x)\,\overline{g(x)}\dd x.$$</p>
+    <p>(a) Låt $W$ vara delrummet som spänns upp av funktionerna $u_1(x)=1$ och $u_2(x)=x^2$. Bestäm en ON-bas för $W$.</p>
+    <p>(b) Låt $f(x)=x^3$. Bestäm den funktion $u(x)$ i $W$ som minimerar $\norm{f-u}$.</p>
+  </div>
+  <details id="ex-180404-1"><summary>Visa lösning</summary><div class="inne">
+    <p><b>(a)</b> Alla funktioner här är reella, så konjugatet spelar ingen roll.</p>
+    <p>$\norm{u_1}^2=\int_0^11\dd x=1$, så $w_1(x)=1$.</p>
+    <p>Dra bort projektionen av $u_2$ på $w_1$: $\ip{u_2}{w_1}=\int_0^1x^2\dd x=\frac13$, så $w_2'(x)=x^2-\frac13$.</p>
+    <p>Normera: $\norm{w_2'}^2=\int_0^1\left(x^2-\tfrac13\right)^2\dd x=\frac15-\frac29+\frac19=\frac{4}{45}$, så $\norm{w_2'}=\frac{2}{3\sqrt5}$ och
+    $$w_2(x)=\frac{3\sqrt5}{2}\left(x^2-\frac13\right).$$
+    Då är $w_2\perp w_1$ och båda har norm $1$, så $(w_1,w_2)$ är en ON-bas för $W$.</p>
+    <p><b>(b)</b> Den sökta funktionen är projektionen av $f$ på $W$:
+    $$u=\ip f{w_1}w_1+\ip f{w_2}w_2.$$
+    $\ip f{w_1}=\int_0^1x^3\dd x=\frac14$.</p>
+    <p>$\ip f{w_2}=\frac{3\sqrt5}{2}\int_0^1x^3\left(x^2-\tfrac13\right)\dd x=\frac{3\sqrt5}{2}\left(\frac16-\frac1{12}\right)=\frac{\sqrt5}{8}$.</p>
+    <p>$$u(x)=\frac14+\frac{\sqrt5}{8}\cdot\frac{3\sqrt5}{2}\left(x^2-\frac13\right)=\frac14+\frac{15}{16}\left(x^2-\frac13\right)=\frac{15}{16}x^2-\frac1{16}.$$</p>
+    <div class="svar"><b>Svar</b> (a) $w_1(x)=1$, $w_2(x)=\dfrac{3\sqrt5}{2}\left(x^2-\dfrac13\right)$. (b) $u(x)=\dfrac{15}{16}x^2-\dfrac1{16}$.</div>
+    <p class="koll"><b>Kontroll:</b> $\ip{w_1}{w_2}=0$, $\ip{w_2}{w_2}=1$ och projektionen är räknade med datoralgebra. Stämmer med lösningsförslaget.</p>
+  </div></details>
+</article>
+
+<h2 id="fel"><span class="steg">5</span>Vanliga fel</h2>
+<div class="ruta fel">
+  <span class="etikett">Se upp med</span>
+  <ul>
+    <li><b>Fel inre produkt.</b> Kursen använder tre olika: $\frac1\pi\int_{-\pi}^{\pi}$ för reella Fourierserier, $\frac1{2\pi}\int_{-\pi}^{\pi}$ för komplexa, och uppgiften kan ge en egen (som $\int_0^1$ ovan). Konstanten framför avgör vad som är normerat.</li>
+    <li><b>Att glömma konjugatet.</b> $\ip fg=\int f\,\bar g$. För $e^{inx}$ är konjugatet $e^{-inx}$, och det är därför $c_n$ har ett minustecken i exponenten.</li>
+    <li><b>Att använda projektionsformeln på en bas som inte är ortonormal.</b> $\sum\ip u{e_k}e_k$ gäller bara för ON-mängder. $\{1,x^2\}$ är inte ortogonal på $[0,1]$.</li>
+    <li><b>Att inte normera.</b> Ortogonal är inte samma sak som ortonormal. Det är skälet till att konstantfunktionen i Sats 2.1 är $\frac{1}{\sqrt2}$ och inte $1$.</li>
+    <li><b>Att blanda ihop $\norm f$ och $\norm f^2$.</b> $\norm f^2=\ip ff$ är integralen. Normen är roten ur den.</li>
+  </ul>
+</div>
+
+<h2 id="rek"><span class="steg">6</span>Rekommenderade tentauppgifter</h2>
+<ul class="rek">
+  <li data-uppg="2020-04-15:2"><span class="niva latt">Lätt</span><span class="vad"><b>2020-04-15, uppgift 2.</b> Beräkna en inre produkt i $L^2([-1,1])$. Använd udda/jämn-symmetri.</span></li>
+  <li data-uppg="2018-04-04:1"><span class="niva medel">Medel</span><span class="vad"><b>2018-04-04, uppgift 1.</b> Löst ovan.</span></li>
+  <li data-uppg="2019-01-11:2"><span class="niva medel">Medel</span><span class="vad"><b>2019-01-11, uppgift 2.</b> Bästa approximation av $\cos x$ i $\operatorname{span}\{1,x^2\}$ på $[-1,1]$. Samma metod, integralen $\int x^2\cos x\dd x$ är given på tentan.</span></li>
+  <li data-uppg="2023-04-12:6ab"><span class="niva medel">Medel</span><span class="vad"><b>2023-04-12, uppgift 6a–b.</b> Visa att $e^{inx}$ är ett ON-system och att $\norm f^2=\norm{f-S_m}^2+\norm{S_m}^2$. Fortsättningen (c–d) hör till kapitel 8.</span></li>
+  <li data-uppg="2020-01-13:1"><span class="niva svar">Svår</span><span class="vad"><b>2020-01-13, uppgift 1.</b> Bästa förstagradspolynom i en viktad inre produkt. Enligt kurssidan matchar den inte dagens kurs, men metoden är densamma.</span></li>
+</ul>
+<p class="liten">Ur föreläsningsplanen: PZ 1.1: 3, 5 · PZ 1.2: 2, 3 · PZ 1.3: 1, 2 · PZ 1.4: 2.</p>
+
+<h2 id="videor"><span class="steg">7</span>Videor</h2>
+<ul class="videor">
+  <li><a href="https://www.youtube.com/playlist?list=PLMrJAkhIeNNT_Xh3Oy0Y4LTj0Oxo8GqsC">Steve Brunton – Fourier Analysis (spellista)</a><small>Samma synsätt som Pinkus–Zafrany: inre produkt, ortogonal bas, projektion. De första videorna handlar om just inre produkter av funktioner.</small></li>
+</ul>
+
+</div></main>
+</body>
+</html>

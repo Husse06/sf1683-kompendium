@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>3. Heaviside och Dirac – SF1683 del 2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/kapitel.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-rot="../" data-sida="kap3" data-toc>
+<main><div class="inre">
+
+<div class="brodsmula">Kapitel 3 · Laplacetransformen</div>
+<h1>Heaviside och Dirac</h1>
+<p class="ingress">Högerled som slås på vid en viss tid eller ger en stöt i ett ögonblick. Det här är den vanligaste Laplace-uppgiften i del I: ett begynnelsevärdesproblem där högerledet innehåller $\U(t-c)$, $\delta(t-a)$ eller båda.</p>
+<div class="meta">
+  <span class="chip gra">PZ 4.4</span>
+  <span class="chip gra">Föreläsning F2–F3</span>
+  <span class="chip het">Heaviside: 8 av 17 tentor</span>
+  <span class="chip het">Dirac: 6 av 17, alla sedan 2022</span>
+</div>
+
+<h2 id="def"><span class="steg">1</span>Definitioner och satser</h2>
+
+<div class="ruta def">
+  <span class="etikett">Heavisides stegfunktion <span class="kalla">PZ 4.4 · F2 s. 7</span></span>
+  <p>$$\U(t-c)=\begin{cases}0,& 0\le t\lt c\\ 1,& t\ge c\end{cases}$$
+  Skrivs även $u_c(t)$ (i PZ) eller $H(t-c)$. På tentorna används $\U(t-c)$, på äldre tentor $H$. Tänk: något var av och är nu på.</p>
+</div>
+
+<h3>Skriva om styckvis definierade funktioner</h3>
+<p>Det här är första steget i varje uppgift (F2 s. 7–8):</p>
+<div class="tabellram"><table>
+  <thead><tr><th>Funktionen</th><th>Med stegfunktion</th></tr></thead>
+  <tbody>
+    <tr><td>$f(t)=\begin{cases}0,&0\le t\lt c\\ g(t),&t\ge c\end{cases}$</td><td>$f(t)=g(t)\,\U(t-c)$</td></tr>
+    <tr><td>$f(t)=\begin{cases}g(t),&0\le t\lt c\\ 0,&t\ge c\end{cases}$</td><td>$f(t)=g(t)-g(t)\,\U(t-c)$ <span class="liten">(ta hela funktionen och ”ta bort” sista delen)</span></td></tr>
+    <tr><td>$f(t)=\begin{cases}g(t),&0\le t\lt c\\ h(t),&t\ge c\end{cases}$</td><td>$f(t)=g(t)+\big(h(t)-g(t)\big)\U(t-c)$</td></tr>
+  </tbody>
+</table></div>
+
+<div class="ruta sats">
+  <span class="etikett">Transform av stegfunktionen <span class="kalla">F2 s. 8 · formelblad (3)</span></span>
+  <p>$$\L[\U(t-c)](s)=\int_c^\infty e^{-st}\dd t=\frac{e^{-cs}}{s},\quad s\gt 0.$$</p>
+</div>
+
+<div class="ruta sats">
+  <span class="etikett">Sats 4.5 (t-translation) <span class="kalla">PZ Thm 4.5 · F2 s. 8 · formelblad (4)</span></span>
+  <p>Om $f$ är en funktion sådan att $\L[f](s)$ finns för $s\gt a$, och $c\gt 0$, så är
+  $$\L[f(t-c)\,\U(t-c)](s)=e^{-cs}\,\L[f](s),\quad s\gt a.$$</p>
+</div>
+<div class="bevis"><span class="etikett">Bevis</span> (frågas på tentan 2018-01-08, uppgift 2a). Eftersom $\U(t-c)=0$ för $t\lt c$ är
+$$\L[f(t-c)\U(t-c)](s)=\int_c^\infty e^{-st}f(t-c)\dd t=\{u=t-c\}=\int_0^\infty e^{-s(u+c)}f(u)\dd u=e^{-cs}\int_0^\infty e^{-su}f(u)\dd u=e^{-cs}\L[f](s).\ \square$$</div>
+
+<p>Satsen används åt båda hållen: för att transformera styckvisa funktioner, och för att invertera uttryck som innehåller $e^{-cs}$.</p>
+<p><b>Framåt</b> (F2 s. 9): bestäm transformen av $y(t)=t\,\U(t-1)$. Satsen kräver formen $f(t-1)\U(t-1)$, så vi måste ha $f(t-1)=t$, alltså $f(t)=t+1$. Då är $\L[f](s)=\frac{1}{s^2}+\frac1s$ och
+$$\L[y](s)=e^{-s}\left(\frac1{s^2}+\frac1s\right),\quad s\gt 0.$$</p>
+<p><b>Bakåt</b> (F2 s. 10): bestäm $\Li\!\left[\frac{e^{-2s}}{s^3}\right]$. Vi vet att $\L[t^2](s)=\frac{2}{s^3}$, så uttrycket är $\frac12e^{-2s}\L[t^2](s)$ och
+$$\Li\!\left[\frac{e^{-2s}}{s^3}\right]=\frac12(t-2)^2\,\U(t-2).$$</p>
+
+<div class="ruta def">
+  <span class="etikett">Diracs deltafunktion <span class="kalla">PZ 4.4 · F2 s. 10–11 · ”delta med IF”</span></span>
+  <p>$\delta_a(t)$, även skriven $\delta(t-a)$, uppfyller
+  $$\int_0^\infty f(t)\,\delta_a(t)\dd t=f(a)\quad\text{för ”snälla” funktioner } f.$$
+  Ingen vanlig funktion har den egenskapen. Tänk $\delta_a(t)=\infty$ för $t=a$ och $0$ för $t\ne a$, med total area ett. $\delta_a$ är en <b>distribution</b> (generaliserad funktion) och kallas även enhetsimpuls: något händer plötsligt vid en tidpunkt.</p>
+  <p>Mer allmänt, för ett intervall $I\subseteq\R$ (PZ s. 160–161):
+  $$\int_I f(t)\,\delta(t-a)\dd t=\begin{cases}f(a),&a\in I\\0,&a\notin I.\end{cases}$$</p>
+</div>
+
+<div class="ruta sats">
+  <span class="etikett">Transform av deltafunktionen <span class="kalla">F2 s. 11 · formelblad (5), (6)</span></span>
+  <p>$$\L[\delta_a(t)](s)=\int_0^\infty e^{-st}\delta_a(t)\dd t=e^{-as},\qquad\text{speciellt }\L[\delta(t)](s)=1.$$</p>
+</div>
+
+<div class="ruta sats">
+  <span class="etikett">Sambandet mellan $\U$ och $\delta$ <span class="kalla">F3 s. 1</span></span>
+  <p>$$\L\!\left[\tfrac{\mathrm d}{\mathrm dt}\U(t-a)\right](s)=s\,\L[\U(t-a)](s)-\U(0-a)=s\cdot\frac{e^{-as}}{s}-0=e^{-as}=\L[\delta(t-a)](s),$$
+  så $\dfrac{\mathrm d}{\mathrm dt}\U(t-a)=\delta(t-a)$. (Inte helt rigoröst, men det räcker i kursen.)</p>
+</div>
+
+<p><b>Föreläsningsexempel</b> (F3 s. 2–3): lös $y'(t)+y(t)=\delta(t-2)$, $y(0)=1$. Transformering ger $sY-1+Y=e^{-2s}$, alltså
+$$Y(s)=\frac{1}{s+1}+\frac{e^{-2s}}{s+1}=\L[e^{-t}](s)+e^{-2s}\L[e^{-t}](s),$$
+och t-translation med $f(t)=e^{-t}$ ger $y(t)=e^{-t}+e^{2-t}\,\U(t-2)$.</p>
+
+<h2 id="varfor"><span class="steg">2</span>Varför fungerar det?</h2>
+<p><b>Förskjutning i tiden blir en faktor $e^{-cs}$.</b> Det syns i beviset av Sats 4.5: variabelbytet $u=t-c$ lämnar $e^{-sc}$ utanför integralen. Dagboken beskriver de två förskjutningsreglerna som ett par: förskjutning på ena sidan svarar mot multiplikation med en exponentialfunktion på den andra. (4.4) säger $e^{at}f(t)\leftrightarrow F(s-a)$, Sats 4.5 säger $f(t-c)\U(t-c)\leftrightarrow e^{-cs}F(s)$.</p>
+<p><b>Därför klarar Laplace det som andra metoder krånglar med.</b> Ett styckvis högerled skulle annars kräva att man löser ekvationen på varje intervall och skarvar ihop. Här blir det en enda algebraisk ekvation, och skarvningen sköter $\U$ om. Med integrerande faktor går $y'+y=\delta(t-2)$ också att lösa, men bara om man integrerar bestämt från $0$ till $t$ och använder intervallregeln för $\delta$ (bladet ”delta med IF”). Svaret blir detsamma.</p>
+<p><b>$\delta$ plockar ut ett värde.</b> Integralen av $e^{-st}\delta(t-a)$ är bara integrandens värde i $t=a$, alltså $e^{-as}$. Därför ser en impuls i $Y(s)$ ut precis som en stegterm utan $\frac1s$.</p>
+<div class="ruta tillagg">
+  <span class="etikett">Tillägg – står inte i kursmaterialet</span>
+  <p>En bra rimlighetskontroll för andra ordningens ekvationer $y''+\ldots=\delta(t-a)+\ldots$: lösningen $y$ är kontinuerlig i $t=a$, men $y'$ hoppar med $+1$ (med koefficienten framför $\delta$ om den inte är $1$). Vid ett steg $\U(t-c)$ är både $y$ och $y'$ kontinuerliga. I första ordningens ekvation $y'+\ldots=\delta(t-a)$ är det $y$ själv som hoppar med $+1$, vilket syns i föreläsningsexemplet ovan. Jag använder det som kontroll i lösningarna nedan.</p>
+</div>
+
+<h2 id="metod"><span class="steg">3</span>Metod steg för steg</h2>
+<div class="ruta metod">
+  <span class="etikett">Standarduppgift: begynnelsevärdesproblem med $\U$ och/eller $\delta$ i högerledet</span>
+  <ol class="steglista">
+    <li><b>Skriv högerledet med $\U$.</b> Använd tabellen i avsnitt 1. Exempel: ”$0$ för $t\lt\pi$, $\cos t$ för $t\ge\pi$” är $\cos(t)\,\U(t-\pi)$.</li>
+    <li><b>Skriv om till formen $f(t-c)\,\U(t-c)$.</b> Varje $t$ i faktorn framför $\U(t-c)$ måste uttryckas i $t-c$:
+      <ul>
+        <li>exponential: $e^{-3t}=e^{-3c}\,e^{-3(t-c)}$</li>
+        <li>polynom: $t=(t-c)+c$</li>
+        <li>sinus/cosinus: additionsformlerna, formelblad (10)–(11). Till exempel $\cos t=\cos((t-\pi)+\pi)=-\cos(t-\pi)$.</li>
+      </ul>
+      Alternativt: sök $f$ med $f(t-c)=g(t)$, det vill säga $f(t)=g(t+c)$.</li>
+    <li><b>Transformera hela ekvationen.</b> Formelblad (9) för $y''$, (4) för stegtermerna, (6) för $\delta$. Sätt in begynnelsevärdena.</li>
+    <li><b>Lös ut $Y(s)$</b> och sortera termerna efter vilken faktor $e^{-cs}$ de har. Låt exponentialfaktorerna stå kvar utanför.</li>
+    <li><b>Invertera den rationella delen av varje term</b> som i <a href="2-laplace-ode.html">kapitel 2</a> (partialbråk eller tabell). Kalla resultatet $g(t)$.</li>
+    <li><b>Lägg tillbaka förskjutningen.</b> En term $e^{-cs}G(s)$ ger $g(t-c)\,\U(t-c)$. Byt <i>varje</i> $t$ mot $t-c$.</li>
+    <li><b>Förenkla och kontrollera.</b> Skriv gärna svaret styckvis. Kontrollera begynnelsevärdena och att lösningen sitter ihop i skarvarna.</li>
+  </ol>
+</div>
+<div class="ruta obs">
+  <span class="etikett">Resonansfallet</span>
+  <p>På tentorna 2023-04, 2024-01 och 2025-01 har högerledet samma frekvens som den homogena lösningen (t.ex. $y''+y=\cos t$). Då får $Y(s)$ en term med kvadrerad nämnare, $\frac{s}{(s^2+k^2)^2}$ eller $\frac{1}{(s^2+k^2)^2}$. Partialbråksuppdela inte. Använd formelblad (26) $t\sin kt\leftrightarrow\frac{2ks}{(s^2+k^2)^2}$ och (27) $t\cos kt\leftrightarrow\frac{s^2-k^2}{(s^2+k^2)^2}$. Tentan 2024-01-12 ger till och med ledningen ”skriv om så att formel (27) kan användas”.</p>
+</div>
+
+<h2 id="exempel"><span class="steg">4</span>Lösta tentaexempel</h2>
+
+<article class="exempel">
+  <header>Tentamen 2023-01-13, uppgift 1 <span class="p">4 p · del I</span></header>
+  <div class="uppgift">
+    <p>Använd Laplacetransformen för att lösa initialvärdesproblemet
+    $$y''(t)+y(t)=\begin{cases}0,&0\le t\lt 2\\ e^{-3t},&2\le t\end{cases},\qquad y(0)=1,\quad y'(0)=0,$$
+    för $y(t)$, $t\ge 0$.</p>
+  </div>
+  <details class="tips"><summary>Visa ledtråd</summary><div class="inne">
+    <p>Högerledet är $e^{-3t}\U(t-2)$. Skriv $e^{-3t}=e^{-6}e^{-3(t-2)}$ innan du transformerar.</p>
+  </div></details>
+  <details id="ex-230113-1"><summary>Visa lösning</summary><div class="inne">
+    <p><b>Steg 1–2.</b> Högerledet är $e^{-3t}\,\U(t-2)$. På rätt form:
+    $$e^{-3t}\,\U(t-2)=e^{-6}\,e^{-3(t-2)}\,\U(t-2).$$
+    <b>Steg 3.</b> Låt $Y(s)=\L[y](s)$. Formelblad (9), (4), (15) ger
+    $$s^2Y(s)-s\cdot 1-0+Y(s)=e^{-6}e^{-2s}\frac{1}{s+3}.$$
+    <b>Steg 4.</b>
+    $$Y(s)=\frac{s}{s^2+1}+e^{-6}e^{-2s}\frac{1}{(s+3)(s^2+1)}.$$
+    <b>Steg 5.</b> Ansätt $\dfrac{1}{(s+3)(s^2+1)}=\dfrac{A}{s+3}+\dfrac{Bs+C}{s^2+1}$, alltså $1=A(s^2+1)+(Bs+C)(s+3)$.
+    Med $s=-3$: $1=10A$, så $A=\frac1{10}$. Koefficienten för $s^2$: $A+B=0$, så $B=-\frac1{10}$. Konstanttermen: $A+3C=1$, så $C=\frac3{10}$. Alltså
+    $$\frac{1}{(s+3)(s^2+1)}=\frac1{10}\left(\frac{1}{s+3}+\frac{3}{s^2+1}-\frac{s}{s^2+1}\right),$$
+    med invers (formelblad (15), (13), (14))
+    $$g(t)=\frac1{10}\left(e^{-3t}+3\sin t-\cos t\right).$$
+    <b>Steg 6.</b> Termen $e^{-2s}G(s)$ ger $g(t-2)\,\U(t-2)$, och $\Li\!\left[\frac{s}{s^2+1}\right]=\cos t$.</p>
+    <div class="svar"><b>Svar</b>
+    $$y(t)=\cos t+\frac{e^{-6}}{10}\Big(e^{-3(t-2)}+3\sin(t-2)-\cos(t-2)\Big)\U(t-2).$$
+    Styckvis: $y(t)=\cos t$ för $0\le t\lt 2$, och för $t\ge 2$ tillkommer $\frac{1}{10}e^{-3t}+\frac{e^{-6}}{10}\big(3\sin(t-2)-\cos(t-2)\big)$.</div>
+    <p class="koll"><b>Kontroll:</b> $y(0)=1$, $y'(0)=0$. I $t=2$ är tilläggstermen $\frac{e^{-6}}{10}(1+0-1)=0$ och dess derivata $\frac{e^{-6}}{10}(-3+3+0)=0$, så $y$ och $y'$ är kontinuerliga, som de ska vara vid ett steg. Insättning för $t\gt 2$ ger $y''+y=e^{-3t}$ (räknat med datoralgebra). Stämmer med lösningsförslaget. <b>Obs:</b> i anteckningarna från Övning 2 står $+\cos(t-2)$ i slutraden. Det är ett teckenfel, partialbråket på raden före har rätt tecken.</p>
+  </div></details>
+</article>
+
+<article class="exempel">
+  <header>Tentamen 2025-01-10, uppgift 2 <span class="p">4 p · del I</span></header>
+  <div class="uppgift">
+    <p>Använd Laplacetransformen för att lösa initialvärdesproblemet
+    $$y''(t)+y(t)=\delta(t-2\pi)+\begin{cases}0,&0\le t\lt\pi\\ \cos(t),&\pi\le t\end{cases},\qquad y(0)=0,\quad y'(0)=2,$$
+    för $y(t)$, $t\ge 0$.</p>
+  </div>
+  <details class="tips"><summary>Visa ledtråd</summary><div class="inne">
+    <p>$\cos t=-\cos(t-\pi)$. Du får en term $\frac{s}{(s^2+1)^2}$: titta på formelblad (26).</p>
+  </div></details>
+  <details id="ex-250110-2"><summary>Visa lösning</summary><div class="inne">
+    <p><b>Steg 1–2.</b> Den styckvisa termen är $\cos(t)\,\U(t-\pi)$. Med formelblad (11):
+    $$\cos t=\cos\big((t-\pi)+\pi\big)=\cos(t-\pi)\cos\pi-\sin(t-\pi)\sin\pi=-\cos(t-\pi).$$
+    Ekvationen är alltså
+    $$y''(t)+y(t)=\delta(t-2\pi)-\cos(t-\pi)\,\U(t-\pi).$$
+    <b>Steg 3.</b> Låt $Y(s)=\L[y](s)$. Formelblad (9), (6), (4), (14) ger
+    $$s^2Y(s)-0-2+Y(s)=e^{-2\pi s}-e^{-\pi s}\frac{s}{s^2+1}.$$
+    <b>Steg 4.</b>
+    $$Y(s)=\frac{2}{s^2+1}+e^{-2\pi s}\frac{1}{s^2+1}-e^{-\pi s}\frac{s}{(s^2+1)^2}.$$
+    <b>Steg 5–6.</b> Term för term:</p>
+    <ul>
+      <li>$\dfrac{2}{s^2+1}=\L[2\sin t]$ (formelblad (13)).</li>
+      <li>$e^{-2\pi s}\dfrac{1}{s^2+1}=\L[\sin(t-2\pi)\,\U(t-2\pi)]$ (formelblad (4), (13)).</li>
+      <li>Resonanstermen: formelblad (26) med $k=1$ säger $\L[t\sin t]=\dfrac{2s}{(s^2+1)^2}$, så $\dfrac{s}{(s^2+1)^2}=\L\!\left[\tfrac12t\sin t\right]$ och
+      $$e^{-\pi s}\frac{s}{(s^2+1)^2}=\L\!\left[\tfrac12(t-\pi)\sin(t-\pi)\,\U(t-\pi)\right].$$</li>
+    </ul>
+    <p>Alltså
+    $$y(t)=2\sin t+\sin(t-2\pi)\,\U(t-2\pi)-\tfrac12(t-\pi)\sin(t-\pi)\,\U(t-\pi).$$
+    <b>Steg 7.</b> Förenkla med $\sin(t-2\pi)=\sin t$ och $\sin(t-\pi)=-\sin t$.</p>
+    <div class="svar"><b>Svar</b>
+    $$y(t)=\Big(2+\tfrac12(t-\pi)\,\U(t-\pi)+\U(t-2\pi)\Big)\sin t=\begin{cases}2\sin t,&0\le t\lt\pi\\[2pt] \big(2+\tfrac12(t-\pi)\big)\sin t,&\pi\le t\lt 2\pi\\[2pt] \big(3+\tfrac12(t-\pi)\big)\sin t,&t\ge 2\pi.\end{cases}$$</div>
+    <p class="koll"><b>Kontroll:</b> $y(0)=0$, $y'(0)=2$. På $\pi\lt t\lt 2\pi$: $y'=\frac12\sin t+(2+\frac12(t-\pi))\cos t$ och $y''=\cos t-y$, så $y''+y=\cos t$. I $t=\pi$ är $y$ och $y'$ kontinuerliga. I $t=2\pi$ är $y$ kontinuerlig och $y'$ hoppar med $\cos 2\pi=1$, som en enhetsimpuls ska ge. Stämmer med lösningsförslaget. Lösningens amplitud växer linjärt i $t$: det är resonansen.</p>
+  </div></details>
+</article>
+
+<h2 id="fel"><span class="steg">5</span>Vanliga fel</h2>
+<div class="ruta fel">
+  <span class="etikett">Se upp med</span>
+  <ul>
+    <li><b>Att transformera $g(t)\,\U(t-c)$ som $e^{-cs}G(s)$.</b> Det vanligaste felet i hela kapitlet. Formeln kräver $f(t-c)$. $\L[t\,\U(t-1)]$ är inte $\frac{e^{-s}}{s^2}$ utan $e^{-s}\left(\frac1{s^2}+\frac1s\right)$ (F2 s. 9: ”vi måste vara försiktiga med funktionen $f(t)$!”).</li>
+    <li><b>Att glömma konstanten vid omskrivningen.</b> $e^{-3t}\,\U(t-2)$ ger faktorn $e^{-6}$, och $\cos t\,\U(t-\pi)$ ger ett minustecken.</li>
+    <li><b>Att inte byta alla $t$ vid inverteringen.</b> $e^{-cs}G(s)$ ger $g(t-c)\,\U(t-c)$. Både argumentet i $g$ och stegfunktionen ska med. Glöms $\U$ gäller svaret inte för $t\lt c$.</li>
+    <li><b>$\frac1s$ på fel ställe.</b> $\L[\U(t-a)]=\frac{e^{-as}}{s}$ men $\L[\delta(t-a)]=e^{-as}$.</li>
+    <li><b>Att partialbråksuppdela $\frac{s}{(s^2+k^2)^2}$.</b> Det går inte att dela upp vidare över reella tal. Använd formelblad (26)–(27).</li>
+    <li><b>Att tappa begynnelsevärdena</b> när högerledet är krångligt. Termen $sy(0)+y'(0)$ ger den ”vanliga” delen av lösningen ($\cos t$ respektive $2\sin t$ i exemplen).</li>
+    <li><b>Fel riktning på olikheten.</b> $\U(t-c)$ är $1$ för $t\ge c$. ”$g(t)$ fram till $t=c$” är $g(t)-g(t)\U(t-c)$.</li>
+    <li><b>Oförenklat svar.</b> $\sin(t-2\pi)=\sin t$ och $\sin(t-\pi)=-\sin t$ (formelblad (1)–(2)). Svaret blir lättare att kontrollera och läsa i styckvis form.</li>
+  </ul>
+</div>
+
+<h2 id="rek"><span class="steg">6</span>Rekommenderade tentauppgifter</h2>
+<ul class="rek">
+  <li data-uppg="OT1:1"><span class="niva latt">Lätt</span><span class="vad"><b>Övningstentamen 1, uppgift 1.</b> $y''+2y'+y=\delta(t-1)$, $y(0)=1$, $y'(0)=0$. En impuls, dubbelrot. Facit finns.</span></li>
+  <li data-uppg="2019-04-16:2"><span class="niva latt">Lätt</span><span class="vad"><b>2019-04-16, uppgift 2.</b> $u''+2u'+2u=H(x-\pi)$. Ett rent steg, men komplexa rötter.</span></li>
+  <li data-uppg="2023-01-13:1"><span class="niva medel">Medel</span><span class="vad"><b>2023-01-13, uppgift 1.</b> Löst ovan. Räknades också på Övning 2.</span></li>
+  <li data-uppg="2018-01-08:2"><span class="niva medel">Medel</span><span class="vad"><b>2018-01-08, uppgift 2.</b> Bevisa t-translationsregeln, sedan $y''+9y=f$ där $f=\sin t$ på $[0,2\pi)$ och $0$ annars. Här ska en funktion stängas av.</span></li>
+  <li data-uppg="2022-01-14:4"><span class="niva medel">Medel</span><span class="vad"><b>2022-01-14, uppgift 4.</b> $y''+2y'+y=\delta(t-1)+H(t-2)e^{-t}$. Både impuls och steg, dubbelrot och s-translation.</span></li>
+  <li data-uppg="2023-04-12:2"><span class="niva svar">Svår</span><span class="vad"><b>2023-04-12, uppgift 2.</b> $y''+4y=\delta(t-2\pi)+\cos(2t)$ för $t\ge\pi$. Resonans med $k=2$.</span></li>
+  <li data-uppg="2025-01-10:2"><span class="niva svar">Svår</span><span class="vad"><b>2025-01-10, uppgift 2.</b> Löst ovan. Resonans med $k=1$.</span></li>
+  <li data-uppg="2024-01-12:2"><span class="niva svar">Svår</span><span class="vad"><b>2024-01-12, uppgift 2.</b> $y''+9y=\delta(t-\pi)+\sin(3t)$ för $t\ge 2\pi$. Resonans där formel (27) behövs: nämnaren $\frac{1}{(s^2+9)^2}$ måste skrivas om.</span></li>
+</ul>
+<p class="liten">Ur föreläsningsplanen: PZ 4.4: 1ab, 2ab, 4abe. På Övning 1 räknades PZ 4.4.1b, 4.4.2b och 4.4.3.</p>
+
+<h2 id="videor"><span class="steg">7</span>Videor</h2>
+<ul class="videor">
+  <li><a href="https://www.youtube.com/playlist?list=PLHXZ9OQGMqxcJXnLr08cyNaup4RDsbAl1">Dr. Trefor Bazett – Laplace Transforms and Solving ODEs (spellista)</a><small>Videorna om Heaviside, Dirac och styckvisa högerled är precis den räknevana som uppgiften kräver.</small></li>
+  <li><a href="https://www.youtube.com/watch?v=FE-hM1kRK4Y">3Blue1Brown – Why Laplace transforms are so useful</a><small>Länkad från kursens dagbok (F2).</small></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLEC88901EBADDD980">MIT 18.03 – Differential Equations, Arthur Mattuck (spellista)</a><small>Laplacedelen (föreläsning 19–24) tar upp stegfunktioner, impulser och faltning.</small></li>
+</ul>
+
+</div></main>
+</body>
+</html>

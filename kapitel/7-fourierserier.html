@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>7. Fourierserier: beräkning – SF1683 del 2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/kapitel.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-rot="../" data-sida="kap7" data-toc>
+<main><div class="inre">
+
+<div class="brodsmula">Kapitel 7 · Fourierserier</div>
+<h1>Fourierserier: beräkning</h1>
+<p class="ingress">”Beräkna Fourierserien. Förklara vad serien konvergerar mot.” Den meningen har stått i del I på var och en av de åtta senaste tentorna. Det här är kompendiets viktigaste räknekapitel.</p>
+<div class="meta">
+  <span class="chip gra">PZ 2.0–2.3</span>
+  <span class="chip gra">Föreläsning F5</span>
+  <span class="chip het">11 av 17 tentor, 8 av 8 sedan 2023</span>
+  <span class="chip">Alltid 4 p i del I</span>
+</div>
+
+<h2 id="def"><span class="steg">1</span>Definitioner och satser</h2>
+
+<div class="ruta def">
+  <span class="etikett">Rummet $E$ <span class="kalla">PZ 2.1 · F5 s. 1</span></span>
+  <p>$E=E[-\pi,\pi]$ är vektorrummet av styckvis kontinuerliga funktioner $f:[-\pi,\pi]\to\C$, med inre produkten
+  $$\ip fg:=\frac1\pi\int_{-\pi}^{\pi}f(x)\,\overline{g(x)}\dd x$$
+  och tillhörande norm $\norm f=\sqrt{\ip ff}$.</p>
+  <ol type="i">
+    <li>$f\in E$ har endast ändligt många diskontinuitetspunkter.</li>
+    <li>Två funktioner i $E$ behandlas som samma funktion om de skiljer sig endast i ändligt många punkter.</li>
+    <li>Vi kan lika gärna tänka oss att $E$ består av $2\pi$-periodiska funktioner, definierade på $(-\pi,\pi]$ och utvidgade med $f(x+2\pi)=f(x)$ för alla $x\in\R$.</li>
+  </ol>
+</div>
+
+<div class="ruta sats">
+  <span class="etikett">Sats 2.1 <span class="kalla">PZ Thm 2.1 · F4 s. 4 · F5 s. 2–3</span></span>
+  <p>Mängden av funktioner
+  $$\left\{\tfrac{1}{\sqrt2},\ \cos x,\ \sin x,\ \cos2x,\ \sin2x,\ \dots,\ \cos nx,\ \sin nx,\ \dots\right\}$$
+  är en ortonormal mängd i $E$.</p>
+</div>
+<div class="bevis"><span class="etikett">Bevisskiss</span> (F5 s. 2–3). <i>Normerade:</i> $\norm{\frac{1}{\sqrt2}}^2=\frac1\pi\int_{-\pi}^{\pi}\frac12\dd x=1$, och med formelblad (18)
+$$\norm{\cos nx}^2=\frac1\pi\int_{-\pi}^{\pi}\tfrac12\big(\cos(2nx)+1\big)\dd x=\frac{1}{2\pi}\Big[\tfrac{1}{2n}\sin(2nx)+x\Big]_{-\pi}^{\pi}=1.$$
+<i>Ortogonala:</i> man ska visa $\ip{\frac{1}{\sqrt2}}{\cos nx}=\ip{\frac{1}{\sqrt2}}{\sin nx}=0$, $\ip{\cos nx}{\sin mx}=0$, och $\ip{\cos nx}{\cos mx}=\ip{\sin nx}{\sin mx}=0$ för $n\ne m$. Till exempel, med formelblad (16), för $m\gt 1$:
+$$\ip{\cos x}{\cos mx}=\frac1\pi\int_{-\pi}^{\pi}\tfrac12\big(\cos((m+1)x)+\cos((m-1)x)\big)\dd x=\frac{1}{2\pi}\left[\frac{\sin((m+1)x)}{m+1}+\frac{\sin((m-1)x)}{m-1}\right]_{-\pi}^{\pi}=0.$$
+Övriga fall går likadant med produktformlerna (14)–(16). $\square$</div>
+
+<div class="ruta def">
+  <span class="etikett">Fourierkoefficienter och Fourierserie <span class="kalla">PZ 2.1 · F5 s. 4–5</span></span>
+  <p>För $f\in E$ låt
+  $$a_n:=\ip f{\cos nx}=\frac1\pi\int_{-\pi}^{\pi}f(x)\cos nx\dd x,\quad n=0,1,2,\dots$$
+  $$b_n:=\ip f{\sin nx}=\frac1\pi\int_{-\pi}^{\pi}f(x)\sin nx\dd x,\quad n=1,2,\dots$$
+  Talen $a_n,b_n$ kallas <b>Fourierkoefficienter</b>, och
+  $$f(x)\sim\frac{a_0}{2}+\sum_{n=1}^\infty\big(a_n\cos nx+b_n\sin nx\big)$$
+  är <b>Fourierserien</b> till $f$. Den skrivs även $\tilde f(x)$.</p>
+  <p>Konstanttermen är $\frac{a_0}{2}$ eftersom $\ip f{\frac{1}{\sqrt2}}\frac{1}{\sqrt2}=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)\dd x=\frac{a_0}{2}$. Den är alltså medelvärdet av $f$ över en period.</p>
+</div>
+<p>Tecknet $\sim$ används eftersom vi inte vet i förväg om serien konvergerar, eller mot vad. Svaret ges av Dirichlets sats, som bevisas i <a href="8-dirichlets-sats.html">kapitel 8</a>:</p>
+
+<div class="ruta sats">
+  <span class="etikett">Sats 2.6 (Dirichlets sats), det du behöver här <span class="kalla">PZ Thm 2.6 · F5 s. 5 · F6 s. 1–2</span></span>
+  <p>Låt $f\in E'$, det vill säga $f$ är styckvis kontinuerlig och har ensidiga derivator i varje punkt. För alla $x\in(-\pi,\pi)$ konvergerar Fourierserien av $f$ till
+  $$\frac{f(x-)+f(x+)}{2},$$
+  där $f(x-)$ och $f(x+)$ är vänster- och högergränsvärdet i $x$. Vid ändpunkterna $x=\pm\pi$ konvergerar den till
+  $$\frac{f(\pi-)+f((-\pi)+)}{2}.$$</p>
+  <p>Om $f$ är kontinuerlig i $x$ är alltså $\tilde f(x)=f(x)$. Vid ett hopp hamnar serien mitt i hoppet.</p>
+</div>
+
+<h3>Jämna och udda funktioner</h3>
+<p>$f$ är <b>jämn</b> om $f(-x)=f(x)$ för alla $x$, och <b>udda</b> om $f(-x)=-f(x)$ för alla $x$ (F5 s. 7).</p>
+<div class="ruta sats">
+  <span class="etikett">Sats 2.4 <span class="kalla">PZ Thm 2.4 · F5 s. 8</span></span>
+  <ul>
+    <li>Om $f\in E$ är <b>jämn</b> blir $\ f(x)\sim\dfrac{a_0}{2}+\displaystyle\sum_{n=1}^\infty a_n\cos nx$ med $a_n=\dfrac2\pi\displaystyle\int_0^\pi f(x)\cos nx\dd x$, det vill säga $b_n=0$ för alla $n\ge 1$. Kallas <b>cosinusserie</b>.</li>
+    <li>Om $f\in E$ är <b>udda</b> blir $\ f(x)\sim\displaystyle\sum_{n=1}^\infty b_n\sin nx$ med $b_n=\dfrac2\pi\displaystyle\int_0^\pi f(x)\sin nx\dd x$, det vill säga $a_n=0$ för alla $n\ge 0$. Kallas <b>sinusserie</b>.</li>
+  </ul>
+  <p>Skälet: integralen av en udda funktion över ett symmetriskt intervall är noll, och integralen av en jämn funktion är två gånger integralen över halva intervallet. Jämn gånger udda är udda.</p>
+</div>
+
+<h3>Tre föreläsningsexempel</h3>
+<p><b>1.</b> (F5 s. 6–7) $f(x)=0$ för $-\pi\le x\lt 0$, $f(x)=x$ för $0\le x\le\pi$. Med formelblad (46), (48):
+$$a_0=\frac1\pi\int_0^\pi x\dd x=\frac\pi2,\qquad a_n=\frac1\pi\Big[\tfrac{1}{n^2}\cos nx+\tfrac xn\sin nx\Big]_0^\pi=\frac{(-1)^n-1}{\pi n^2},\qquad b_n=\frac1\pi\Big[-\tfrac xn\cos nx+\tfrac{1}{n^2}\sin nx\Big]_0^\pi=\frac{(-1)^{n+1}}{n},$$
+$$f(x)\sim\frac\pi4+\sum_{n=1}^\infty\left(\frac{(-1)^n-1}{\pi n^2}\cos nx+\frac{(-1)^{n+1}}{n}\sin nx\right).$$
+Observera att konstanttermen är $\frac{a_0}{2}=\frac\pi4$, och att $\tilde f(\pi)=\frac{\pi+0}{2}=\frac\pi2$.</p>
+<p><b>2.</b> (F5 s. 7) $f(x)=1+\cos x+\sin2x$ är redan en Fourierserie: $\frac{a_0}{2}=1$, $a_1=1$, $b_2=1$ och alla andra koefficienter är noll.</p>
+<p><b>3.</b> (F5 s. 8–9) $f(x)=|x|$ är jämn, så $b_n=0$, $a_0=\frac2\pi\int_0^\pi x\dd x=\pi$ och $a_n=\frac2\pi\int_0^\pi x\cos nx\dd x=\frac{2((-1)^n-1)}{\pi n^2}$, alltså $-\frac{4}{\pi n^2}$ för udda $n$ och $0$ för jämna:
+$$|x|\sim\frac\pi2-\frac4\pi\sum_{k=0}^\infty\frac{1}{(2k+1)^2}\cos\big((2k+1)x\big).$$</p>
+
+<h3>Komplexa Fourierserier</h3>
+<div class="ruta def">
+  <span class="etikett">Komplex form <span class="kalla">PZ 2.3 · F5 s. 9–10</span></span>
+  <p>Med den nya inre produkten $\ip fg=\dfrac{1}{2\pi}\displaystyle\int_{-\pi}^{\pi}f(x)\,\overline{g(x)}\dd x$ på $E$ är $\{e^{inx}\}_{n=-\infty}^{\infty}$ en ortonormal mängd. Den <b>komplexa Fourierserien</b> till $f\in E$ är
+  $$f(x)\sim\sum_{n=-\infty}^{\infty}c_ne^{inx},\qquad c_n=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)\,e^{-inx}\dd x,\quad n\in\Z.$$</p>
+  <p>Sambandet med de reella koefficienterna (PZ s. 43–44):
+  $$c_n=\frac{a_n-ib_n}{2},\qquad c_{-n}=\frac{a_n+ib_n}{2}\quad(n\ge 1),\qquad c_0=\frac{a_0}{2}.$$</p>
+</div>
+<p>Genom Eulers formel är den komplexa serien samma serie som den reella, bara skriven på ett annat sätt. Den kan vara enklare att räkna med eftersom det blir färre separata fall (dagboken, F5).</p>
+
+<h2 id="varfor"><span class="steg">2</span>Varför fungerar det?</h2>
+<p>Fourierserien är projektionen av $f$ på ON-mängden i Sats 2.1 (F5 s. 4):
+$$\operatorname{proj}_Wf=\ip f{\tfrac{1}{\sqrt2}}\tfrac{1}{\sqrt2}+\sum_{n=1}^\infty\big(\ip f{\cos nx}\cos nx+\ip f{\sin nx}\sin nx\big).$$
+Formlerna för $a_n$ och $b_n$ är alltså inget man behöver gissa. Det är samma formel som ger koordinaterna i en ON-bas i linjär algebra: ta inre produkten med basvektorn. Ortogonaliteten gör att varje koefficient kan räknas ut för sig. Tekniskt projicerar man först på de ändligt många funktionerna upp till $\cos kx,\sin kx$ och låter sedan $k\to\infty$.</p>
+<p>Av samma skäl är en funktion som redan är en ändlig summa av basfunktioner sin egen Fourierserie (exempel 2): om $u\in W$ är $\tilde u=u$. Och jämna funktioner saknar sinustermer eftersom delrummen av jämna och udda funktioner är ortogonala i $E$.</p>
+<p>Det projektionen inte säger något om är om serien konvergerar punktvis. Det är därför Dirichlets sats behövs, och därför uppgiften alltid har två delar: räkna koefficienter, och förklara konvergensen.</p>
+
+<h2 id="metod"><span class="steg">3</span>Metod steg för steg</h2>
+<div class="ruta metod">
+  <span class="etikett">Standarduppgift A: beräkna Fourierserien och förklara vad den konvergerar mot</span>
+  <ol class="steglista">
+    <li><b>Skriv upp formlerna</b> för serien och för $a_n$, $b_n$. De står inte på formelbladet. Lösningsförslagen börjar alltid så.</li>
+    <li><b>Rita funktionen</b> på $(-\pi,\pi]$ och en bit av den periodiska fortsättningen. Markera hoppen, även det som kan uppstå i $x=\pm\pi$.</li>
+    <li><b>Förenkla innan du integrerar.</b>
+      <ul>
+        <li>Är $f$ jämn eller udda? Då försvinner hälften av koefficienterna (Sats 2.4).</li>
+        <li>Annars: dela upp $f=f_{\text{jämn}}+f_{\text{udda}}$ term för term. Cosinuskoefficienterna kommer från den jämna delen, sinuskoefficienterna från den udda (så gör lösningsförslaget 2024-04-02).</li>
+        <li>Termer som redan är trigonometriska polynom är sin egen Fourierserie. Skriv om $\sin^2$, $\cos^2$ med formelblad (17)–(18).</li>
+      </ul></li>
+    <li><b>Beräkna $a_0$ för sig</b> (formeln för $a_n$ innehåller ofta $\frac1n$), sedan $a_n$ och $b_n$. Använd formelblad (46)–(49) för $x\cos nx$, $x^2\sin nx$ osv., och produktformlerna (14)–(16) för t.ex. $\cos2x\sin nx$.</li>
+    <li><b>Sätt in gränserna</b> med $\sin n\pi=0$ och $\cos n\pi=(-1)^n$ (formelblad (3)–(4)).</li>
+    <li><b>Kontrollera specialfall.</b> Om svaret har $n-k$ i nämnaren gäller det inte för $n=k$. Räkna den koefficienten separat.</li>
+    <li><b>Skriv ut serien.</b></li>
+    <li><b>Konvergens.</b> Hänvisa till Dirichlets sats: där $f$ är kontinuerlig konvergerar serien mot $f(x)$. I varje hopp, mot medelvärdet av vänster- och högergränsvärdet. I $x=\pm\pi$: mot $\frac12\big(f(\pi-)+f(-\pi+)\big)$. Räkna ut talen.</li>
+  </ol>
+</div>
+
+<div class="ruta metod">
+  <span class="etikett">Standarduppgift B: $f$ given på $[0,\pi]$, utvidga på tre sätt</span>
+  <ol class="steglista">
+    <li><b>(a) Jämn utvidgning</b> $f_a$: $f_a(x)=f(-x)$ för $x\lt 0$. Bara cosinustermer, $a_n=\frac2\pi\int_0^\pi f(x)\cos nx\dd x$.</li>
+    <li><b>(b) Udda utvidgning</b> $f_b$: $f_b(x)=-f(-x)$ för $x\lt 0$. Bara sinustermer, $b_n=\frac2\pi\int_0^\pi f(x)\sin nx\dd x$.</li>
+    <li><b>(c) Noll-utvidgning</b> $f_c$: $f_c(x)=0$ för $x\lt 0$. Räkna inte om något: $f_c=\frac12(f_a+f_b)$, så koefficienterna är hälften av dem i (a) och (b).</li>
+    <li><b>Titta efter gratispoäng.</b> Om $f$ själv är jämn som formel (t.ex. $2+\cos2x$, $\sin^2 3x$) är den jämna utvidgningen samma formel på hela intervallet och redan en ändlig Fourierserie. Om $f$ är udda som formel (t.ex. $\sin3x$) gäller det den udda utvidgningen.</li>
+    <li><b>Konvergens för varje utvidgning för sig.</b> Den udda utvidgningen får ett hopp i $x=0$ om $f(0+)\ne 0$ och i $x=\pm\pi$ om $f(\pi-)\ne 0$. Den jämna är kontinuerlig i $0$ och $\pm\pi$.</li>
+  </ol>
+</div>
+
+<h2 id="exempel"><span class="steg">4</span>Lösta tentaexempel</h2>
+
+<article class="exempel">
+  <header>Tentamen 2025-01-10, uppgift 1 <span class="p">4 p · del I</span></header>
+  <div class="uppgift">
+    <p>Låt funktionen $f(x)$ vara definierad som $f(x)=2+\cos(2x)$ för $0\lt x\lt\pi$. Utvidga $f(x)$ till en funktion på intervallet $-\pi\lt x\lt\pi$ på tre olika sätt:</p>
+    <p>(a) $f_a(x)$ som är en jämn funktion, (b) $f_b(x)$ som är en udda funktion, (c) $f_c(x)$ som har $f_c(x)=0$ för $-\pi\lt x\lt 0$.</p>
+    <p>Beräkna Fourierserierna för $f_a(x)$, $f_b(x)$, $f_c(x)$. Förklara vad serierna konvergerar mot i de tre olika fallen.</p>
+  </div>
+  <details class="tips"><summary>Visa ledtråd</summary><div class="inne">
+    <p>(a) kräver ingen integral. I (b): $\cos2x\sin nx=\frac12\big(\sin((n+2)x)+\sin((n-2)x)\big)$, och $n=2$ måste räknas för sig. (c) är medelvärdet av (a) och (b).</p>
+  </div></details>
+  <details id="ex-250110-1"><summary>Visa lösning</summary><div class="inne">
+    <p>Fourierserien $\frac{a_0}{2}+\sum_{n=1}^\infty(a_n\cos nx+b_n\sin nx)$ har koefficienterna
+    $$a_n=\frac1\pi\int_{-\pi}^{\pi}f(x)\cos nx\dd x,\qquad b_n=\frac1\pi\int_{-\pi}^{\pi}f(x)\sin nx\dd x.$$</p>
+    <p><b>(a)</b> $2+\cos2x$ är en jämn funktion, så den jämna utvidgningen är $f_a(x)=2+\cos2x$ på hela $-\pi\lt x\lt\pi$. Det är redan en (ändlig) Fourierserie: $\frac{a_0}{2}=2$, alltså $a_0=4$, och $a_2=1$. Alla andra $a_n$ och alla $b_n$ är noll.</p>
+    <p><b>(b)</b> $f_b$ är udda, så $a_n=0$ för alla $n$ och
+    $$b_n=\frac2\pi\int_0^\pi(2+\cos2x)\sin nx\dd x=\frac2\pi\int_0^\pi\Big(2\sin nx+\tfrac12\sin((n+2)x)+\tfrac12\sin((n-2)x)\Big)\dd x$$
+    enligt formelblad (15). För $n\ne 2$, med $\int_0^\pi\sin kx\dd x=\frac{1-\cos k\pi}{k}$ och $\cos((n\pm2)\pi)=(-1)^n$:
+    $$b_n=\frac2\pi\big(1-(-1)^n\big)\left(\frac2n+\frac12\cdot\frac{1}{n+2}+\frac12\cdot\frac{1}{n-2}\right)=\frac2\pi\big(1-(-1)^n\big)\left(\frac2n+\frac{n}{n^2-4}\right).$$
+    För $n=2$ (där vi annars delar med $n-2$):
+    $$b_2=\frac2\pi\int_0^\pi\Big(2\sin2x+\tfrac12\sin4x\Big)\dd x=\frac2\pi\Big[-\cos2x-\tfrac18\cos4x\Big]_0^\pi=0.$$
+    Alltså $b_n=0$ för jämna $n$ och $b_n=\dfrac4\pi\left(\dfrac2n+\dfrac{n}{n^2-4}\right)$ för udda $n$.</p>
+    <p><b>(c)</b> $f_c(x)=\frac12\big(f_a(x)+f_b(x)\big)$, så koefficienterna är hälften av dem ovan: $a_0=2$, $a_2=\frac12$, $b_n=\frac1\pi\big(1-(-1)^n\big)\left(\frac2n+\frac{n}{n^2-4}\right)$ för $n\ne 2$, och övriga noll.</p>
+    <p><b>Konvergens.</b> Enligt Dirichlets sats konvergerar Fourierserien mot funktionens värde där funktionen är kontinuerlig, och mot medelvärdet av höger- och vänstergränsvärdena där den gör ett hopp. I $x=\pm\pi$ gäller det den $2\pi$-periodiska utvidgningen.</p>
+    <ul>
+      <li>$f_a$: ändlig serie, lika med $f_a(x)$ överallt.</li>
+      <li>$f_b$: kontinuerlig på $-\pi\lt x\lt 0$ och $0\lt x\lt\pi$, där konvergerar serien mot $f_b(x)$. I $x=0$ är $f_b(0+)=3$ och $f_b(0-)=-3$, så serien konvergerar mot $\frac12(3+(-3))=0$. Samma sak i $x=\pm\pi$, där $f_b(\pi-)=3$ och $f_b(-\pi+)=-3$.</li>
+      <li>$f_c$: kontinuerlig på samma två intervall. I $x=0$: $\frac12(3+0)=\frac32$. I $x=\pm\pi$: $\frac12\big(f_c(\pi-)+f_c(-\pi+)\big)=\frac12(3+0)=\frac32$.</li>
+    </ul>
+    <div class="svar"><b>Svar</b>
+    <p>$f_a(x)\sim2+\cos2x$.</p>
+    <p>$f_b(x)\sim\displaystyle\sum_{n\ \text{udda}}\frac4\pi\left(\frac2n+\frac{n}{n^2-4}\right)\sin nx$.</p>
+    <p>$f_c(x)\sim1+\dfrac12\cos2x+\displaystyle\sum_{n\ \text{udda}}\frac2\pi\left(\frac2n+\frac{n}{n^2-4}\right)\sin nx$.</p>
+    <p>Konvergens enligt punkterna ovan.</p></div>
+    <p class="koll"><b>Kontroll:</b> $b_1,b_3,\dots,b_7$ och $b_2$ är räknade med datoralgebra och stämmer med formeln. Stämmer med lösningsförslaget. Rimlighet: summan av alla sinustermer är $0$ i $x=0$, vilket är vad satsen säger att $f_b$-serien ska ge där.</p>
+  </div></details>
+</article>
+
+<article class="exempel">
+  <header>Tentamen 2026-04-10, uppgift 1 <span class="p">4 p · del I</span></header>
+  <div class="uppgift">
+    <p>Låt funktionen $f(x)$ vara definierad som $f(x)=x+\sin3x$ för $-\pi\le x\le\pi$. Bestäm den komplexa Fourierserien $f(x)\sim\sum_{n=-\infty}^{\infty}c_ne^{inx}$ till funktionen. Förklara vad serien konvergerar mot.</p>
+  </div>
+  <details class="tips"><summary>Visa ledtråd</summary><div class="inne">
+    <p>Räkna $x$ och $\sin3x$ var för sig. $\sin3x=\frac{1}{2i}(e^{3ix}-e^{-3ix})$ är redan en komplex Fourierserie. Glöm inte $n=0$.</p>
+  </div></details>
+  <details id="ex-260410-1"><summary>Visa lösning</summary><div class="inne">
+    <p>Koefficienterna i den komplexa Fourierserien är $c_n=\dfrac{1}{2\pi}\displaystyle\int_{-\pi}^{\pi}f(x)e^{-inx}\dd x$, $n\in\Z$. Vi räknar $f^1(x)=x$ och $f^2(x)=\sin3x$ var för sig.</p>
+    <p><b>Termen $x$.</b> För $n\ne 0$, med partialintegration (eller formelblad (39) med $a=-in$):
+    $$\int_{-\pi}^{\pi}xe^{-inx}\dd x=\left[\frac{xe^{-inx}}{-in}\right]_{-\pi}^{\pi}+\frac{1}{in}\int_{-\pi}^{\pi}e^{-inx}\dd x=\frac{\pi e^{-in\pi}+\pi e^{in\pi}}{-in}+0=\frac{2\pi(-1)^n}{-in}=\frac{2\pi i(-1)^n}{n},$$
+    där $e^{\pm in\pi}=(-1)^n$, $\int_{-\pi}^{\pi}e^{-inx}\dd x=0$ för $n\ne 0$ och $\frac{1}{-i}=i$. Alltså
+    $$c^1_n=\frac{(-1)^ni}{n},\quad n\ne 0,\qquad c^1_0=\frac{1}{2\pi}\int_{-\pi}^{\pi}x\dd x=0.$$</p>
+    <p><b>Termen $\sin3x$.</b> Enligt formelblad (23) är
+    $$\sin3x=\frac{1}{2i}e^{3ix}-\frac{1}{2i}e^{-3ix},$$
+    vilket är en ändlig komplex Fourierserie: $c^2_3=\frac{1}{2i}=-\frac i2$, $c^2_{-3}=-\frac{1}{2i}=\frac i2$ och $c^2_n=0$ för $n\ne\pm3$.</p>
+    <p><b>Tillsammans.</b> $c_n=c^1_n+c^2_n$:
+    $$c_3=-\frac i3-\frac i2=-\frac{5i}{6},\qquad c_{-3}=\frac i3+\frac i2=\frac{5i}{6}.$$</p>
+    <p><b>Konvergens.</b> $f$ är kontinuerlig på $-\pi\lt x\lt\pi$, så enligt Dirichlets sats konvergerar serien mot $f(x)$ där. I $x=\pm\pi$ konvergerar den mot $\frac12\big(f(\pi-)+f(-\pi+)\big)=\frac12\big(\pi+(-\pi)\big)=0$, eftersom den periodiska utvidgningen hoppar från $\pi$ till $-\pi$ där ($\sin3\pi=0$).</p>
+    <div class="svar"><b>Svar</b>
+    $$c_n=\begin{cases}0,&n=0\\[2pt]-\dfrac{5i}{6},&n=3\\[6pt]\dfrac{5i}{6},&n=-3\\[6pt]\dfrac{(-1)^ni}{n},&n\ne0,\pm3\end{cases}$$
+    Serien konvergerar mot $f(x)$ för $-\pi\lt x\lt\pi$ och mot $0$ för $x=\pm\pi$.</div>
+    <p class="koll"><b>Kontroll:</b> $c_n$ räknade med datoralgebra för $n=\pm1,2,\pm3,5$. Stämmer med lösningsförslaget. Jämför med reella formen: $x$ är udda med $b_n=\frac{2(-1)^{n+1}}{n}$, och $c_n=\frac{a_n-ib_n}{2}=\frac{(-1)^ni}{n}$.</p>
+  </div></details>
+</article>
+
+<h2 id="fel"><span class="steg">5</span>Vanliga fel</h2>
+<div class="ruta fel">
+  <span class="etikett">Se upp med</span>
+  <ul>
+    <li><b>$\frac{a_0}{2}$, inte $a_0$.</b> Konstanttermen i serien är halva $a_0$. För $f=2+\cos2x$ är $a_0=4$. Enklast är att tänka: konstanttermen är funktionens medelvärde.</li>
+    <li><b>Att glömma specialfallet.</b> $\frac{n}{n^2-4}$ gäller inte för $n=2$, och $\frac{1}{1-n^2}$ inte för $n=1$. Den koefficienten måste räknas direkt ur integralen. Övning 4 (PZ 2.11.3a) påpekar samma sak.</li>
+    <li><b>Att räkna ut integraler i onödan.</b> $\sin^2(3x)=\frac12-\frac12\cos6x$ och $1+\cos x+\sin2x$ är redan Fourierserier. Ortogonaliteten ger alla andra koefficienter lika med noll utan räkning.</li>
+    <li><b>Att glömma ändpunkterna.</b> Konvergensen i $x=\pm\pi$ ska alltid kommenteras. Jämför $f(\pi-)$ med $f(-\pi+)$, inte med $f(\pi)$. För $f(x)=x$ är seriens värde i $\pi$ lika med $0$, inte $\pi$.</li>
+    <li><b>Att bara skriva ”serien konvergerar mot $f$”.</b> Det gäller bara i kontinuitetspunkter. Ange varje hopp och räkna ut medelvärdet där.</li>
+    <li><b>Fel om jämn/udda.</b> $x^2\sin nx$ är udda, så dess integral över $[-\pi,\pi]$ är noll. Faktorn $\frac2\pi\int_0^\pi$ får bara användas när <i>integranden</i> är jämn.</li>
+    <li><b>$\cos n\pi=(-1)^n$ och $\sin n\pi=0$,</b> men $\cos\frac{n\pi}{2}$ och $\sin\frac{n\pi}{2}$ tar värdena $0,\pm1$ beroende på $n$ modulo 4. Dyker upp när hoppet ligger i $\frac\pi2$ eller $\frac\pi4$.</li>
+    <li><b>Komplex form:</b> minustecknet i $e^{-inx}$ i formeln för $c_n$, faktorn $\frac{1}{2\pi}$ (inte $\frac1\pi$), och $c_0$ måste räknas separat eftersom man delar med $n$.</li>
+    <li><b>Teckenfel i $\frac1i$.</b> $\frac1i=-i$ och $\frac{1}{2i}=-\frac i2$.</li>
+  </ul>
+</div>
+
+<h2 id="rek"><span class="steg">6</span>Rekommenderade tentauppgifter</h2>
+<p>Den här uppgiften kommer med stor sannolikhet. Räkna så många du hinner.</p>
+<ul class="rek">
+  <li data-uppg="2020-04-15:1"><span class="niva latt">Lätt</span><span class="vad"><b>2020-04-15, uppgift 1.</b> En enda koefficient: $b_2$ för $e^{2x}$. Formelblad (51).</span></li>
+  <li data-uppg="2024-01-12:1"><span class="niva latt">Lätt</span><span class="vad"><b>2024-01-12, uppgift 1.</b> $\sin3x$ på $[0,\pi]$, tre utvidgningar. Den udda är gratis.</span></li>
+  <li data-uppg="2022-04-20:2"><span class="niva latt">Lätt</span><span class="vad"><b>2022-04-20, uppgift 2.</b> $\sin x$, tre utvidgningar. Den jämna är $|\sin x|$, som räknades på Övning 4 (PZ 2.11.3a).</span></li>
+  <li data-uppg="OT2:2"><span class="niva medel">Medel</span><span class="vad"><b>Övningstentamen 2, uppgift 2.</b> $\cos x$, tre utvidgningar. Facit finns, bra att kontrollera sig mot.</span></li>
+  <li data-uppg="2025-01-10:1"><span class="niva medel">Medel</span><span class="vad"><b>2025-01-10, uppgift 1.</b> Löst ovan.</span></li>
+  <li data-uppg="2023-04-12:1"><span class="niva medel">Medel</span><span class="vad"><b>2023-04-12, uppgift 1.</b> $x^2$ (jämn) och $\pm x^2$ (udda). Del (b) räknades på Övning 4. Formelblad (47), (49).</span></li>
+  <li data-uppg="2026-01-09:1"><span class="niva medel">Medel</span><span class="vad"><b>2026-01-09, uppgift 1.</b> $\sin^2(3x)$, jämn och udda utvidgning. Skriv om med (17) först. Specialfall $n=6$. Rätt svar för den udda: $b_n=\frac{1-(-1)^n}{\pi}\left(\frac1n-\frac{n}{n^2-36}\right)$, $b_6=0$ (kontrollräknat).</span></li>
+  <li data-uppg="2026-04-10:1"><span class="niva medel">Medel</span><span class="vad"><b>2026-04-10, uppgift 1.</b> Löst ovan. Komplex form.</span></li>
+  <li data-uppg="2023-01-13:2"><span class="niva svar">Svår</span><span class="vad"><b>2023-01-13, uppgift 2.</b> Styckvis $x^2$ (varken jämn eller udda) och $\sin^2x$. Längst räkningar.</span></li>
+  <li data-uppg="2024-04-02:1"><span class="niva svar">Svår</span><span class="vad"><b>2024-04-02, uppgift 1.</b> $x+\cos3x+$ stegfunktion. Dela upp i jämn och udda del. Svar: $a_0=2$, $a_3=1$, $b_n=\frac{2\left((\pi+2)(-1)^{n+1}+2\right)}{\pi n}$, värde $2$ i $x=0$ och $0$ i $x=\pm\pi$ (kontrollräknat).</span></li>
+  <li data-uppg="2025-04-25:1"><span class="niva svar">Svår</span><span class="vad"><b>2025-04-25, uppgift 1.</b> $\sin(5|x|)+$ stegfunktion. Jämn del med specialfall $n=5$, udda del från steget.</span></li>
+</ul>
+<p class="liten">Ur föreläsningsplanen: PZ 2.1: 1ad, 2, 3ab · PZ 2.2: 1ac, 3 · PZ 2.3: 1, 2, 4*, 5, 6. På Övning 4 räknades PZ 2.1.1b, PZ 2.11.3a och Simmons 33.5.</p>
+
+<h2 id="videor"><span class="steg">7</span>Videor</h2>
+<ul class="videor">
+  <li><a href="https://www.youtube.com/watch?v=r6sGWTCMz2k">3Blue1Brown – But what is a Fourier series?</a><small>Intuition och koppling till värmeledning. Använder den komplexa formen.</small></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLMrJAkhIeNNT_Xh3Oy0Y4LTj0Oxo8GqsC">Steve Brunton – Fourier Analysis (spellista)</a><small>Samma synsätt som Pinkus–Zafrany: inre produkt, ortogonal bas, projektion. Titta på de första cirka tio videorna, resten är numerik (FFT) som inte ingår.</small></li>
+  <li><a href="https://www.youtube.com/watch?v=ds0cmAV-Yek">SmarterEveryDay – What is a Fourier Series?</a><small>Lättsam uppvärmning.</small></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLEC88901EBADDD980">MIT 18.03 – Differential Equations, Arthur Mattuck (spellista)</a><small>Föreläsning 15–17 handlar om Fourierserier, med jämna och udda funktioner.</small></li>
+</ul>
+
+</div></main>
+</body>
+</html>
